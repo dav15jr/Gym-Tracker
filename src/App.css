@@ -40,6 +40,14 @@
   color: #888;
 }
 
-input{
-  width:70px ;
+input, select{
+  width: 70px;
+  padding:5px;
+  margin: 20px 0;
+
+}
+
+label{
+  position:absolute;
+
 }
