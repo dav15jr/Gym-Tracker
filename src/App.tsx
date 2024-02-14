@@ -1,38 +1,116 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+
+
+
+    window.onload=function(){     /*---Runs once the app is loaded---*/
+      const form = document.querySelector('form');
+    
+      form.addEventListener('submit', (e) =>  {
+        e.preventDefault();
+        
+        // const exlist = localStorage.getItem('form')
+        // const data = JSON.parse(exlist);
+        // const exArr = [];
+        // exArr.push(data);  
+        // console.log(exArr);
+
+        //const oldItems = [];
+        //oldItems.push(JSON.parse(localStorage.getItem('form')));
+        let oldItems = JSON.parse(localStorage.getItem("form"));
+        if(oldItems == null) oldItems = [];
+
+        const fd = new FormData(form);
+        const obj = Object.fromEntries(fd);
+
+        oldItems.push(obj);
+        
+        //localStorage.setItem('form', JSON.stringify(oldItems));
+
+        const json = JSON.stringify(oldItems);
+        localStorage.setItem('form', json);
+
+        const exlist = localStorage.getItem('form');
+        const data = JSON.parse(exlist);
+
+        console.log(data);
+
+           for (const key in data) {
+            const singledata = data[key];
+
+
+                for (const key in singledata) {
+                  const markup= `            
+                  <div>
+                    <span>${key}: ${singledata[key]} ${singledata} </span>
+                  </div>
+                  `;
+                  document.getElementById('data').innerHTML = markup;
+
+                }
+       }
+    })
+  }
 
   return (
     <>
-      <h1>Gym Tracker</h1>
       <div className="card">
+      <h1>Gym Tracker</h1>
         <form className="form">
-          <label for="exercise">Exercise:</label>
-          <input type="text" placeholder='Enter Exercise' name="exercise" id="exercise"></input>
-          <label for="ex-type">Exercise Type:</label>
-          <select name="ex-type">
-            <option value="bw">Body Weight</option>
-            <option value="resistance">Resistance</option>
-            <option value="kg">Kilo Grams (Kg's)</option>
-            <option value="lb">Pounds (Lb's)</option>
+          <label htmlFor="exercise">Exercise:</label>
+          <input type="text" placeholder='Enter Exercise' id="exercise" name="exercise"></input>
+          <label htmlFor="ex-type">Exercise Type:</label>
+          <select id="type" name="type">
+            <option value="Body Weight">Body Weight</option>
+            <option value="Resistance">Resistance</option>
+            <option value="Kgs">Kilo Grams (Kg's)</option>
+            <option value="Lbs">Pounds (Lb's)</option>
           </select>
-          <label for="amount">Amount:</label>
-          <input type="number" placeholder='Amount' name="amount"></input>
-          <label for="reps">No. of Reps:</label>
-          <input type="number" placeholder='Reps' name="reps"></input>
-          <label for="sets">No. of Sets:</label>
-          <input type="number" placeholder='Sets' name="sets"></input>
+          <label htmlFor="amount">Amount:</label>
+          <input type="number" placeholder='Amount' id="amount" name="amount"></input>
+          <label htmlFor="reps">No. of Reps:</label>
+          <input type="number" placeholder='Reps' id="reps"  name="reps"></input>
+          <label htmlFor="sets">No. of Sets:</label>
+          <input type="number" placeholder='Sets' id="sets" name="sets"></input>
           <button id="submit-btn" type="submit" >Save Exercise</button>
         </form>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
       </div>
-      
+      <div id="data">
+      </div>
     </>
   )
 }
 
-export default App
+// window.onload=function(){     /*---Runs once the app is loaded---*/
+// const form = document.querySelector('form');
+
+// form.addEventListener('submit', (e) =>  {
+//   e.preventDefault();
+  
+//   // const exlist = localStorage.getItem('form')
+//   // const data = JSON.parse(exlist);
+//   // const exArr = [];
+//   // exArr.push(data);  
+//   // console.log(exArr);
+
+//   const fd = new FormData(form);
+//   const obj = Object.fromEntries(fd);
+//   const json = JSON.stringify(obj);
+//   localStorage.setItem('form', json);
+
+//   const exlist = localStorage.getItem('form');
+//   const data = JSON.parse(exlist);
+  
+//   for (const key in data) {
+//       const markup= `            
+//       <div>
+//         <span>${key}: ${data[key]} </span>
+//       </div>
+//       `;
+//   document.getElementById('data').innerHTML += markup;
+
+// }
+// })
+// }
