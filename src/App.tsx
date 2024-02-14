@@ -3,54 +3,46 @@ import './App.css'
 
 export default function App() {
 
-
-
     window.onload=function(){     /*---Runs once the app is loaded---*/
-      const form = document.querySelector('form');
+     
+    
+//-------------------Save Exercise inputs --------------------------------    
+    
+    const form = document.querySelector('form');
+    
     
       form.addEventListener('submit', (e) =>  {
         e.preventDefault();
         
-        // const exlist = localStorage.getItem('form')
-        // const data = JSON.parse(exlist);
-        // const exArr = [];
-        // exArr.push(data);  
-        // console.log(exArr);
 
-        //const oldItems = [];
-        //oldItems.push(JSON.parse(localStorage.getItem('form')));
-        let oldItems = JSON.parse(localStorage.getItem("form"));
-        if(oldItems == null) oldItems = [];
+        // let oldItems = JSON.parse(localStorage.getItem("form"));
+        // if(oldItems == null) oldItems = [];
 
         const fd = new FormData(form);
         const obj = Object.fromEntries(fd);
 
-        oldItems.push(obj);
-        
-        //localStorage.setItem('form', JSON.stringify(oldItems));
+        const keyname = obj.exercise;   // Take the exercise name and save it to be used as the key name for local storage.
 
-        const json = JSON.stringify(oldItems);
-        localStorage.setItem('form', json);
+        const json = JSON.stringify(obj);
+        localStorage.setItem(`${keyname}`, json);
 
-        const exlist = localStorage.getItem('form');
+        const exlist = localStorage.getItem(`${keyname}`);
         const data = JSON.parse(exlist);
 
         console.log(data);
 
+//----------------------- Display Exercises ----------------
+
            for (const key in data) {
-            const singledata = data[key];
-
-
-                for (const key in singledata) {
+                            
                   const markup= `            
                   <div>
-                    <span>${key}: ${singledata[key]} ${singledata} </span>
+                    <span>${key}: ${data[key]}</span>
                   </div>
                   `;
-                  document.getElementById('data').innerHTML = markup;
+                  document.getElementById('data').innerHTML += markup;
 
-                }
-       }
+             }
     })
   }
 
