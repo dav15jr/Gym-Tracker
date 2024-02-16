@@ -157,7 +157,7 @@ button {
   background-color: #da0404;
   cursor: pointer;
   transition: border-color 0.25s;
-  width: 100px;
+  width: 120px;
 }
 button:hover {
   border-color: #646cff;

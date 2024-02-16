@@ -3,18 +3,16 @@ import './index.css'
 
 export default function App() {
 
+
     window.onload=function(){     /*---Runs once the app is loaded---*/
      
 //-------------------Save Exercise inputs --------------------------------    
-    
+
     const form = document.querySelector('form');
         
     form.addEventListener('submit', (e) =>  {
         e.preventDefault();
         
-        // let oldItems = JSON.parse(localStorage.getItem("form"));
-        // if(oldItems == null) oldItems = [];
-
         const fd = new FormData(form);
         const obj = Object.fromEntries(fd);
 
@@ -28,15 +26,20 @@ export default function App() {
 
         console.log(data);
 
+        
+    
 //----------------------- Display Exercises ----------------
 
         const newDiv = document.createElement("div")
         const newBtn = document.createElement("button")
+        const setBtn = document.createElement("button")
         newDiv.className = `${keyname}`;
         newDiv.id = `${keyname}`;
         newBtn.id = `${keyname}btn`;
         newBtn.className = `${keyname}btn`;
-        
+        setBtn.className = `${keyname}set`;
+
+        setBtn.textContent = `Set left ${data.Sets}`
         newBtn.textContent = `Finish ${keyname}`;
         
 
@@ -46,6 +49,8 @@ export default function App() {
               `; 
               document.getElementById('data').appendChild(newDiv);
               document.getElementById('data').appendChild(newBtn);
+              document.getElementById('data').appendChild(setBtn);
+
             }  
     
         newBtn.addEventListener('click', function () {
@@ -58,27 +63,72 @@ export default function App() {
 
           if (newBtn.textContent.includes('Finish')) {
           newBtn.textContent = `Reset ${keyname}`;
-
         } else {
           newBtn.textContent = `Finish ${keyname}`;
           }
+        })
 
-        });
-      })
-  }
+        
+        const Counter = () => {
+          
+          const sets = 0;
+          // let setsDone += start;
+          // setsDone ++;
+          let setsLeft = data.Sets--;
+          
+          console.log(setsLeft);
 
-  // const buttonToggle = document.querySelector('.toggle');
-  // buttonToggle.addEventListener('click', toggleClass);
+          const setChange = document.querySelector(`.${keyname}set`)
+          // setChange.textContent = `Sets done ${setsLeft}`
 
-  function finishExercise(){
-    const element = document.querySelector('.Dass');
-    element.classList.toggle('exfin');
-  }
-// function finishedExercise(){
-//   document.getElementById('Deadlift').style = 'exfin'
-// }
+          if (sets === setsLeft) {
 
-  
+            setChange.textContent = `You Are Done`
+            setsLeft = data.Sets++
+          } else {
+
+            setChange.textContent = `Sets done ${setsLeft}`
+
+          }
+
+        }
+
+        setBtn.addEventListener('click', Counter);
+
+        // setBtn.addEventListener('click', function () {
+          
+        //     Counter();
+        //   const setChange = document.querySelector(`.${keyname}set`)
+
+        //   console.log(sets);
+
+        //   setSets(sets - 1)
+
+        //   setChange.textContent = `Sets left ${sets}`
+        // })
+
+      }) 
+
+}
+  // function finishExercise(){
+  //   const element = document.querySelector('.Dass');
+  //   element.classList.toggle('exfin');
+  // }
+
+  // const Counter = () => {
+    
+  //   setSets(sets - 1)
+
+  //   console.log(sets);
+
+  //   const setChange = document.querySelector(`.${keyname}set`)
+  //   setChange.textContent = `Sets left ${sets}`
+
+  //   const element = document.querySelector('.Dass');
+  //   element.textContent = `Sets left ${sets}`
+
+  // }
+
 
   return (
     <>
@@ -103,9 +153,10 @@ export default function App() {
           <button id="submit-btn" type="submit" >Save Exercise</button>
         </form>
       </div>
-      <button type="button" onClick={finishExercise}>Click Me!</button>
+      {/* <button type="button" onClick={Counter}>Click Me!</button> */}
       <div className="data" id="data">
       </div>
     </>
   )
 }
+
