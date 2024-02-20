@@ -117,7 +117,7 @@ label{
   text-decoration: line-through;
   color:rgb(255, 0, 221);
 }
-.finishEx{
+button{
   width:150px;
   border-radius: 10px;
   border: 2px solid transparent;
@@ -129,7 +129,7 @@ label{
   cursor: pointer;
   transition: border-color 0.5s;
 }
-.finishEx:hover {
+button:hover {
   border-color: #646cff;
   background-color: #da0444;
 }
@@ -147,7 +147,7 @@ span{
 }
 
 /*-------Default button settings----*/
-button {
+bttn {
   border-radius: 10px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -159,7 +159,7 @@ button {
   transition: border-color 0.25s;
   width: 120px;
 }
-button:hover {
+bttn:hover {
   border-color: #646cff;
 }
 button:focus,
