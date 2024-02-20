@@ -27,18 +27,17 @@ export default function App() {
 
         const newDiv = document.createElement("div")
         const setBtn = document.createElement("button")
-        const resetBtn = document.createElement("button")
+        const startBtn = document.createElement("button")
         const timerBtn = document.createElement("button")
          
         
         newDiv.id = `${keyname}`;
         setBtn.id = `${keyname}set`;
-        setBtn.textContent = `Start ${keyname}`
-        resetBtn.id = `${keyname}reset`;
-        resetBtn.style.display = "none";      
-        resetBtn.textContent = `Reset ${keyname}`;
+        startBtn.id = `${keyname}start`;    
+        startBtn.textContent = `Start ${keyname}`;
         timerBtn.id = `${keyname}timer`;
         timerBtn.style.display = "none";
+        setBtn.style.display = "none";
         
         for (const key in getSets) {
           newDiv.innerHTML += `
@@ -47,69 +46,87 @@ export default function App() {
           document.getElementById('data').appendChild(newDiv);
           }  
           document.getElementById('data').appendChild(setBtn);
-          document.getElementById('data').appendChild(resetBtn);
+          document.getElementById('data').appendChild(startBtn);
           document.getElementById('data').appendChild(timerBtn);
           
-    const  showResetButton = () =>{  
-          resetBtn.addEventListener('click', resetExercise);
-          resetBtn.style.display = "block";
-        }
-
-
-    const toggleBtn = () =>{
-          element.classList.toggle('exfin');
-          setChange.classList.toggle('btnFin');
-        }
-
-    const resetExercise = () => {
-          resetBtn.style.display = "none"
-          setChange.textContent = `${count--} sets left.`
-          setBtn.disabled = false;
-          toggleBtn();
-
+          
+    const  showStartButton = () =>{  
+          startBtn.style.display = "block";
+          startBtn.textContent = `Restart ${keyname}`;
+          startBtn.addEventListener('click', resetExercise);
         }
         
-        const setChange = document.querySelector(`#${keyname}set`);
-        const element = document.querySelector(`#${keyname}`);
+    const  showSetButton = () =>{  
+          startBtn.style.display = "none";
+          setBtn.style.display = "block";
+          setBtn.textContent = `${count--} sets left.`
+          setBtn.addEventListener('click', countSets);
+        }
+
+    startBtn.addEventListener('click', showSetButton);
+
+    const toggleBtn = () => {
+          const element = document.querySelector(`#${keyname}`);
+          element.classList.toggle('exfin');
+          setBtn.classList.toggle('btnFin');
+        }
+
+        
+        const resetExercise = () => {
+          startBtn.style.display = "none"
+          setBtn.disabled = false;
+          toggleBtn();
+          
+        }
+        
         let count = getSets.Sets;
         
         const countSets = () => {
+          stopRest();
+
           if (count < 1) {
-            setChange.textContent = `You Are Done 🙌`
+            setBtn.textContent = `You Are Done 🙌`
             count = getSets.Sets;
             setBtn.disabled = true;
             timerBtn.style.display = "none";
-            showResetButton();
+            showStartButton();
             toggleBtn();
             
+            
           } else {
-            setChange.textContent = `${count--} sets left.`
-            timerBtn.textContent = `Start Rest Timer.`
+            setBtn.textContent = `${count--} sets left.`
             timerBtn.style.display = "block";
-            timerBtn.addEventListener('click', addTimer);
-
+            timerBtn.textContent = `${restTime}'s rest left.`
+            timerBtn.addEventListener('click', stopRest);
+            startTime();
           }
         }
-        setBtn.addEventListener('click', countSets);
+        
+      
+      let timer;
+      let restTime = getSets.Rest;
 
-      const addTimer = () => {
-          let restTime = 10;
+      function startTime(){ 
+        timer = setInterval(counter, 1000);
+        restTime = getSets.Rest;
+        timerBtn.textContent = `${restTime}'s rest left.`
+        timerBtn.classList.remove('restDone');
+      } 
 
-          const timer = setInterval(function() {
+        function counter(){
+          restTime--;
+          timerBtn.textContent = `${restTime}'s rest left.`
+          console.log(restTime);
+          
+          if (restTime == 0){
+            stopRest();
 
-            restTime--;
-            console.log(restTime);
-            timerBtn.textContent = `${restTime}'s rest left.`
+            timerBtn.classList.add('restDone');
+            timerBtn.textContent = `Get back to work. 💪`;
+          }
+        }
 
-              if (restTime === 0) {
-                clearInterval(timer);
-                console.log("Time's up!");
-                timerBtn.textContent = `Get back to work. 💪`
-              }
-            
-            }, 1000);
-      }
-
+        const stopRest = () => clearInterval(timer);
   }) 
 }
 
@@ -134,7 +151,12 @@ export default function App() {
           <input type="number" placeholder='Reps' id="Reps"  name="Reps"></input>
           <label htmlFor="Sets">No. of Sets:</label>
           <input type="number" placeholder='Sets' id="Sets" name="Sets" required></input>
+
+          <label htmlFor="Rest">Rest time (s):</label>
+          <input type="number" placeholder='Rest Time' id="Rest" name="Rest" required></input>
+
           <button id="submit-btn" type="submit" >Save Exercise</button>
+
         </form>
       </div>
       <div className="data" id="data">

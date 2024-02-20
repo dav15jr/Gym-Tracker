@@ -65,7 +65,7 @@ input, select{
 
 }
 
-#Sets, #Reps, #Amount{
+#Sets, #Reps, #Amount, #Rest{
   width: 75px;
 
 }
@@ -117,6 +117,11 @@ label{
   text-decoration: line-through;
   color:rgb(255, 0, 221);
 }
+
+.restDone{
+background-color: #da0404;
+}
+
 button{
   width:150px;
   border-radius: 10px;
