@@ -65,7 +65,7 @@ input, select{
 
 }
 
-#Sets, #Reps, #Amount, #Rest{
+#sets, #reps, #amount, #rest{
   width: 75px;
 
 }
@@ -118,10 +118,6 @@ label{
   color:rgb(255, 0, 221);
 }
 
-.restDone{
-background-color: #da0404;
-}
-
 button{
   width:150px;
   border-radius: 10px;
@@ -130,13 +126,21 @@ button{
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #047413;
+  background-color: #0e32fc;
   cursor: pointer;
-  transition: border-color 0.5s;
+  transition: border-color 0.7s;
 }
 button:hover {
-  border-color: #646cff;
-  background-color: #da0444;
+  border-color: #013b10;
+  background-color: #28da04;
+}
+.timerBtn{
+  background-color: #c9cc06;
+  color:black;
+}
+.timerBtn:hover{
+  background-color: #dfdfdf;
+  color:black;
 }
 .btnFin{
   background-color: #aaaaaa;
@@ -146,7 +150,10 @@ button:hover {
   background-color: #020202;
   color:rgb(255, 255, 255);
 }
-
+.restDone{
+  background-color: #da0404;
+  }
+  
 span{
   font-weight: bold;
 }
