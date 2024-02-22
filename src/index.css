@@ -67,15 +67,37 @@ input, select{
 
 #sets, #reps, #amount, #rest{
   width: 75px;
-
 }
 
 label{
   position:absolute;
+}
+/* .barContainer {
+  width: 100%;
+  height: 30px;
+  border:2px solid #0e32fc;
+  border-radius: 30px;
+  background-color: #eb1e04;
+  text-align: center;  To center it horizontally (if you want) 
+  line-height: 30px;  To center it vertically 
+  color: white;
+} */
+.bar {
+  width: 100%;
+  height: 30px;
+  color: #ffb922;
+  /* background-color: #28da04; */
+}
 
+#label1{
+  /* align-items: center; */
+  color:#da0404
 }
 
 #submit-btn {
+  justify-self: center;
+  justify-content: left;
+  justify-items: right;
   color:rgb(255, 208, 0) ;
   background: rgb(92, 0, 179);
   padding: 5px 10px ;
@@ -95,24 +117,27 @@ label{
   justify-content: left;
   gap: 10px;
   width:auto;
+  height:fit-content;
   margin: 20px;
   padding:20px;
   border: 3px solid rgb(138, 194, 9);
   background-color:rgb(118, 118, 255);
 }
 #data{
-  display: flex;
-  flex-direction: column;
-  justify-content:left ;
-  /* flex-wrap:nowrap;  ; */
+  /* display: flex;
+  flex-direction: column; */
+  justify-content:center ;
   gap: 10px;
   width:auto;
+  height: auto;
   margin: 20px;
   padding:20px;
   border: 3px solid rgb(24, 116, 255);
-  background-color: aquamarine;
+  background-color: rgb(4, 100, 68);
 }
 .exfin{
+  /* display: flex;
+  flex-direction: column; */
   font-style: italic;
   text-decoration: line-through;
   color:rgb(255, 0, 221);
@@ -123,6 +148,9 @@ button{
   border-radius: 10px;
   border: 2px solid transparent;
   padding: 0.6em 1.2em;
+  justify-self: center;
+  justify-content: left;
+  justify-items: right;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -135,6 +163,11 @@ button:hover {
   background-color: #28da04;
 }
 .timerBtn{
+  /* display: flex;
+  flex-direction: column; */
+  justify-self: center;
+  justify-content: left;
+  justify-items: right;
   background-color: #c9cc06;
   color:black;
 }
@@ -143,6 +176,11 @@ button:hover {
   color:black;
 }
 .btnFin{
+  /* display: flex;
+  flex-direction: column; */
+  justify-content: left;
+  justify-items: right;
+  justify-self: center;
   background-color: #aaaaaa;
   color:black;
 }
@@ -153,7 +191,7 @@ button:hover {
 .restDone{
   background-color: #da0404;
   }
-  
+
 span{
   font-weight: bold;
 }
