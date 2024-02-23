@@ -44,15 +44,15 @@ export default function App() {
 
       newDiv.innerHTML = `
       <div>
-        <span>Exercise:</span> ${getSets.exercise}, 
+        <h3>Exercise:${getSets.exercise}</h3>
         ${getSets.sets} sets of ${getSets.reps} reps
         with ${getSets.amount} ${getSets.type} 
         <span>Rest time:</span> ${getSets.rest} secs.
       </div>             
       `; 
+
       document.getElementById('data').appendChild(newDiv);
       document.getElementById('data').appendChild(barDiv);
-      document.getElementById('data').appendChild(setBtn);
       document.getElementById('data').appendChild(startBtn);
       document.getElementById('data').appendChild(timerBtn);
       
@@ -71,6 +71,7 @@ export default function App() {
 
           document.getElementById(`${keyname}bar`).innerText = 'Progress:' ;
           document.getElementById(`${keyname}bar`).appendChild(proBar);
+          document.getElementById(`${keyname}bar`).appendChild(setBtn);
         }
 
     const  showStartButton = () => {  
@@ -180,8 +181,11 @@ export default function App() {
       <h1>Gym Tracker</h1>
       <div className="inputs">
         <form className="form">
+          <div> 
           <label htmlFor="exercise">Exercise:</label>
           <input type="text" placeholder='Enter Exercise' id="exercise" name="exercise" required></input>
+          </div>
+          <div>
           <label htmlFor="type">Type:</label>
           <select id="type" name="type" onChange={checkEx}>
             <option value="Resistance level">Resistance</option>
@@ -189,16 +193,24 @@ export default function App() {
             <option value="Kg's">Kilo Grams (Kg's)</option>
             <option value="Lb's">Pounds (Lb's)</option>
           </select>
+          </div>
+          <div>
           <label htmlFor="amount" id='amountLabel' >Amount:</label>
           <input type="number" placeholder='Amount' id="amount" name="amount"></input>
+          </div>
+          <div>
           <label htmlFor="reps">No. of Reps:</label>
           <input type="number" placeholder='Reps' id="reps"  name="reps"></input>
+          </div>
+          <div>
           <label htmlFor="sets">No. of Sets:</label>
           <input type="number" placeholder='Sets' id="sets" name="sets" required></input>
-
+          </div>
+          <div>
           <label htmlFor="rest">Rest time (s):</label>
           <input type="number" placeholder='Rest Time' id="rest" name="rest" required></input>
-
+          </div>
+          <br></br>
           <button id="submit-btn" type="submit" >Save Exercise</button>
 
         </form>

@@ -33,7 +33,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: rgb(109, 0, 211);
+  color: rgb(95, 3, 182);
 }
 
 @media (prefers-color-scheme: light) {
@@ -55,6 +55,17 @@ h1 {
   padding: 2rem;
   text-align: center;
 }
+.form{
+  display:flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+label{
+  /* display: inline-flex; */
+  position:absolute;
+}
 
 input, select{
   width: auto;
@@ -66,12 +77,10 @@ input, select{
 }
 
 #sets, #reps, #amount, #rest{
-  width: 75px;
+  width: 80px;
+  flex-grow: inherit;
 }
 
-label{
-  position:absolute;
-}
 /* .barContainer {
   width: 100%;
   height: 30px;
@@ -83,78 +92,54 @@ label{
   color: white;
 } */
 .bar {
-  width: 100%;
   height: 30px;
-  color: #ffb922;
+  justify-items: center;
+  align-self: center;
   /* background-color: #28da04; */
 }
-
-#label1{
-  /* align-items: center; */
-  color:#da0404
-}
-
-#submit-btn {
-  justify-self: center;
-  justify-content: left;
-  justify-items: right;
-  color:rgb(255, 208, 0) ;
-  background: rgb(92, 0, 179);
-  padding: 5px 10px ;
-  margin: 5px;
-  border-radius: 20px;
-  border: 1px solid transparent;
-}
-
-#submit-btn:hover {
-  color:rgb(211, 0, 0) ;
-  background: rgb(240, 198, 13);
-  padding: 5px 10px ;
-  margin: 5px;
-}
-#data > div{
-  display: flex;
-  justify-content: left;
-  gap: 10px;
-  width:auto;
-  height:fit-content;
-  margin: 20px;
-  padding:20px;
-  border: 3px solid rgb(138, 194, 9);
-  background-color:rgb(118, 118, 255);
+span{
+  font-weight: bold;
 }
 #data{
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
   justify-content:center ;
+  align-content: center;
   gap: 10px;
   width:auto;
-  height: auto;
+  height: fit-content;
   margin: 20px;
   padding:20px;
   border: 3px solid rgb(24, 116, 255);
-  background-color: rgb(4, 100, 68);
+  /* background-color: rgb(3, 214, 144); */
+}
+#data > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width:auto;
+  height:fit-content;
+  /* border: 3px solid rgb(138, 194, 9);
+  background-color:rgb(118, 118, 255); */
 }
 .exfin{
-  /* display: flex;
-  flex-direction: column; */
   font-style: italic;
+  font-weight: bold;
   text-decoration: line-through;
-  color:rgb(255, 0, 221);
+  color:rgb(172, 5, 5);
 }
-
+/*---------------------Buttons-------------------*/
 button{
   width:150px;
   border-radius: 10px;
   border: 2px solid transparent;
   padding: 0.6em 1.2em;
-  justify-self: center;
-  justify-content: left;
-  justify-items: right;
+  align-self: center;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #0e32fc;
+  background-color: #b018ec;
   cursor: pointer;
   transition: border-color 0.7s;
 }
@@ -162,25 +147,30 @@ button:hover {
   border-color: #013b10;
   background-color: #28da04;
 }
+#submit-btn {
+  color:rgb(255, 230, 0) ;
+  background: rgb(120, 2, 179);
+  padding: 5px 10px ;
+  margin: 5px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+}
+
+#submit-btn:hover {
+  color:rgb(0, 0, 0) ;
+  background: rgb(240, 198, 13);
+}
 .timerBtn{
-  /* display: flex;
-  flex-direction: column; */
-  justify-self: center;
-  justify-content: left;
-  justify-items: right;
   background-color: #c9cc06;
   color:black;
+  align-self: center;
+
 }
 .timerBtn:hover{
   background-color: #dfdfdf;
   color:black;
 }
 .btnFin{
-  /* display: flex;
-  flex-direction: column; */
-  justify-content: left;
-  justify-items: right;
-  justify-self: center;
   background-color: #aaaaaa;
   color:black;
 }
@@ -191,10 +181,6 @@ button:hover {
 .restDone{
   background-color: #da0404;
   }
-
-span{
-  font-weight: bold;
-}
 
 /*-------Default button settings----*/
 bttn {
