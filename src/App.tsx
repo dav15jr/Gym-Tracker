@@ -22,55 +22,59 @@ export default function App() {
       
 //----------------------- Display Exercises ----------------
 
-      const newDiv = document.createElement("div")
-      const barDiv = document.createElement("div")
-      const proBar = document.createElement("progress")
-      const setBtn = document.createElement("button")
+      const infoDiv = document.createElement("div")
+      const progressDiv = document.createElement("div")
+      const exerciseDiv = document.createElement("div")
+      const progressEle = document.createElement("progress")
       const startBtn = document.createElement("button")
+      const setBtn = document.createElement("button")
       const timerBtn = document.createElement("button")
         
       
-      newDiv.id = `${keyname}`;
-      barDiv.id = `${keyname}bar`;
+      exerciseDiv.id = `${keyname}`;
+      infoDiv.id = `${keyname}info`;
+      progressDiv.id = `${keyname}bar`;
       setBtn.id = `${keyname}set`;
       startBtn.id = `${keyname}start`;    
-      startBtn.textContent = `Start ${keyname}`;
       timerBtn.id = `${keyname}timer`;
+      startBtn.textContent = `Start ${keyname}`;
       timerBtn.style.display = "none";
       setBtn.style.display = "none";
       timerBtn.classList.add('timerBtn');
-      barDiv.classList.add('barContainer');
-      proBar.classList.add('bar');
+      progressDiv.classList.add('barContainer');
+      progressEle.classList.add('bar');
+      document.getElementById('data').appendChild(exerciseDiv);
 
-      newDiv.innerHTML = `
+      infoDiv.innerHTML = `
       <div>
-        <h3>Exercise:${getSets.exercise}</h3>
+        <h2>Exercise: ${getSets.exercise}</h2>
         ${getSets.sets} sets of ${getSets.reps} reps
         with ${getSets.amount} ${getSets.type} 
         <span>Rest time:</span> ${getSets.rest} secs.
       </div>             
       `; 
+      
+      document.getElementById(`${keyname}`).appendChild(infoDiv);
+      document.getElementById(`${keyname}`).appendChild(progressDiv);
+      document.getElementById(`${keyname}`).appendChild(startBtn);
+      document.getElementById(`${keyname}`).appendChild(timerBtn);
 
-      document.getElementById('data').appendChild(newDiv);
-      document.getElementById('data').appendChild(barDiv);
-      document.getElementById('data').appendChild(startBtn);
-      document.getElementById('data').appendChild(timerBtn);
       
       form.reset();
       // for (const key in getSets) {
-        // newDiv.innerHTML += `
+        // infoDiv.innerHTML += `
         // <div><span>${key}:</span> ${getSets[key]} </div>             
         // `;} 
 
 //----------------------Functions--------------------
 
-    const progressBar = () => {
+    const progressBar = () => {    // create a progress bar and add it to its div element
           
-          proBar.setAttribute("value", "0");
-          proBar.setAttribute("max", `${getSets.sets}`);
+          progressEle.setAttribute("value", "0");
+          progressEle.setAttribute("max", `${getSets.sets}`);
 
           document.getElementById(`${keyname}bar`).innerText = 'Progress:' ;
-          document.getElementById(`${keyname}bar`).appendChild(proBar);
+          document.getElementById(`${keyname}bar`).appendChild(progressEle);
           document.getElementById(`${keyname}bar`).appendChild(setBtn);
         }
 
@@ -91,9 +95,9 @@ export default function App() {
     startBtn.addEventListener('click', showSetButton);
 
     const toggleBtn = () => {
-          const element = document.querySelector(`#${keyname}`);
-          element.classList.toggle('exfin');
+          infoDiv.classList.toggle('exfin');
           setBtn.classList.toggle('btnFin');
+        
         }
 
         
@@ -106,15 +110,15 @@ export default function App() {
         
         let count = getSets.sets;
 
-        console.log(proBar.max)
+        console.log(progressEle.max)
 
         const countSets = () => {
           stopRest();
-          proBar.value += 1;
+          progressEle.value += 1;
           
 
           if (count < 1) {
-            setBtn.textContent = `You Are Done 🙌`
+            setBtn.textContent = `Done 💪`
             count = getSets.sets;
             setBtn.disabled = true;
             timerBtn.style.display = "none";
@@ -150,7 +154,7 @@ export default function App() {
           if (restTime == 0){
             stopRest();
             timerBtn.classList.add('restDone');
-            timerBtn.textContent = `Get back to work. 💪`;
+            timerBtn.textContent = `Get back to work.🏋️‍♂️`;
           }
         }
 
@@ -215,7 +219,7 @@ export default function App() {
 
         </form>
       </div>
-      <div className="data" id="data">WorkOut Plan</div>
+      <div className="data" id="data"></div>
     </>
   )
 }
