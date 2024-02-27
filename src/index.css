@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #020202;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,7 +28,6 @@ body {
   place-items: center;
   min-width: 350px;
   min-height: 50vh;
-  border: 3px solid rgb(255, 24, 151);
   font-size: 1em;
   line-height: 1.5;
 }
@@ -36,11 +35,11 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-  color: rgb(95, 3, 182);
+  color: rgb(123, 55, 168);
 }
 
 h2 {
-  color: rgb(95, 3, 182);
+  color: rgb(137, 21, 245);
 }
 
 @media (prefers-color-scheme: light) {
@@ -61,7 +60,7 @@ h2 {
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
-  border: 3px solid rgb(24, 116, 255);
+  /* border: 3px solid rgb(24, 116, 255); */
 }
 .form{
   display:flex;
@@ -69,8 +68,8 @@ h2 {
   justify-content: center;
   padding: 10px;
   margin: 0;
-  border: 3px solid rgb(24, 116, 255);
-  background-color: rgb(116, 235, 36);
+  /* border: 3px solid rgb(24, 116, 255); */
+  /* background-color: rgb(116, 235, 36); */
 }
 .inputs{
   display:flex;
@@ -86,18 +85,13 @@ input, select{
   padding: 5px;
   margin: 20px 0;
   border-radius: 10px;
-  border: 2px solid rgb(110, 0, 212);
+  /* border: 2px solid rgb(110, 0, 212); */
 
 }
 
 #sets, #reps, #amount, #rest{
   width: 80px;
   flex-grow: inherit;
-}
-
-.barContainer {
-  font-weight: bold;
-  height: 400px;
 }
 .bar {
   height: 30px;
@@ -117,7 +111,7 @@ span{
   height: fit-content;
   margin: 20px;
   padding:20px;
-  border: 3px solid rgb(24, 116, 255);
+  /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(3, 214, 144); */
 }
 #data > div{
@@ -130,8 +124,8 @@ span{
   width:330px;
   height:fit-content;
   min-height: 250px;
-  border: 3px solid rgb(248, 116, 64);
-  
+  /* border: 3px solid rgb(248, 116, 64); */
+  background-color: rgb(38, 0, 82);
 }
 #data > div > div{
   display: flex;
@@ -140,7 +134,7 @@ span{
   gap: 10px;
   width:auto;
   height:auto;
-  border: 3px solid rgb(138, 194, 9);
+  /* border: 3px solid rgb(138, 194, 9); */
 
 }
 .exfin{
@@ -199,6 +193,15 @@ button:hover {
 .btnFin:hover{
   background-color: #aaaaaa;
   color:black;
+}
+#formBtn{
+  background-color: #f17500;
+  color:black;
+}
+#formBtn:hover{
+  background-color: #ffffff;
+  color:rgb(255, 118, 6);
+  border: 2px solid #da0404;
 }
 .restDone{
   background-color: #da0404;

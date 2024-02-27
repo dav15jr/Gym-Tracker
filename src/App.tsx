@@ -13,14 +13,16 @@ export default function App() {
 
     form.addEventListener('submit', (e) =>  {
       e.preventDefault();
-     
+
       const fd = new FormData(form);  // data from the form
       const obj = Object.fromEntries(fd);   //object of the form data
-      const keyname = obj.exercise;   // Take the exercise name and save it to be used as the key name for local storage.
+      const key = obj.exercise;   // Take the exercise name and save it to be used as the key name for local storage.
       const json = JSON.stringify(obj);    //Convert the object to a string and store it in the local storage
-      localStorage.setItem(`${keyname}`, json);
+      localStorage.setItem(`${key}`, json);
 
-      const getSets = JSON.parse(localStorage.getItem(`${keyname}`)) //Retrieve form data from local storeage and convert it back to an object 
+    
+    const exeName = key;
+    const exercise = JSON.parse(localStorage.getItem(`${exeName}`)) //Retrieve form data from local storeage and convert it back to an object 
       
 //----------------------- Display Exercises ----------------
 
@@ -34,56 +36,48 @@ export default function App() {
       
         
       
-      exerciseDiv.id = `${keyname}`;
-      infoDiv.id = `${keyname}info`;
-      progressDiv.id = `${keyname}bar`;
-      setBtn.id = `${keyname}set`;
-      startBtn.id = `${keyname}start`;    
-      timerBtn.id = `${keyname}timer`;
+      exerciseDiv.id = `${exeName}`;
+      infoDiv.id = `${exeName}info`;
+      progressDiv.id = `${exeName}bar`;
+      setBtn.id = `${exeName}set`;
+      startBtn.id = `${exeName}start`;    
+      timerBtn.id = `${exeName}timer`;
       formBtn.style.display = 'none';
-      startBtn.textContent = `Start ${keyname}`;
+      startBtn.textContent = `Start ${exeName}`;
       timerBtn.style.display = "none";
       setBtn.style.display = "none";
       timerBtn.classList.add('timerBtn');
-      progressDiv.classList.add('barContainer');
       progressEle.classList.add('bar');
       
       infoDiv.innerHTML = `
       <div>
-      <h2>Exercise: ${getSets.exercise}</h2>
-      ${getSets.sets} sets of ${getSets.reps} reps
-      with ${getSets.amount} ${getSets.type} <br/>
-      <span>Rest time:</span> ${getSets.rest} secs.
+      <h2>Exercise: ${exercise.exercise}</h2>
+      ${exercise.sets} sets of ${exercise.reps} reps
+      with ${exercise.amount} ${exercise.type} <br/>
+      <span>Rest time:</span> ${exercise.rest} secs.
       </div>             
       `; 
       
       document.getElementById('data').appendChild(exerciseDiv);
-      document.getElementById(`${keyname}`).appendChild(infoDiv);
-      document.getElementById(`${keyname}`).appendChild(progressDiv);
-      document.getElementById(`${keyname}`).appendChild(startBtn);
-      document.getElementById(`${keyname}`).appendChild(timerBtn);
-      
+      document.getElementById(`${exeName}`).appendChild(infoDiv);
+      document.getElementById(`${exeName}`).appendChild(progressDiv);
+      document.getElementById(`${exeName}`).appendChild(startBtn);
+      document.getElementById(`${exeName}`).appendChild(timerBtn);
 
-      
       form.reset();
-      // for (const key in getSets) {
-        // infoDiv.innerHTML += `
-        // <div><span>${key}:</span> ${getSets[key]} </div>             
-        // `;} 
 
 //----------------------Functions--------------------
 
     const progressBar = () => {    // create a progress bar and add it to its div element
           progressEle.setAttribute("value", "0");
-          progressEle.setAttribute("max", `${getSets.sets}`);
+          progressEle.setAttribute("max", `${exercise.sets}`);
 
-          document.getElementById(`${keyname}bar`).innerText = 'Progress:' ;
-          document.getElementById(`${keyname}bar`).appendChild(progressEle);
-          document.getElementById(`${keyname}bar`).appendChild(setBtn);
+          document.getElementById(`${exeName}bar`).innerText = 'Progress:' ;
+          document.getElementById(`${exeName}bar`).appendChild(progressEle);
+          document.getElementById(`${exeName}bar`).appendChild(setBtn);
         }
         
-        const hideForm = () => {
-
+    const hideForm = () => {
           if(form.style.display === "none") {
             form.style.display = "inline-flex";
             formBtn.style.display = 'none';
@@ -94,47 +88,45 @@ export default function App() {
         }
         formBtn.addEventListener('click', hideForm);
         
-        const  showStartButton = () => {  
+    const  showStartButton = () => {  
           startBtn.style.display = "initial";
-          startBtn.textContent = `Restart ${keyname}`;
+          startBtn.textContent = `Restart ${exeName}`;
           startBtn.addEventListener('click', resetExercise);
         }
         
-        const  showSetButton = () => {  
+    const  showSetButton = () => {  
           startBtn.style.display = "none";
           setBtn.style.display = "block";
           setBtn.textContent = `${count--} sets left.`
           setBtn.addEventListener('click', countSets);
           progressBar();
-          // hideForm();
           formBtn.style.display = 'block';
           form.style.display = "none"
         }
 
-    startBtn.addEventListener('click', showSetButton);
+          startBtn.addEventListener('click', showSetButton);
 
     const toggleBtn = () => {
           infoDiv.classList.toggle('exfin');
           setBtn.classList.toggle('btnFin');
         }
 
-        const resetExercise = () => {
+    const resetExercise = () => {
           startBtn.style.display = "none"
           setBtn.disabled = false;
           toggleBtn();
           progressBar();
         }
         
-        let count = getSets.sets;
+        let count = exercise.sets;
 
-        const countSets = () => {
+    const countSets = () => {
           stopRest();
           progressEle.value += 1;
           
-
           if (count < 1) {
             setBtn.textContent = `Done 💪`
-            count = getSets.sets;
+            count = exercise.sets;
             setBtn.disabled = true;
             timerBtn.style.display = "none";
             showStartButton();
@@ -149,18 +141,17 @@ export default function App() {
           }
         }
         
-      
       let timer;
-      let restTime = getSets.rest;
+      let restTime = exercise.rest;
 
       function startTime(){ 
         timer = setInterval(counter, 1000);
-        restTime = getSets.rest;
+        restTime = exercise.rest;
         timerBtn.textContent = `${restTime}'s rest left.`
         timerBtn.classList.remove('restDone');
         } 
 
-        function counter(){
+      function counter(){
           restTime--;
           timerBtn.textContent = `${restTime}'s rest left.`
           
