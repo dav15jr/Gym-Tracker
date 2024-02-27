@@ -29,7 +29,8 @@ body {
   min-width: 350px;
   min-height: 50vh;
   border: 3px solid rgb(255, 24, 151);
- 
+  font-size: 1em;
+  line-height: 1.5;
 }
 
 h1 {
@@ -69,7 +70,11 @@ h2 {
   padding: 10px;
   margin: 0;
   border: 3px solid rgb(24, 116, 255);
-  background-color: rgb(3, 214, 144);
+  background-color: rgb(116, 235, 36);
+}
+.inputs{
+  display:flex;
+  justify-content: center;
 }
 
 label{
