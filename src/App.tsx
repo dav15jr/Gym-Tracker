@@ -42,7 +42,7 @@ export default function App() {
       setBtn.id = `${exeName}set`;
       startBtn.id = `${exeName}start`;    
       timerBtn.id = `${exeName}timer`;
-      formBtn.style.display = 'none';
+      // formBtn.style.display = 'none';
       startBtn.textContent = `Start ${exeName}`;
       timerBtn.style.display = "none";
       setBtn.style.display = "none";
@@ -184,7 +184,7 @@ export default function App() {
     <>
       <h1>Gym Tracker</h1>
       <div className="inputs" id="inputs">
-        <button type="button" id="formBtn" >Add New Exercise</button>
+        <button type="button" id="formBtn" hidden>Add New Exercise</button>
         <form className="form">
           <div> 
           <label htmlFor="exercise">Exercise:</label>
