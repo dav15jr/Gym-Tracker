@@ -67,7 +67,7 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
-  margin: 0;
+  margin: 0 20px;
   /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(116, 235, 36); */
 }
@@ -125,7 +125,7 @@ span{
   height:fit-content;
   min-height: 250px;
   /* border: 3px solid rgb(248, 116, 64); */
-  background-color: rgb(38, 0, 82);
+  background-color: rgb(235, 215, 252);
 }
 #data > div > div{
   display: flex;
@@ -177,7 +177,7 @@ button:hover {
 }
 .timerBtn{
 
-  background-color: #c9cc06;
+  background-color: #3cf8b0;
   color:black;
   align-self: center;
 

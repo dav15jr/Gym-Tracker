@@ -88,13 +88,13 @@ export default function App() {
         }
         formBtn.addEventListener('click', hideForm);
         
-    const  showStartButton = () => {  
+    const showStartButton = () => {  
           startBtn.style.display = "initial";
           startBtn.textContent = `Restart ${exeName}`;
           startBtn.addEventListener('click', resetExercise);
         }
         
-    const  showSetButton = () => {  
+    const showSetButton = () => {  
           startBtn.style.display = "none";
           setBtn.style.display = "block";
           setBtn.textContent = `${count--} sets left.`
@@ -161,9 +161,7 @@ export default function App() {
             timerBtn.textContent = `Get back to work.🏋️‍♂️`;
           }
         }
-
         const stopRest = () => clearInterval(timer);
-
       }) 
       
     }
@@ -171,8 +169,7 @@ export default function App() {
     
     const checkEx = () => {        // check whether body weight has been selected and remove the amount option.
       const option = (document.getElementById("type") as HTMLInputElement).value;
-      console.log(option)
-   
+     
       if(option === "Body Weight") {
         document.getElementById("amountLabel").style.display = "none";
         document.getElementById("amount").style.display = "none";
@@ -180,10 +177,9 @@ export default function App() {
       } else {
         document.getElementById("amountLabel").style.display = "initial";
         document.getElementById("amount").style.display = "initial";
-        
       }
+  }
 
-}
   return (
     <>
       <h1>Gym Tracker</h1>
