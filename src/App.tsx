@@ -162,9 +162,9 @@ export default function App() {
           }
         }
         const stopRest = () => clearInterval(timer);
-      }) 
+    }) 
       
-    }
+  }
     
     
     const checkEx = () => {        // check whether body weight has been selected and remove the amount option.
