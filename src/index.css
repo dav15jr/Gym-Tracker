@@ -124,8 +124,8 @@ span{
   width:330px;
   height:fit-content;
   min-height: 250px;
-  /* border: 3px solid rgb(248, 116, 64); */
-  background-color: rgb(235, 215, 252);
+  border: 3px solid rgb(128, 10, 158);
+  /* background-color: rgb(235, 215, 252); */
 }
 #data > div > div{
   display: flex;
