@@ -32,7 +32,7 @@ const Tool = () => {
                 {
                     // Checking that the workout plan array has a length
                     // IF it does then loop through the Exercise component and return a seperate copy of that component
-                    workoutPlan.length &&
+                    workoutPlan.length > 0 &&
                         workoutPlan.map((workout, index) => {
                             // May be best to use a different key here, perhaps the name of the workout
                             return <Exercise key={index} workout={workout} />;

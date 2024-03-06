@@ -10,36 +10,35 @@ export default function Form({
     // Setting to strings because if it was undefined, it thinks we are going from a
     // uncontrolled -> controlled component
     function handleChange(event) {
-        const { name, value } = event.target
+        const { name, value } = event.target;
         setExerciseData((prevFormData) => {
             return {
                 ...prevFormData,
                 [name]: value,
-            }
-        })
+            };
+        });
     }
 
     function handleSubmit(event) {
-        event.preventDefault()
+        event.preventDefault();
+        setWorkoutPlan([...workoutPlan, exerciseData]);
 
-        setWorkoutPlan([...workoutPlan, exerciseData])
-
-        setExerciseData(defaultExerciseState)
-        form.reset()
+        setExerciseData(defaultExerciseState);
+        form.reset();
     }
 
-    const formBtn = document.getElementById('formBtn')
-    const form = document.querySelector('form')
+    const formBtn = document.getElementById('formBtn');
+    const form = document.querySelector('form');
 
     const hideForm = () => {
         if (form.style.display === 'none') {
-            form.style.display = 'inline-flex'
-            formBtn.style.display = 'none'
+            form.style.display = 'inline-flex';
+            formBtn.style.display = 'none';
         } else {
-            form.style.display = 'none'
-            formBtn.style.display = 'block'
+            form.style.display = 'none';
+            formBtn.style.display = 'block';
         }
-    }
+    };
 
     return (
         <>
@@ -131,5 +130,5 @@ export default function Form({
             </div>
             <div className="data" id="data"></div>
         </>
-    )
+    );
 }
