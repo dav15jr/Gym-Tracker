@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
+// import './src/index.css';
 
 const defaultExerciseState = {
     exercise: '',
-    type: 'resistance',
+    type: 'Resistance',
     amount: '',
     reps: '',
     sets: '',
@@ -28,17 +29,17 @@ const Tool = () => {
                 workoutPlan={workoutPlan}
                 defaultExerciseState={defaultExerciseState}
             />
-            <>
+            <div className='workoutDiv' >
                 {
-                    // Checking that the workout plan array has a length
-                    // IF it does then loop through the Exercise component and return a seperate copy of that component
-                    workoutPlan.length > 0 &&
-                        workoutPlan.map((workout, index) => {
-                            // May be best to use a different key here, perhaps the name of the workout
-                            return <Exercise key={index} workout={workout} />;
-                        })
+                // Checking that the workout plan array has a length
+                // IF it does then loop through the Exercise component and return a seperate copy of that component
+                workoutPlan.length > 0 &&
+                    workoutPlan.map((workout) => {
+                    // May be best to use a different key here, perhaps the name of the workout
+                    return <Exercise key={workout.exercise} workout={workout} />;
+                    })
                 }
-            </>
+            </div>
         </>
     );
 };

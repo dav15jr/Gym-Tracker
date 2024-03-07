@@ -62,15 +62,15 @@ export default function Form({
                         <label htmlFor="type">Type:</label>
                         <select id="type" name="type" onChange={handleChange}>
                             <option value="resistance">Resistance</option>
-                            <option value="bodyWeight">Body Weight</option>
-                            <option value="kg">Kilo Grams (Kg's)</option>
-                            <option value="lb">Pounds (Lb's)</option>
+                            <option value="body weight">Body Weight</option>
+                            <option value="kgs">Kilo Grams (Kg's)</option>
+                            <option value="lbs">Pounds (Lb's)</option>
                         </select>
                     </div>
                     <div>
                         {
                             // As exerciseData.type is in the state, we can use it to check whether the value is 'bodyWeight'
-                            exerciseData.type !== 'bodyWeight' && (
+                            exerciseData.type !== 'body weight' && (
                                 <>
                                     <label htmlFor="amount" id="amountLabel">
                                         Amount:
@@ -128,7 +128,6 @@ export default function Form({
                     </button>
                 </form>
             </div>
-            <div className="data" id="data"></div>
         </>
     );
 }
