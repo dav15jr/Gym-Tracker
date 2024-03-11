@@ -19,6 +19,7 @@ const Tool = () => {
     const [workoutPlan, setWorkoutPlan] = useState([]);
     // Check the console to see the workoutPlans being added as you submit the form
     console.log(workoutPlan);
+    console.log(exerciseData);
     return (
         <>
             <h1>Gym Tracker</h1>

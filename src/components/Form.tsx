@@ -11,24 +11,28 @@ export default function Form({
     // uncontrolled -> controlled component
     function handleChange(event) {
         const { name, value } = event.target;
-        setExerciseData((prevFormData) => {
+        setExerciseData((prevData) => {
             return {
-                ...prevFormData,
+                ...prevData,
                 [name]: value,
             };
         });
     }
+    const formBtn = document.getElementById('formBtn');
+    const form = document.querySelector('form');
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        const json = JSON.stringify(exerciseData);   //Convert the object to a string and store it in the local storage
+        localStorage.setItem(`${exerciseData.exercise}`, json);
+
         setWorkoutPlan([...workoutPlan, exerciseData]);
 
         setExerciseData(defaultExerciseState);
         form.reset();
     }
 
-    const formBtn = document.getElementById('formBtn');
-    const form = document.querySelector('form');
 
     const hideForm = () => {
         if (form.style.display === 'none') {
@@ -43,7 +47,11 @@ export default function Form({
     return (
         <>
             <div className="inputs" id="inputs">
-                <button type="button" id="formBtn" onClick={hideForm} hidden>
+                <button 
+                    type="button" 
+                    id="formBtn" 
+                    onClick={hideForm} 
+                    hidden>
                     Add New Exercise
                 </button>
                 <form className="form" id="form" onSubmit={handleSubmit}>
