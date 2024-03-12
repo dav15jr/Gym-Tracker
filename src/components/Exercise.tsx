@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import { ExerciseData } from '../types';
 
 // This component should have its own individual state...
@@ -6,8 +6,11 @@ import { ExerciseData } from '../types';
 const Exercise = ({ workout }: { workout: ExerciseData } ) => {
     const [excerciseStarted, setExcerciseStarted] = useState(false);
     const [excerciseDone, setExcerciseDone] = useState(false);
+    const [showProgress, setShowProgress] = useState(false);
+
     const [timerDone, setTimerDone] = useState(false);
     const [setDone, setSetDone] = useState(false);
+    
     const [restTime, setRestTime] = useState(workout.rest);
     const [count, setCount] = useState(0);
 
@@ -16,52 +19,51 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
 
     
     const startExercise = () => {  
-        setCount(0);
         formBtn.style.display = 'block';
         form.style.display = "none"
+        setCount(0);
+        setExcerciseDone(false);
         setExcerciseStarted(true);
-
+        setShowProgress(true);
     }
     
-    const resetExercise = () => {
-        setExcerciseDone(false);
-        setCount(0);
-    }
-
     const countSets = () => {
-        stopRest();
-        startTime();
+        // clearInterval(timer);
+        // stopRest();
         setCount((count) => count + 1);
 
         if (workout.sets-count <= 1) {
             setExcerciseDone(true);
             setSetDone(false);
-            // setExcerciseStarted(false);
+            setExcerciseStarted(false);
         } else {
             setSetDone(true);
             setTimerDone(false);
             setRestTime(workout.sets);
         }
     }
-    let timer;
 
-    const startTime = () =>{ 
-     timer = setInterval(counter, 1000);
-        const rest = workout.rest;
-        setRestTime(rest);
-        setTimerDone(false);
-    } 
+    useEffect(() => {
+        console.log("im effected")
 
-    const counter = () =>{
-      setRestTime((time) => {
+        if (count ===0) return;
+        if (excerciseDone) return;
+        else {
+
+        const intervalId = setInterval(() => {
+                if (restTime === 0) {
+                    setTimerDone(true);
+                    clearInterval(intervalId);
+                    return
+                } else;
+                setRestTime(time => time - 1);
+        }, 1000);
     
-              if (time <= 1) {
-                // clearInterval(timer);
-                setTimerDone(true);
-              } else return time - 1;
-            })
+        // clear interval on re-render to avoid memory leaks
+        return () => clearInterval(intervalId);
         }
-    const stopRest = () => clearInterval(timer);
+      }, [restTime, count, excerciseDone]);
+
 
     
     return (
@@ -74,7 +76,7 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
                 <span>Rest time:</span> {workout.rest} secs.
             </div>
             <div className='progressDiv' id={`${workout.exercise}bar`} 
-                style={{ display: excerciseStarted ? 'inherit' : 'none' }}>
+                style={{ display: showProgress ? 'inherit' : 'none' }}>
                 Progress:
                 <progress 
                     className='progressEle' 
@@ -93,14 +95,14 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
                 className='startBtn' 
                 id={`${workout.exercise}start`} 
                 style={{display: excerciseStarted ? 'none' : 'initial' }}
-                onClick = {!excerciseDone ? startExercise : resetExercise}
+                onClick = {startExercise}
                 > {!excerciseDone ? 'Start' : 'Restart' }{` ${workout.exercise}`}
             </button>
             <button
                 className={!timerDone ? 'timerBtn': 'restDone'}
                 id={`${workout.exercise}timer`}
-                style={{display: !setDone ? 'none' : 'initial' }}
-                onClick = {stopRest}
+                style={{display: setDone ? 'initial' : 'none'}}
+                // onClick = {}
                  >{!timerDone ? `${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
             </button>
          </div>
