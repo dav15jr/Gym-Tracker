@@ -28,8 +28,7 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
     }
     
     const countSets = () => {
-        // clearInterval(timer);
-        // stopRest();
+
         setCount((count) => count + 1);
 
         if (workout.sets-count <= 1) {
@@ -39,15 +38,15 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
         } else {
             setSetDone(true);
             setTimerDone(false);
-            setRestTime(workout.sets);
+            setRestTime(workout.rest);
         }
     }
 
-    useEffect(() => {
+    useEffect(() => {   //used for timer function, so that it runs during specific conditions only.
         console.log("im effected")
 
-        if (count ===0) return;
-        if (excerciseDone) return;
+        if (count ===0) return;  //check whether set count has begun.
+        if (excerciseDone) return; //check if the  excercise is finished.
         else {
 
         const intervalId = setInterval(() => {

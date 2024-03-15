@@ -85,6 +85,7 @@ export default function Form({
                                     </label>
                                     <input
                                         type="number"
+                                        min='1'
                                         placeholder="Amount"
                                         id="amount"
                                         name="amount"
@@ -99,6 +100,7 @@ export default function Form({
                         <label htmlFor="reps">No. of Reps:</label>
                         <input
                             type="number"
+                            min='1'
                             placeholder="Reps"
                             id="reps"
                             name="reps"
@@ -110,6 +112,7 @@ export default function Form({
                         <label htmlFor="sets">No. of Sets:</label>
                         <input
                             type="number"
+                            min='1'
                             placeholder="Sets"
                             id="sets"
                             name="sets"
@@ -122,6 +125,7 @@ export default function Form({
                         <label htmlFor="rest">Rest time (s):</label>
                         <input
                             type="number"
+                            min='5'
                             placeholder="Rest Time"
                             id="rest"
                             name="rest"
