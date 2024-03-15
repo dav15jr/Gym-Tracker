@@ -64,15 +64,15 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
         }
       }, [restTime, count, excerciseDone]);
 
-
-    
     return (
         <div className='exerciseDiv' id={`${workout.exercise}`}>
             <div className={!excerciseDone ? 'infoDiv' : 'exfin'} 
                 id={`${workout.exercise}info`} >
                 <h2>Exercise: {workout.exercise}</h2>
                 {workout.sets} sets of {workout.reps} reps{' '}
-                {workout.amount && `with ${workout.amount} ${workout.type}`} <br />
+                
+                {workout.type === 'body weight' ? `using ${workout.type}` :
+                `with ${workout.amount} ${workout.type}`} <br />
                 <span>Rest time:</span> {workout.rest} secs.
             </div>
             <div className='progressDiv' id={`${workout.exercise}bar`} 
