@@ -18,8 +18,14 @@ const Tool = () => {
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [workoutPlan, setWorkoutPlan] = useState([]);
     // Check the console to see the workoutPlans being added as you submit the form
-    console.log(workoutPlan);
-    console.log(exerciseData);
+
+        const deleteExercise = index => {  //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
+            setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
+              return oldPlan.filter((_, currentIndex) => currentIndex !== index)          //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
+            })
+          }
+
+
     return (
         <>
             <h1>Gym Tracker</h1>
@@ -35,9 +41,8 @@ const Tool = () => {
                 // Checking that the workout plan array has a length
                 // IF it does then loop through the Exercise component and return a seperate copy of that component
                 workoutPlan.length > 0 &&
-                    workoutPlan.map((workout) => {
-                    // May be best to use a different key here, perhaps the name of the workout
-                    return <Exercise key={workout.exercise} workout={workout} />;
+                    workoutPlan.map((workout, index) => {
+                    return <Exercise key={workout.exercise} workout={workout} index={index} deleteExercise={deleteExercise} />;
                     })
                 }
             </div>

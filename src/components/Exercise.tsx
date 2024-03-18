@@ -3,7 +3,8 @@ import { ExerciseData } from '../types';
 
 // This component should have its own individual state...
 
-const Exercise = ({ workout }: { workout: ExerciseData } ) => {
+export default function Exercise ({workout, deleteExercise, index}: { workout: ExerciseData, deleteExercise, index: number}) {
+
     const [excerciseStarted, setExcerciseStarted] = useState(false);
     const [excerciseDone, setExcerciseDone] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
@@ -43,8 +44,6 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
     }
 
     useEffect(() => {   //used for timer function, so that it runs during specific conditions only.
-        console.log("im effected")
-
         if (count ===0) return;  //check whether set count has begun.
         if (excerciseDone) return; //check if the  excercise is finished.
         else {
@@ -64,7 +63,7 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
       }, [restTime, count, excerciseDone]);
 
     return (
-        <div className='exerciseDiv' id={`${workout.exercise}`}>
+        <div className='exerciseDiv' id={`${workout.exercise}`} >
             <div className={!excerciseDone ? 'infoDiv' : 'exfin'} 
                 id={`${workout.exercise}info`} >
                 <h2>Exercise: {workout.exercise}</h2>
@@ -101,11 +100,11 @@ const Exercise = ({ workout }: { workout: ExerciseData } ) => {
                 className={!timerDone ? 'timerBtn': 'restDone'}
                 id={`${workout.exercise}timer`}
                 style={{display: setDone ? 'initial' : 'none'}}
-                // onClick = {}
+                // onClick = {deleteExercise}
+                onClick = {()=> deleteExercise(index)}
                  >{!timerDone ? `${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
             </button>
          </div>
     );
-};
+}
 
-export default Exercise;
