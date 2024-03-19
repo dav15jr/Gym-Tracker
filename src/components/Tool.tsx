@@ -14,16 +14,14 @@ const defaultExerciseState = {
 
 const Tool = () => {
     // I have moved the state up so that it can be shared with <Exercise /> component
-
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [workoutPlan, setWorkoutPlan] = useState([]);
-    // Check the console to see the workoutPlans being added as you submit the form
 
-        const deleteExercise = index => {  //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
-            setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
-              return oldPlan.filter((_, currentIndex) => currentIndex !== index)          //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
-            })
-          }
+    const deleteExercise = (index: number) => {               //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
+        setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
+            return oldPlan.filter((_, currentIndex) => currentIndex !== index)          //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
+        })
+        }
 
 
     return (

@@ -68,7 +68,6 @@ export default function Exercise ({workout, deleteExercise, index}: { workout: E
                 id={`${workout.exercise}info`} >
                 <h2>Exercise: {workout.exercise}</h2>
                 {workout.sets} sets of {workout.reps} reps{' '}
-                
                 {workout.type === 'body weight' ? `using ${workout.type}` :
                 `with ${workout.amount} ${workout.type}`} <br />
                 <span>Rest time:</span> {workout.rest} secs.
@@ -100,10 +99,17 @@ export default function Exercise ({workout, deleteExercise, index}: { workout: E
                 className={!timerDone ? 'timerBtn': 'restDone'}
                 id={`${workout.exercise}timer`}
                 style={{display: setDone ? 'initial' : 'none'}}
-                // onClick = {deleteExercise}
-                onClick = {()=> deleteExercise(index)}
+                // onClick = {}
                  >{!timerDone ? `${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
             </button>
+            <div>
+                <button
+                    className={'deleteBTN'}
+                    id={`${workout.exercise}delete`}
+                    onClick = {()=> deleteExercise(index)}
+                    > ×
+                </button>
+            </div>
          </div>
     );
 }
