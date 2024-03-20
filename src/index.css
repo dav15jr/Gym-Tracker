@@ -119,8 +119,10 @@ span{
   width:330px;
   height:fit-content;
   min-height: 250px;
-  border: 3px solid rgb(47, 164, 241);
-  background-color: rgb(27, 26, 26);
+  border-radius: 30px;
+  /* border: 3px solid rgb(47, 164, 241); */
+  background-color:rgba(179, 112, 255, 0.582);
+  /* opacity: 0.5; */
 }
 /* .infoDiv{
   margin-bottom: 5px;
@@ -147,7 +149,11 @@ span{
   font-weight: bold;
   text-decoration: line-through;
   text-decoration-thickness: 2.5px;
-  color:rgb(184, 177, 177);
+  color:rgb(184, 177, 177, 0.4);
+  h2 { 
+    color:rgba(138, 129, 129, 0.3);
+  }
+
 }
 /*---------------------Buttons-------------------*/
 button{
@@ -208,17 +214,18 @@ button:hover {
 }
 .deleteBTN{
   position: absolute;
-  top: 6px;
-  right: 16px;
-  font-size: 1.4em;
-  padding: 1px;
-  background-color: inherit;
+  top: 0px;
+  right: 10px;
+  font-size: 1.7em;
+  padding: 5px;
+  background-color: transparent;
   color:rgb(255, 255, 255);
   border:none;
+  transition: transform .4s;
 }
 .deleteBTN:hover{
-  font-size: 2em;
-  background-color: inherit;
+  transform: scale(1.8); /* zoom 150% */
+  background-color: transparent;
   color:rgb(255, 118, 6);
 }
 .restDone{

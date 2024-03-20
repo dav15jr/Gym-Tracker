@@ -3,7 +3,7 @@ import { ExerciseData } from '../types';
 
 // This component should have its own individual state...
 
-export default function Exercise ({workout, deleteExercise, index}: { workout: ExerciseData, deleteExercise, index: number}) {
+export default function Exercise ({workout, deleteExercise, index, setShowForm}: { workout: ExerciseData, deleteExercise, index: number, setShowForm}) {
 
     const [excerciseStarted, setExcerciseStarted] = useState(false);
     const [excerciseDone, setExcerciseDone] = useState(false);
@@ -15,17 +15,13 @@ export default function Exercise ({workout, deleteExercise, index}: { workout: E
     const [restTime, setRestTime] = useState(workout.rest);
     const [count, setCount] = useState(0);
 
-    const form = document.querySelector('form');
-    const formBtn = document.getElementById('formBtn');
-
     
     const startExercise = () => {  
-        formBtn.style.display = 'block';
-        form.style.display = "none"
         setCount(0);
         setExcerciseDone(false);
-        setExcerciseStarted(true);
-        setShowProgress(true);
+        setExcerciseStarted(true); 
+        setShowProgress(true);  // show progress bar
+        setShowForm(false);     //set state to hide the form and show add exercise
     }
     
     const countSets = () => {
@@ -100,16 +96,14 @@ export default function Exercise ({workout, deleteExercise, index}: { workout: E
                 id={`${workout.exercise}timer`}
                 style={{display: setDone ? 'initial' : 'none'}}
                 // onClick = {}
-                 >{!timerDone ? `${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
+                 >{!timerDone ? `⏳ ${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
             </button>
-            <div>
                 <button
-                    className={'deleteBTN'}
+                    className='deleteBTN'
                     id={`${workout.exercise}delete`}
                     onClick = {()=> deleteExercise(index)}
                     > ×
                 </button>
-            </div>
          </div>
     );
 }
