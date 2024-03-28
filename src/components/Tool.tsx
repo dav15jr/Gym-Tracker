@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
 // import './src/index.css';
@@ -15,7 +15,10 @@ const defaultExerciseState = {
 const Tool = () => {
     // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
+    const [loadWorkout, setLoadWorkout] = useState();
     const [workoutPlan, setWorkoutPlan] = useState([]);
+    const [savedWorkouts, setSavedWorkouts] = useState([]);
+    const [workoutExists, setWorkoutExists] = useState(false);
     const [showForm, setShowForm] = useState(true);
 
     const deleteExercise = (index: number) => {               //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
@@ -23,7 +26,31 @@ const Tool = () => {
             return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
         })
         }
+        
+    useEffect(() => {
+        const workouts = Object.entries(localStorage) 
+        const storedNames = Object.keys(localStorage);
+        setSavedWorkouts(storedNames.filter((name) => name !== 'debug')) // filter out the debug entry in local storage    
 
+    if (workouts.length > 1){
+        setWorkoutExists(true)
+        }
+    },[workoutPlan])    
+
+console.log(workoutPlan);
+
+const loadWorkoutPlan = () => {
+    const load = JSON.parse(localStorage.getItem(`${loadWorkout}`))
+    setWorkoutPlan([...workoutPlan, load])
+    }
+
+const handleSelect =(e) => {
+    setLoadWorkout(e.target.value)
+    }
+// const saveWorkoutPlan = (workoutName) => {
+//     const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
+//     localStorage.setItem(`${workoutName}`, json);
+// }
 
     return (
         <>
@@ -39,6 +66,18 @@ const Tool = () => {
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
                 </button>)}
+            {workoutExists && 
+            <div>
+                <select onChange={handleSelect} >
+                    <option value="">Select Workout</option> {
+                        savedWorkouts.map((workout, index) => (
+                        <option key={index} value={workout}>{workout}</option>
+                    ))
+                    }
+                </select>
+                <button onClick={loadWorkoutPlan}>Load Workout</button>
+            </div>}
+            {workoutPlan.length > 0 && <button>Save WorkOut</button>} 
 
             <div className='workoutDiv' >
                 {

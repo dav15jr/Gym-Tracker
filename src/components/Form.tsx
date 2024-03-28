@@ -31,7 +31,6 @@ export default function Form({
         setExerciseData(defaultExerciseState);   // Set default exercise state
         
         document.querySelector('form').reset(); //Reset the form
-
     }
 
     return (
