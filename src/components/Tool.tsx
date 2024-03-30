@@ -38,11 +38,17 @@ const Tool = () => {
     },[workoutPlan])    
 
 console.log(workoutPlan);
+const currentExercises = workoutPlan.map((workout) => workout.exercise)
+console.log(currentExercises);
 
 const loadWorkoutPlan = () => {
-    const load = JSON.parse(localStorage.getItem(`${loadWorkout}`))
-    setWorkoutPlan([...workoutPlan, load])
+    if(currentExercises.includes(`${loadWorkout}`)){    //check if the current exercise already exists
+        alert('Sorry,I exist already')
+    } else{
+        const load = JSON.parse(localStorage.getItem(`${loadWorkout}`)) //load the exercise if it is not already loaded.
+        setWorkoutPlan([...workoutPlan, load])
     }
+}
 
 const handleSelect =(e) => {
     setLoadWorkout(e.target.value)
