@@ -1,138 +1,110 @@
-// import { useState } from 'react'
-// import './index.css'
-// import Exercise from './components/Exercise.jsx'
+import { useState, useEffect} from 'react';
+import { ExerciseData } from '../types';
 
-export default function Exercise(props) {
+// This component should have its own individual state...
 
-//----------------------- Create Exercise ----------------
+export default function Exercise ({workout, deleteExercise, index, setShowForm}: { workout: ExerciseData, deleteExercise, index: number, setShowForm}) {
 
-  const {exercise, type, amount, reps, sets, rest} = props
+    const [excerciseStarted, setExcerciseStarted] = useState(false);
+    const [excerciseDone, setExcerciseDone] = useState(false);
+    const [showProgress, setShowProgress] = useState(false);
 
-      const infoDiv = document.createElement("div")
-      const progressDiv = document.createElement("div")
-      const exerciseDiv = document.createElement("div")
-      const progressEle = document.createElement("progress")
-      const startBtn = document.createElement("button")
-      const setBtn = document.createElement("button")
-      const timerBtn = document.createElement("button")
-      const exeName = exercise;
-        
-      
-      exerciseDiv.id = `${exeName}`;
-      infoDiv.id = `${exeName}info`;
-      progressDiv.id = `${exeName}bar`;
-      setBtn.id = `${exeName}set`;
-      startBtn.id = `${exeName}start`;    
-      timerBtn.id = `${exeName}timer`;
-      startBtn.textContent = `Start ${exeName}`;
-      timerBtn.style.display = "none";
-      setBtn.style.display = "none";
-      timerBtn.classList.add('timerBtn');
-      progressEle.classList.add('bar');
-      
-      infoDiv.innerHTML = `
-      <div>
-      <h2>Exercise: ${exercise}</h2>
-      ${sets} sets of ${reps} reps
-      with ${amount} ${type} <br/>
-      <span>Rest time:</span> ${rest} secs.
-      </div>             
-      `; 
-      
-      document.getElementById('data').appendChild(exerciseDiv);
-      document.getElementById(`${exeName}`).appendChild(infoDiv);
-      document.getElementById(`${exeName}`).appendChild(progressDiv);
-      document.getElementById(`${exeName}`).appendChild(startBtn);
-      document.getElementById(`${exeName}`).appendChild(timerBtn);
+    const [timerDone, setTimerDone] = useState(false);
+    const [setDone, setSetDone] = useState(false);
+    
+    const [restTime, setRestTime] = useState(workout.rest);
+    const [count, setCount] = useState(0);
 
-      
-
-//----------------------Functions--------------------
-
-    const progressBar = () => {    // create a progress bar and add it to its div element
-          progressEle.setAttribute("value", "0");
-          progressEle.setAttribute("max", `${sets}`);
-
-          document.getElementById(`${exeName}bar`).innerText = 'Progress:' ;
-          document.getElementById(`${exeName}bar`).appendChild(progressEle);
-          document.getElementById(`${exeName}bar`).appendChild(setBtn);
-        }
-               
-    const showStartButton = () => {  
-          startBtn.style.display = "initial";
-          startBtn.textContent = `Restart ${exeName}`;
-          startBtn.addEventListener('click', resetExercise);
-        }
-        
-    const showSetButton = () => {  
-          const form = document.querySelector('form');
-          const formBtn = document.getElementById('formBtn');
-          formBtn.style.display = 'block';
-          form.style.display = "none"
-          startBtn.style.display = "none";
-          setBtn.style.display = "block";
-          setBtn.textContent = `${count--} sets left.`
-          setBtn.addEventListener('click', countSets);
-          progressBar();
-        }
-
-        startBtn.addEventListener('click', showSetButton);
-
-    const toggleBtn = () => {
-          infoDiv.classList.toggle('exfin');
-          setBtn.classList.toggle('btnFin');
-        }
-
-    const resetExercise = () => {
-          startBtn.style.display = "none"
-          setBtn.disabled = false;
-          toggleBtn();
-          progressBar();
-        }
-        
-        let count = sets;
-
+    
+    const startExercise = () => {  
+        setCount(0);
+        setExcerciseDone(false);
+        setExcerciseStarted(true); 
+        setShowProgress(true);  // show progress bar
+        setShowForm(false);     //set state to hide the form and show add exercise
+    }
+    
     const countSets = () => {
-          stopRest();
-          progressEle.value += 1;
-          
-          if (count < 1) {
-            setBtn.textContent = `Done 💪`
-            count = sets;
-            setBtn.disabled = true;
-            timerBtn.style.display = "none";
-            showStartButton();
-            toggleBtn();
-            
-          } else {
-            setBtn.textContent = `${count--} sets left.`
-            timerBtn.style.display = "block";
-            timerBtn.textContent = `${restTime}'s rest left.`
-            timerBtn.addEventListener('click', stopRest);
-            startTime();
-          }
-        }
-        
-      let timer;
-      let restTime = rest;
 
-      const startTime = () =>{ 
-          timer = setInterval(counter, 1000);
-          restTime = rest;
-          timerBtn.textContent = `${restTime}'s rest left.`
-          timerBtn.classList.remove('restDone');
-          } 
+        setCount((count) => count + 1);
 
-      const counter = () =>{
-          restTime--;
-          timerBtn.textContent = `${restTime}'s rest left.`
-          
-          if (restTime == 0){
-            stopRest();
-            timerBtn.classList.add('restDone');
-            timerBtn.textContent = `Get back to work.🏋️‍♂️`;
-          }
+        if (workout.sets-count <= 1) {
+            setExcerciseDone(true);
+            setSetDone(false);
+            setExcerciseStarted(false);
+        } else {
+            setSetDone(true);
+            setTimerDone(false);
+            setRestTime(workout.rest);
         }
-        const stopRest = () => clearInterval(timer);
+    }
+
+    useEffect(() => {   //used for timer function, so that it runs during specific conditions only.
+        if (count ===0) return;  //check whether set count has begun.
+        if (excerciseDone) return; //check if the  excercise is finished.
+        else {
+
+        const intervalId = setInterval(() => {
+                if (restTime === 0) {
+                    setTimerDone(true);
+                    clearInterval(intervalId);
+                    return
+                } else;
+                setRestTime(time => time - 1);
+        }, 1000);
+    
+        // clear interval on re-render to avoid memory leaks
+        return () => clearInterval(intervalId);
+        }
+      }, [restTime, count, excerciseDone]);
+
+    return (
+        <div className='exerciseDiv' id={`${workout.exercise}`} >
+            <div className={!excerciseDone ? 'infoDiv' : 'exfin'} 
+                id={`${workout.exercise}info`} >
+                <h2>Exercise: {workout.exercise}</h2>
+                {workout.sets} sets of {workout.reps} reps{' '}
+                {workout.type === 'body weight' ? `using ${workout.type}` :
+                `with ${workout.amount} ${workout.type}`} <br />
+                <span>Rest time:</span> {workout.rest} secs.
+            </div>
+            <div className='progressDiv' id={`${workout.exercise}bar`} 
+                style={{ display: showProgress ? 'inherit' : 'none' }}>
+                Progress:
+                <progress 
+                    className='progressEle' 
+                    id={`${workout.exercise}progress`}
+                    value={`${count}`}
+                    max={`${workout.sets}`}>
+                </progress>
+                <button
+                    className={!excerciseDone ? 'setBtn' : 'btnFin'} 
+                    id={`${workout.exercise}set`}
+                    onClick = {countSets}
+                    >{!excerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
+                </button>
+            </div>
+            <button 
+                className='startBtn' 
+                id={`${workout.exercise}start`} 
+                style={{display: excerciseStarted ? 'none' : 'initial' }}
+                onClick = {startExercise}
+                > {!excerciseDone ? 'Start' : 'Restart' }{` ${workout.exercise}`}
+            </button>
+            <button
+                className={!timerDone ? 'timerBtn': 'restDone'}
+                id={`${workout.exercise}timer`}
+                style={{display: setDone ? 'initial' : 'none'}}
+                // onClick = {}
+                 >{!timerDone ? `⏳ ${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
+            </button>
+                <button
+                    className='deleteBTN'
+                    id={`${workout.exercise}delete`}
+                    onClick = {()=> deleteExercise(index)}
+                    > ×
+                </button>
+         </div>
+    );
 }
 

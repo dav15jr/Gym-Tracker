@@ -4,15 +4,15 @@ import ReactDOM from 'react-dom/client'
 // import App2 from '../tests/App2.tsx'
 // import Exercise from './components/Exercise.jsx'
 // import Exercise2 from './components/Exercise.js'
-import Form from './components/Form.jsx'
+import Tool from './components/Tool'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
    <>
-    <Form />
-    {/* <App /> */}
-    {/* <App2 /> */}
-    {/* <Exercise /> */}
-    {/* <Exercise2 /> */}
+      <Tool />
+      {/* <App /> */}
+      {/* <App2 /> */}
+      {/* <Exercise /> */}
+      {/* <Exercise2 /> */}
    </>
 )
