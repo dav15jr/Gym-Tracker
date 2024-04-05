@@ -37,14 +37,16 @@ const Tool = () => {
         }
     },[workoutPlan])    
 
-console.log(workoutPlan);
 const currentExercises = workoutPlan.map((workout) => workout.exercise)
-console.log(currentExercises);
 
 const loadWorkoutPlan = () => {
     if(currentExercises.includes(`${loadWorkout}`)){    //check if the current exercise already exists
-        alert('Sorry,I exist already')
-    } else{
+        alert('Sorry, Workout already exists')
+    } 
+    else if(!loadWorkout){    //check if the current exercise already exists
+        alert('Please select a Workout')
+    } 
+    else{
         const load = JSON.parse(localStorage.getItem(`${loadWorkout}`)) //load the exercise if it is not already loaded.
         setWorkoutPlan([...workoutPlan, load])
     }
@@ -53,10 +55,12 @@ const loadWorkoutPlan = () => {
 const handleSelect =(e) => {
     setLoadWorkout(e.target.value)
     }
-// const saveWorkoutPlan = (workoutName) => {
-//     const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
-//     localStorage.setItem(`${workoutName}`, json);
-// }
+const saveWorkoutPlan = (event) => {
+    event.preventDefault();
+    const workoutName = event.target.input.value
+    const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
+    localStorage.setItem(`${workoutName}`, json);
+}
 
     return (
         <>
@@ -83,7 +87,14 @@ const handleSelect =(e) => {
                 </select>
                 <button onClick={loadWorkoutPlan}>Load Workout</button>
             </div>}
-            {workoutPlan.length > 0 && <button>Save WorkOut</button>} 
+            {workoutPlan.length > 0 && 
+            <div>
+                <form onSubmit={saveWorkoutPlan}>
+                    <input name='input' type="text" placeholder='Workout Name'></input>
+                    <button type='submit'>Save WorkOut</button>
+                </form>
+            </div>
+            } 
 
             <div className='workoutDiv' >
                 {
