@@ -32,12 +32,24 @@ const Tool = () => {
         const storedNames = Object.keys(localStorage);
         setSavedWorkouts(storedNames.filter((name) => name !== 'debug')) // filter out the debug entry in local storage    
 
-    if (workouts.length > 1){
-        setWorkoutExists(true)
-        }
+        if (workouts.length > 1){
+            setWorkoutExists(true)
+            }
     },[workoutPlan])    
 
-const currentExercises = workoutPlan.map((workout) => workout.exercise)
+    
+    const handleSelect =(e) => {
+        setLoadWorkout(e.target.value)
+    }
+    
+    const saveWorkoutPlan = (event) => {
+        event.preventDefault();
+        const workoutName = event.target.input.value
+        const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
+        localStorage.setItem(`${workoutName}`, json);
+    }
+
+const currentExercises = workoutPlan.map((workout) => workout.exercise);
 
 const loadWorkoutPlan = () => {
     if(currentExercises.includes(`${loadWorkout}`)){    //check if the current exercise already exists
@@ -48,20 +60,20 @@ const loadWorkoutPlan = () => {
     } 
     else{
         const load = JSON.parse(localStorage.getItem(`${loadWorkout}`)) //load the exercise if it is not already loaded.
-        setWorkoutPlan([...workoutPlan, load])
-    }
-}
+    
+        const mergedArray = [...workoutPlan, ...load];  //merge the current workout with the loaded workout.
+        const uniqueArray = mergedArray.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
+            return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
+                obj.exercise === item.exercise // Example: Comparing objects based on 'id' property
+            ));
+        });
 
-const handleSelect =(e) => {
-    setLoadWorkout(e.target.value)
-    }
-const saveWorkoutPlan = (event) => {
-    event.preventDefault();
-    const workoutName = event.target.input.value
-    const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
-    localStorage.setItem(`${workoutName}`, json);
-}
+        console.log(mergedArray)
+        console.log(uniqueArray)
 
+        setWorkoutPlan(uniqueArray)
+    }
+} 
     return (
         <>
             <h1>Gym Tracker</h1>

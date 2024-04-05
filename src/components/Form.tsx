@@ -7,8 +7,6 @@ export default function Form({
     workoutPlan,
     defaultExerciseState,
 }) {
-    // Setting to strings because if it was undefined, it thinks we are going from a
-    // uncontrolled -> controlled component
     function handleChange(event) {
         const { name, value } = event.target;
         setExerciseData((prevData) => {
@@ -18,15 +16,13 @@ export default function Form({
             };
         });
     }
-    // const formBtn = document.getElementById('formBtn');
-    // const form = document.querySelector('form');
-
+    const currentExercises = workoutPlan.map((workout) => workout.exercise);
     function handleSubmit(event) {
         event.preventDefault();
-
-        const json = JSON.stringify(exerciseData);   //Convert the object to a string and store it in the local storage
-        localStorage.setItem(`${exerciseData.exercise}`, json);
-
+        if(currentExercises.includes(`${exerciseData.exercise}`)){    //check if the current exercise already exists
+            alert('Sorry, Workout already exists - Change name')     // Throw error to change name - to ensure no duplicates
+            return
+        } 
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
         
