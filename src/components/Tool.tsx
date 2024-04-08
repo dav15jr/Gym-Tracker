@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
+import defaultExercises from '../assets/defaultExercises';
 // import './src/index.css';
 
 const defaultExerciseState = {
     exercise: '',
-    type: 'Resistance',
+    type: 'kgs',
     amount: '',
     reps: '',
     sets: '',
@@ -21,7 +22,7 @@ const Tool = () => {
     const [workoutExists, setWorkoutExists] = useState(false);
     const [showForm, setShowForm] = useState(true);
 
-    const deleteExercise = (index: number) => {               //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
+    const deleteExercise = (index: number) => {      //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
         setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
             return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
         })
@@ -40,6 +41,21 @@ const Tool = () => {
     
     const handleSelect =(e) => {
         setLoadWorkout(e.target.value)
+    }
+    const handleExe =(e) => {
+        const val = (e.target.value)
+        const def = defaultExercises.filter((ex) => ex.exercise === val)
+        console.log(def)
+        setExerciseData(def[0])
+    }
+    const loadExe = ()=>{
+        setExerciseData((prevData) => {
+            return {
+                ...prevData,
+                exercise: exerciseData.exercise,
+            };
+        });
+        console.log(exerciseData)
     }
     
     const saveWorkoutPlan = (event) => {
@@ -61,17 +77,13 @@ const loadWorkoutPlan = () => {
     else{
         const load = JSON.parse(localStorage.getItem(`${loadWorkout}`)) //load the exercise if it is not already loaded.
     
-        const mergedArray = [...workoutPlan, ...load];  //merge the current workout with the loaded workout.
-        const uniqueArray = mergedArray.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
+        const mergedWorkout = [...load, ...workoutPlan];  //merge the current workout with the loaded workout.
+        const newWorkoutPlan = mergedWorkout.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
             return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
-                obj.exercise === item.exercise // Example: Comparing objects based on 'id' property
+                obj.exercise === item.exercise // Compare objects based on 'exercise' property
             ));
         });
-
-        console.log(mergedArray)
-        console.log(uniqueArray)
-
-        setWorkoutPlan(uniqueArray)
+        setWorkoutPlan(newWorkoutPlan)
     }
 } 
     return (
@@ -99,6 +111,16 @@ const loadWorkoutPlan = () => {
                 </select>
                 <button onClick={loadWorkoutPlan}>Load Workout</button>
             </div>}
+            <div> 
+                <select onChange={handleExe} >
+                    <option value="">Select Exercise</option> {
+                        defaultExercises.map((ex, index) => (
+                        <option key={index} value={ex.exercise}>{ex.exercise}</option>
+                    ))
+                    }
+                </select>
+                <button onClick={loadExe}>Load Exercise</button>
+            </div>
             {workoutPlan.length > 0 && 
             <div>
                 <form onSubmit={saveWorkoutPlan}>

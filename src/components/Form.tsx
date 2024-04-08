@@ -16,7 +16,8 @@ export default function Form({
             };
         });
     }
-    const currentExercises = workoutPlan.map((workout) => workout.exercise);
+const currentExercises = workoutPlan.map((workout) => workout.exercise);
+
     function handleSubmit(event) {
         event.preventDefault();
         if(currentExercises.includes(`${exerciseData.exercise}`)){    //check if the current exercise already exists
