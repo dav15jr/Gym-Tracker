@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
-import defaultExercises from '../assets/defaultExercises';
 // import './src/index.css';
 
 const defaultExerciseState = {
     exercise: '',
-    type: 'kgs',
+    type: '',
     amount: '',
     reps: '',
     sets: '',
@@ -42,22 +41,6 @@ const Tool = () => {
     const handleSelect =(e) => {
         setLoadWorkout(e.target.value)
     }
-    const handleExe =(e) => {
-        const val = (e.target.value)
-        const def = defaultExercises.filter((ex) => ex.exercise === val)
-        console.log(def)
-        setExerciseData(def[0])
-    }
-    const loadExe = ()=>{
-        setExerciseData((prevData) => {
-            return {
-                ...prevData,
-                exercise: exerciseData.exercise,
-            };
-        });
-        console.log(exerciseData)
-    }
-    
     const saveWorkoutPlan = (event) => {
         event.preventDefault();
         const workoutName = event.target.input.value
@@ -111,16 +94,6 @@ const loadWorkoutPlan = () => {
                 </select>
                 <button onClick={loadWorkoutPlan}>Load Workout</button>
             </div>}
-            <div> 
-                <select onChange={handleExe} >
-                    <option value="">Select Exercise</option> {
-                        defaultExercises.map((ex, index) => (
-                        <option key={index} value={ex.exercise}>{ex.exercise}</option>
-                    ))
-                    }
-                </select>
-                <button onClick={loadExe}>Load Exercise</button>
-            </div>
             {workoutPlan.length > 0 && 
             <div>
                 <form onSubmit={saveWorkoutPlan}>

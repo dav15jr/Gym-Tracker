@@ -62,5 +62,13 @@ export default [
         reps: '10',
         sets: '3',
         rest: '60',
+    },
+    {   
+        exercise: 'Custom',
+        type: 'body weight',
+        amount: '',
+        reps: '',
+        sets: '',
+        rest: '',
     }
 ]
