@@ -107,6 +107,11 @@ span{
   /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(3, 214, 144); */
 }
+.workoutTitle{
+  display: flex;
+  justify-content:center ;
+  align-content: center;
+}
 .exerciseDiv{
   position: relative;
   display: flex;

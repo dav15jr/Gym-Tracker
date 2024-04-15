@@ -45,7 +45,7 @@ export default function Form({
                         <input
                             type="text"
                             list='data'
-                            placeholder="Choose Exercise"
+                            placeholder="Select Exercise"
                             id="exercise"
                             name="exercise"
                             onChange={handleChange}  // Handle change from typed input.
