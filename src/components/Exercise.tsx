@@ -62,7 +62,7 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
         <div className='exerciseDiv' id={`${workout.exercise}`} >
             <div className={!excerciseDone ? 'infoDiv' : 'exfin'} 
                 id={`${workout.exercise}info`} >
-                <h2>Exercise: {workout.exercise}</h2>
+                <h2>{workout.exercise}</h2>
                 {workout.sets} sets of {workout.reps} reps{' '}
                 {workout.type === 'body weight' ? `using ${workout.type}` :
                 `with ${workout.amount} ${workout.type}`} <br />

@@ -7,6 +7,7 @@ export default function Form({
     setWorkoutPlan,
     workoutPlan,
     defaultExerciseState,
+    setWorkoutChanged,
 }) {
     function handleChange(event) {   //  Handle forn input value change
         const {name, value } = event.target;
@@ -20,7 +21,6 @@ export default function Form({
     const handleExe =(e) => { // Handle exercise selection, when dropdown data list is used
         const val = (e.target.value)
         const def = defaultExercises.filter((ex) => ex.exercise === val)
-        console.log(def)
         setExerciseData(def[0])
     }
     const currentExercises = workoutPlan.map((workout) => workout.exercise);
@@ -28,17 +28,27 @@ export default function Form({
     function handleSubmit(event) {
         event.preventDefault();
         if(currentExercises.includes(`${exerciseData.exercise}`)){    //check if the current exercise already exists
-            alert('Sorry, Workout already exists - Change name')     // Throw error to change name - to ensure no duplicates
+            alert('Sorry, Exercise already exists - Change name')     // Throw error to change name - to ensure no duplicates
+            setExerciseData((prevData) => {
+                return {
+                    ...prevData,
+                    exercise: '',
+                };
+            });
+            console.log(exerciseData)
             return
         } 
+
+        console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
         // document.querySelector('form').reset(); //Reset the form
+        setWorkoutChanged(true)
     }
+
 
     return (
         <>
-            <div className="inputs" id="inputs">
                 <form className="form" id="form" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="exercise">Exercise:</label>
@@ -84,6 +94,7 @@ export default function Form({
                                         name="amount"
                                         onChange={handleChange}
                                         value={exerciseData.amount}
+                                        required
                                     />
                                 </>
                             )
@@ -99,6 +110,7 @@ export default function Form({
                             name="reps"
                             onChange={handleChange}
                             value={exerciseData.reps}
+                            required
                         ></input>
                     </div>
                     <div>
@@ -128,11 +140,10 @@ export default function Form({
                         ></input>
                     </div>
                     <br></br>
-                    <button id="submit-btn" type="submit">
-                        Save Exercise
+                    <button id="formSubmitBtn" type="submit">
+                        Add Exercise
                     </button>
                 </form>
-            </div>
         </>
     );
 }
