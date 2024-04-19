@@ -38,7 +38,6 @@ export default function Form({
             console.log(exerciseData)
             return
         } 
-
         console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state

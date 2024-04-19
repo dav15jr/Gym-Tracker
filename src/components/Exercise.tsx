@@ -1,37 +1,32 @@
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import { ExerciseData } from '../types';
-
+import useTimer from '../assets/hooks/useTimer';
 // This component should have its own individual state...
 
 export default function Exercise ({workout, deleteExercise, index, setShowForm}: { workout: ExerciseData, deleteExercise, index: number, setShowForm}) {
 
-    const [excerciseStarted, setExcerciseStarted] = useState(false);
-    const [excerciseDone, setExcerciseDone] = useState(false);
+    const [exerciseStarted, setExerciseStarted] = useState(false);
+    const [exerciseDone, setExerciseDone] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
-
-    const [timerDone, setTimerDone] = useState(false);
     const [setDone, setSetDone] = useState(false);
-    
-    const [restTime, setRestTime] = useState(workout.rest);
     const [count, setCount] = useState(0);
+    const { restTime, setRestTime, timerDone, setTimerDone} 
+        = useTimer(workout.rest, count, exerciseDone);
 
-    
     const startExercise = () => {  
         setCount(0);
-        setExcerciseDone(false);
-        setExcerciseStarted(true); 
+        setExerciseDone(false);
+        setExerciseStarted(true); 
         setShowProgress(true);  // show progress bar
         setShowForm(false);     //set state to hide the form and show add exercise
     }
-    
+
     const countSets = () => {
-
         setCount((count) => count + 1);
-
         if (workout.sets-count <= 1) {
-            setExcerciseDone(true);
+            setExerciseDone(true);
             setSetDone(false);
-            setExcerciseStarted(false);
+            setExerciseStarted(false);
         } else {
             setSetDone(true);
             setTimerDone(false);
@@ -39,28 +34,9 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
         }
     }
 
-    useEffect(() => {   //used for timer function, so that it runs during specific conditions only.
-        if (count ===0) return;  //check whether set count has begun.
-        if (excerciseDone) return; //check if the  excercise is finished.
-        else {
-
-        const intervalId = setInterval(() => {
-                if (restTime === 0) {
-                    setTimerDone(true);
-                    clearInterval(intervalId);
-                    return
-                } else;
-                setRestTime(time => time - 1);
-        }, 1000);
-    
-        // clear interval on re-render to avoid memory leaks
-        return () => clearInterval(intervalId);
-        }
-      }, [restTime, count, excerciseDone]);
-
     return (
         <div className='exerciseDiv' id={`${workout.exercise}`} >
-            <div className={!excerciseDone ? 'infoDiv' : 'exfin'} 
+            <div className={!exerciseDone ? 'infoDiv' : 'exfin'} 
                 id={`${workout.exercise}info`} >
                 <h2>{workout.exercise}</h2>
                 {workout.sets} sets of {workout.reps} reps{' '}
@@ -78,18 +54,18 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                     max={`${workout.sets}`}>
                 </progress>
                 <button
-                    className={!excerciseDone ? 'setBtn' : 'btnFin'} 
+                    className={!exerciseDone ? 'setBtn' : 'btnFin'} 
                     id={`${workout.exercise}set`}
                     onClick = {countSets}
-                    >{!excerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
+                    >{!exerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
                 </button>
             </div>
             <button 
                 className='startBtn' 
                 id={`${workout.exercise}start`} 
-                style={{display: excerciseStarted ? 'none' : 'initial' }}
+                style={{display: exerciseStarted ? 'none' : 'initial' }}
                 onClick = {startExercise}
-                > {!excerciseDone ? 'Start' : 'Restart' }{` ${workout.exercise}`}
+                > {!exerciseDone ? 'Start' : 'Restart' }{` ${workout.exercise}`}
             </button>
             <button
                 className={!timerDone ? 'timerBtn': 'restDone'}

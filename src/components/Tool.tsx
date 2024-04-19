@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
+import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
+import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
 // import './src/index.css';
 
 const defaultExerciseState = {
@@ -17,37 +19,20 @@ const Tool = () => {
     const [loadedWorkout, setLoadedWorkout] = useState();
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
-    const [savedWorkouts, setSavedWorkouts] = useState([]);
     const [workoutChanged, setWorkoutChanged] = useState(false);
-    const [workoutExists, setWorkoutExists] = useState(false);
-    const [showWorkoutTitle, setShowWorkoutTitle] = useState(false);
     const [showForm, setShowForm] = useState(true);
 
-
+    const { workoutExists, savedWorkouts, storedWorkouts} = useCheckStoredWorkouts(workoutName);
+    const {showWorkoutTitle, setShowWorkoutTitle} = useSetWorkoutTitle(workoutPlan)
         
-useEffect(() => {
-        const workouts = Object.entries(localStorage) 
-        if (workouts.length > 1){  //check if a workout exists - not including the 'debug' hence using > 1 not > 0
-            setWorkoutExists(true)
-        }
-        storedWorkouts();
-    },[workoutName])  
+useCheckStoredWorkouts(workoutName);   //custom hook to check local storage and load workout list.
 
-const storedWorkouts = () => {
-    const storedNames = Object.keys(localStorage);
-    setSavedWorkouts(storedNames.filter((name) => name !== 'debug')) // filter out the 'debug' entry in local storage    
-    }
-
-useEffect(() => {
-    if(workoutPlan.length < 2) {
-        setShowWorkoutTitle(false)
-        }
-        // setWorkoutChanged(true)
-    }, [workoutPlan])
+useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden. 
 
 const handleSelect =(e) => {
         setLoadedWorkout(e.target.value)
     }
+
 const saveWorkoutPlan = (event) => {
         event.preventDefault();
         const workoutTitle = event.target.workoutName.value
@@ -81,6 +66,7 @@ const loadWorkout = () => {
         setWorkoutChanged(false)
         }
     } 
+
 const delWorkout = () => {
     localStorage.removeItem(`${loadedWorkout}`);
     storedWorkouts();
@@ -110,8 +96,8 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             <div className='loadsave'>
             {workoutExists && 
             <div>
-                <select onChange={handleSelect} defaultValue='select'>
-                    <option value='select'selected>Select Workout</option> {
+                <select onChange={handleSelect} defaultValue='default'>
+                    <option value='default'>Select Workout</option> {
                         savedWorkouts.map((workout, index) => (
                         <option key={index} value={workout}>{workout}</option>
                     ))
