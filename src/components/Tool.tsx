@@ -1,67 +1,83 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Exercise from './Exercise';
 import Form from './Form';
+import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
+import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
 // import './src/index.css';
 
 const defaultExerciseState = {
     exercise: '',
-    type: 'Resistance',
+    type: 'resistance',
     amount: '',
     reps: '',
     sets: '',
     rest: '',
 };
-
 const Tool = () => {
     // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
-    const [loadWorkout, setLoadWorkout] = useState();
+    const [loadedWorkout, setLoadedWorkout] = useState();
+    const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
-    const [savedWorkouts, setSavedWorkouts] = useState([]);
-    const [workoutExists, setWorkoutExists] = useState(false);
+    const [workoutChanged, setWorkoutChanged] = useState(false);
     const [showForm, setShowForm] = useState(true);
 
-    const deleteExercise = (index: number) => {               //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
-        setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
-            return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
-        })
-        }
+    const { workoutExists, savedWorkouts, storedWorkouts} = useCheckStoredWorkouts(workoutName);
+    const {showWorkoutTitle, setShowWorkoutTitle} = useSetWorkoutTitle(workoutPlan)
         
-    useEffect(() => {
-        const workouts = Object.entries(localStorage) 
-        const storedNames = Object.keys(localStorage);
-        setSavedWorkouts(storedNames.filter((name) => name !== 'debug')) // filter out the debug entry in local storage    
+useCheckStoredWorkouts(workoutName);   //custom hook to check local storage and load workout list.
 
-    if (workouts.length > 1){
-        setWorkoutExists(true)
-        }
-    },[workoutPlan])    
-
-const currentExercises = workoutPlan.map((workout) => workout.exercise)
-
-const loadWorkoutPlan = () => {
-    if(currentExercises.includes(`${loadWorkout}`)){    //check if the current exercise already exists
-        alert('Sorry, Workout already exists')
-    } 
-    else if(!loadWorkout){    //check if the current exercise already exists
-        alert('Please select a Workout')
-    } 
-    else{
-        const load = JSON.parse(localStorage.getItem(`${loadWorkout}`)) //load the exercise if it is not already loaded.
-        setWorkoutPlan([...workoutPlan, load])
-    }
-}
+useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden. 
 
 const handleSelect =(e) => {
-    setLoadWorkout(e.target.value)
+        setLoadedWorkout(e.target.value)
     }
+
 const saveWorkoutPlan = (event) => {
-    event.preventDefault();
-    const workoutName = event.target.input.value
-    const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
-    localStorage.setItem(`${workoutName}`, json);
+        event.preventDefault();
+        const workoutTitle = event.target.workoutName.value
+        const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
+        localStorage.setItem(`${workoutTitle}`, json);
+        setWorkoutName(workoutTitle)  
+        setShowWorkoutTitle(true);
+        setWorkoutChanged(false)
+    }
+
+const currentWorkouts = workoutPlan.map((workout) => workout.exercise);
+
+const loadWorkout = () => {
+    if(currentWorkouts.includes(`${loadedWorkout}`)){    //check if the current exercise already exists
+        alert('Sorry, Workout already exists')
+        } 
+    else if(!loadedWorkout){    //check if the current workout already exists
+        alert('Please select a Workout')
+        } 
+    else{
+        const load = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
+        const mergedWorkout = [...load, ...workoutPlan];  //merge the current workout with the loaded workout.
+        const newWorkoutPlan = mergedWorkout.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
+            return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
+            obj.exercise === item.exercise // Compare objects based on 'exercise' property
+        ));
+    });
+    setWorkoutName(loadedWorkout)
+        setWorkoutPlan(newWorkoutPlan)
+        setShowWorkoutTitle(true);
+        setWorkoutChanged(false)
+        }
+    } 
+
+const delWorkout = () => {
+    localStorage.removeItem(`${loadedWorkout}`);
+    storedWorkouts();
 }
 
+const deleteExercise = (index: number) => {      //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
+    setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
+        return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
+    }) 
+    setWorkoutChanged(true)
+}
     return (
         <>
             <h1>Gym Tracker</h1>
@@ -71,40 +87,46 @@ const saveWorkoutPlan = (event) => {
                     setWorkoutPlan={setWorkoutPlan}
                     workoutPlan={workoutPlan}
                     defaultExerciseState={defaultExerciseState}
+                    setWorkoutChanged ={setWorkoutChanged}
                 />):(<button 
-                    id="formBtn" 
+                    id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
                 </button>)}
+            <div className='loadsave'>
             {workoutExists && 
             <div>
-                <select onChange={handleSelect} >
-                    <option value="">Select Workout</option> {
+                <select onChange={handleSelect} defaultValue='default'>
+                    <option value='default'>Select Workout</option> {
                         savedWorkouts.map((workout, index) => (
                         <option key={index} value={workout}>{workout}</option>
                     ))
                     }
                 </select>
-                <button onClick={loadWorkoutPlan}>Load Workout</button>
+                <button id='loadWorkoutBtn' onClick={loadWorkout}>Load Workout</button>
+                <button id='delWorkoutBtn' onClick={delWorkout}>Delete Workout</button>
             </div>}
-            {workoutPlan.length > 0 && 
+            {(workoutPlan.length > 1) && 
             <div>
                 <form onSubmit={saveWorkoutPlan}>
-                    <input name='input' type="text" placeholder='Workout Name'></input>
-                    <button type='submit'>Save WorkOut</button>
+                    <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name' required></input>
+                    <button id='saveWorkoutBtn' type='submit'>Save WorkOut</button>
                 </form>
             </div>
             } 
-
-            <div className='workoutDiv' >
-                {
-                // Checking that the workout plan array has a length
-                // IF it does then loop through the Exercise component and return a seperate copy of that component
-                workoutPlan.length > 0 &&
-                    workoutPlan.map((workout, index) => {
-                    return <Exercise key={workout.exercise} workout={workout} index={index} deleteExercise={deleteExercise} setShowForm={setShowForm} />;
-                    })
-                }
+            </div>
+            <div>
+            {(showWorkoutTitle) && <h1 className='workoutTitle'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h1>}
+                <div className='workoutDiv' >
+                    {
+                    // Checking that the workout plan array has a length
+                    // IF it does then loop through the Exercise component and return a seperate copy of that component
+                    workoutPlan.length > 0 &&
+                        workoutPlan.map((workout, index) => {
+                        return <Exercise key={workout.exercise} workout={workout} index={index} deleteExercise={deleteExercise} setShowForm={setShowForm} />;
+                        })
+                    }
+                </div>
             </div>
         </>
     );

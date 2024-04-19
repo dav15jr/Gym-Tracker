@@ -1,4 +1,5 @@
 // import './index.css'
+import defaultExercises from '../assets/defaultExercises';
 
 export default function Form({
     setExerciseData,
@@ -6,56 +7,74 @@ export default function Form({
     setWorkoutPlan,
     workoutPlan,
     defaultExerciseState,
+    setWorkoutChanged,
 }) {
-    // Setting to strings because if it was undefined, it thinks we are going from a
-    // uncontrolled -> controlled component
-    function handleChange(event) {
-        const { name, value } = event.target;
+    function handleChange(event) {   //  Handle forn input value change
+        const {name, value } = event.target;
         setExerciseData((prevData) => {
             return {
                 ...prevData,
                 [name]: value,
             };
         });
+    } 
+    const handleExe =(e) => { // Handle exercise selection, when dropdown data list is used
+        const val = (e.target.value)
+        const def = defaultExercises.filter((ex) => ex.exercise === val)
+        setExerciseData(def[0])
     }
-    // const formBtn = document.getElementById('formBtn');
-    // const form = document.querySelector('form');
-
+    const currentExercises = workoutPlan.map((workout) => workout.exercise);
+    
     function handleSubmit(event) {
         event.preventDefault();
-
-        const json = JSON.stringify(exerciseData);   //Convert the object to a string and store it in the local storage
-        localStorage.setItem(`${exerciseData.exercise}`, json);
-
+        if(currentExercises.includes(`${exerciseData.exercise}`)){    //check if the current exercise already exists
+            alert('Sorry, Exercise already exists - Change name')     // Throw error to change name - to ensure no duplicates
+            setExerciseData((prevData) => {
+                return {
+                    ...prevData,
+                    exercise: '',
+                };
+            });
+            console.log(exerciseData)
+            return
+        } 
+        console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
-        
-        document.querySelector('form').reset(); //Reset the form
+        // document.querySelector('form').reset(); //Reset the form
+        setWorkoutChanged(true)
     }
+
 
     return (
         <>
-            <div className="inputs" id="inputs">
                 <form className="form" id="form" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="exercise">Exercise:</label>
                         <input
                             type="text"
-                            placeholder="Enter Exercise"
+                            list='data'
+                            placeholder="Select Exercise"
                             id="exercise"
                             name="exercise"
-                            onChange={handleChange}
-                            value={exerciseData.excercise}
+                            onChange={handleChange}  // Handle change from typed input.
+                            onInput={handleExe}     // Handle input from data list selection.
+                            value={exerciseData.exercise}
                             required
-                        ></input>
+                        />
+                        <datalist id='data'>                                /* data list of default exercises to select */
+                            {defaultExercises.map((ex, index) => (          /*go through default exercise data and populate list*/
+                                <option key={index} value={ex.exercise}/>
+                            ))}
+                        </datalist>
                     </div>
                     <div>
                         <label htmlFor="type">Type:</label>
-                        <select id="type" name="type" onChange={handleChange}>
+                        <select id="type" name="type" value={exerciseData.type} onChange={handleChange}>
                             <option value="resistance">Resistance</option>
-                            <option value="body weight">Body Weight</option>
                             <option value="kgs">Kilo Grams (Kg's)</option>
                             <option value="lbs">Pounds (Lb's)</option>
+                            <option value="body weight">Body Weight</option>
                         </select>
                     </div>
                     <div>
@@ -74,6 +93,7 @@ export default function Form({
                                         name="amount"
                                         onChange={handleChange}
                                         value={exerciseData.amount}
+                                        required
                                     />
                                 </>
                             )
@@ -89,6 +109,7 @@ export default function Form({
                             name="reps"
                             onChange={handleChange}
                             value={exerciseData.reps}
+                            required
                         ></input>
                     </div>
                     <div>
@@ -118,11 +139,10 @@ export default function Form({
                         ></input>
                     </div>
                     <br></br>
-                    <button id="submit-btn" type="submit">
-                        Save Exercise
+                    <button id="formSubmitBtn" type="submit">
+                        Add Exercise
                     </button>
                 </form>
-            </div>
         </>
     );
 }

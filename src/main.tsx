@@ -10,9 +10,5 @@ import './index.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
    <>
       <Tool />
-      {/* <App /> */}
-      {/* <App2 /> */}
-      {/* <Exercise /> */}
-      {/* <Exercise2 /> */}
    </>
 )

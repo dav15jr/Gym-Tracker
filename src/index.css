@@ -71,18 +71,6 @@ h2 {
   /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(116, 235, 36); */
 }
-.inputs{
-  display:flex;
-  justify-content: center;
-}
-#sets, #reps, #amount, #rest{
-  width: 80px;
-  flex-grow: inherit;
-}
-
-label{
-  position:absolute;
-}
 input, select{
   width: auto;
   padding: 5px;
@@ -90,10 +78,36 @@ input, select{
   border-radius: 10px;
   /* border: 2px solid rgb(110, 0, 212); */
 }
+select:focus-visible {
+  outline: 1px dashed rgb(255, 38, 0);
+}
+#sets, #reps, #amount, #rest{
+  width: 80px;
+  flex-grow: inherit;
+}
+#exercise{
+  width: 120px;
+}
+label{    /* Form label */
+  font-size: 0.85em;
+  position:absolute;
+  padding: 1px;
+}
+
 span{
   font-weight: bold;
 }
-
+#saveWorkout{
+  width: 90px;
+  /* border: 3px solid rgb(24, 116, 255); */
+}
+.loadsave{
+  display:flex;
+  flex-direction: row;
+  gap: 20px;
+  margin: 0px;
+  justify-content: center;
+}
 .workoutDiv{
   display: flex;
   flex-wrap: wrap;
@@ -106,6 +120,11 @@ span{
   padding:20px;
   /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(3, 214, 144); */
+}
+.workoutTitle{
+  display: flex;
+  justify-content:center ;
+  align-content: center;
 }
 .exerciseDiv{
   position: relative;
@@ -174,7 +193,10 @@ button:hover {
   border-color: #013b10;
   background-color: #28da04;
 }
-#submit-btn {
+button:focus-visible {
+  outline: 3px dashed rgb(255, 38, 0);
+}
+#formSubmitBtn {
   color:rgb(255, 230, 0) ;
   background: rgb(120, 2, 179);
   padding: 5px 10px ;
@@ -182,15 +204,48 @@ button:hover {
   border-radius: 20px;
   border: 1px solid transparent;
 }
-#submit-btn:hover {
+#formSubmitBtn:hover {
   color:rgb(0, 0, 0) ;
   background: rgb(240, 198, 13);
+}
+#loadWorkoutBtn {
+  color:rgb(255, 255, 255) ;
+  background: rgba(0, 158, 40, 0.836);
+  padding: 2px 7px ;
+  margin: 0px 5px;
+  border: 1px solid transparent;
+}
+#loadWorkoutBtn:hover {
+  color:rgb(0, 0, 0) ;
+  background: rgb(191, 253, 141);
+  border: 1px solid green;
+}
+#delWorkoutBtn{
+  color:rgb(255, 255, 255) ;
+  background: rgba(255, 19, 2, 0.836);
+  padding: 2px 7px ;
+  margin: 0px 5px;
+}
+#delWorkoutBtn:hover {
+  color:rgb(230, 0, 0) ;
+  background: rgb(250, 176, 142);
+  border: 2px solid red;
+}
+#saveWorkoutBtn {
+  color:rgb(255, 255, 255) ;
+  background: rgba(255, 175, 2, 0.836);
+  padding: 2px 7px ;
+  margin: 0px 5px;
+}
+#saveWorkoutBtn:hover {
+  color:rgb(0, 0, 0) ;
+  background: rgb(250, 176, 142);
+  border: 2px solid rgb(223, 134, 0);
 }
 .timerBtn{
   background-color: #3cf8b0;
   color:black;
   align-self: center;
-
 }
 .timerBtn:hover{
   background-color: #dfdfdf;
@@ -204,11 +259,11 @@ button:hover {
   background-color: #aaaaaa;
   color:black;
 }
-#formBtn{
+#showFormBtn{
   background-color: #f17500;
   color:black;
 }
-#formBtn:hover{
+#showFormBtn:hover{
   background-color: #ffffff;
   color:rgb(255, 118, 6);
   border: 2px solid #da0404;
@@ -228,6 +283,7 @@ button:hover {
   transform: scale(1.8); /* zoom 150% */
   background-color: transparent;
   color:rgb(255, 118, 6);
+  border:none;
 }
 .restDone{
   background-color: #da0404;
@@ -249,7 +305,5 @@ bttn {
 bttn:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
+ 
