@@ -7,3 +7,10 @@ export type ExerciseData = {
     sets: number;
     rest: number;
 };
+
+export type ProfileData = {
+    name: string;
+    age: number;
+    sex:string;
+    weight:number;
+}

@@ -80,7 +80,6 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
 }
     return (
         <>
-            <h1>Gym Tracker</h1>
             {showForm ? (<Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
