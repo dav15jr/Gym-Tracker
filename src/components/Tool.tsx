@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import App from './App';
 import Exercise from './Exercise';
 import Form from './Form';
+import Profile from './Profile';
 import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
 // import './src/index.css';
@@ -13,8 +15,8 @@ const defaultExerciseState = {
     sets: '',
     rest: '',
 };
-const Tool = () => {
-    // I have moved the state up so that it can be shared with <Exercise /> component
+export default function Tool () {
+    // Moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [loadedWorkout, setLoadedWorkout] = useState();
     const [workoutName, setWorkoutName] = useState('');
@@ -53,8 +55,8 @@ const loadWorkout = () => {
         alert('Please select a Workout')
         } 
     else{
-        const load = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
-        const mergedWorkout = [...load, ...workoutPlan];  //merge the current workout with the loaded workout.
+        const storedWorkout = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
+        const mergedWorkout = [...storedWorkout, ...workoutPlan];  //merge the current workout with the loaded workout.
         const newWorkoutPlan = mergedWorkout.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
             return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
             obj.exercise === item.exercise // Compare objects based on 'exercise' property
@@ -78,9 +80,11 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
     }) 
     setWorkoutChanged(true)
 }
+
     return (
         <>
-            <h1>Gym Tracker</h1>
+           <App />
+            <Profile />
             {showForm ? (<Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
@@ -130,6 +134,4 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             </div>
         </>
     );
-};
-
-export default Tool;
+}
