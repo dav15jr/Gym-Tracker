@@ -9,7 +9,7 @@ export default function Form({
     defaultExerciseState,
     setWorkoutChanged,
 }) {
-    function handleChange(event) {   //  Handle forn input value change
+    function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
         setExerciseData((prevData) => {
             return {

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { doc, setDoc} from "firebase/firestore";
+import { db } from "../firebaseConfig";
 import App from './App';
 import Exercise from './Exercise';
 import Form from './Form';
@@ -19,8 +21,10 @@ export default function Tool () {
     // Moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [loadedWorkout, setLoadedWorkout] = useState();
+    const [savedWorkout, setSavedWorkout] = useState();
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
+    const [userID, setUserID] = useState('');
     const [workoutChanged, setWorkoutChanged] = useState(false);
     const [showForm, setShowForm] = useState(true);
 
@@ -31,19 +35,36 @@ useCheckStoredWorkouts(workoutName);   //custom hook to check local storage and 
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden. 
 
-const handleSelect =(e) => {
+const handleLoadSelect =(e) => {
         setLoadedWorkout(e.target.value)
     }
 
-const saveWorkoutPlan = (event) => {
+
+
+const handleSaveChange =(e) => {
+    setSavedWorkout(e.target.value)
+    }
+
+    
+    const saveWorkoutPlan = (event) => {
         event.preventDefault();
         const workoutTitle = event.target.workoutName.value
+        setWorkoutName(workoutTitle)  
         const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
         localStorage.setItem(`${workoutTitle}`, json);
-        setWorkoutName(workoutTitle)  
         setShowWorkoutTitle(true);
-        setWorkoutChanged(false)
-    }
+        setWorkoutChanged(false);
+        setUserID('Davis');  //set user id sample
+
+        saveDataToFirestore();   //save data to firestore
+        }
+        
+const saveDataToFirestore = async () => {
+               await setDoc(doc(db, `${userID}`, `${savedWorkout}`), {    // Add a new 'Workout' document in 'userID' collection
+                workoutPlan
+              });
+            //   alert("Workout saved successfully");
+            };
 
 const currentWorkouts = workoutPlan.map((workout) => workout.exercise);
 
@@ -100,7 +121,7 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             <div className='loadsave'>
             {workoutExists && 
             <div>
-                <select onChange={handleSelect} defaultValue='default'>
+                <select onChange={handleLoadSelect} defaultValue='default'>
                     <option value='default'>Select Workout</option> {
                         savedWorkouts.map((workout, index) => (
                         <option key={index} value={workout}>{workout}</option>
@@ -113,7 +134,9 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             {(workoutPlan.length > 1) && 
             <div>
                 <form onSubmit={saveWorkoutPlan}>
-                    <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name' required></input>
+                    <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name'
+                    onChange={handleSaveChange}  // Handle change from typed input. 
+                    required></input>
                     <button id='saveWorkoutBtn' type='submit'>Save WorkOut</button>
                 </form>
             </div>

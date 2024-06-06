@@ -1,16 +1,16 @@
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore"
+import { collection, addDoc, getDocs } from "firebase/firestore"
 import '../firebaseConfig';
 import React, { useState } from 'react';
+import { db } from "../firebaseConfig";
+
 
 function App() {
 const [inputValue1, setInputValue1] = useState('');
 const [inputValue2, setInputValue2] = useState('');
 const [storedValues, setStoredValues] = useState([]);
 
-const db = getFirestore();
-
 const saveDataToFirestore = async () => {
-    const docRef = await addDoc(collection(db, "myCollection"), {
+   await addDoc(collection(db, "myCollection"), {
       field1: inputValue1,
       field2: inputValue2,
     });
