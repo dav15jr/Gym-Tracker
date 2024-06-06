@@ -33,6 +33,7 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
             setRestTime(workout.rest);
         }
     }
+
     return (
         <div className='exerciseDiv' id={`${workout.exercise}`} >
             <div className={!exerciseDone ? 'infoDiv' : 'exfin'} 
