@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import App from './App';
 import Exercise from './Exercise';
 import Form from './Form';
+import Profile from './Profile';
 import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
 // import './src/index.css';
@@ -13,8 +15,8 @@ const defaultExerciseState = {
     sets: '',
     rest: '',
 };
-const Tool = () => {
-    // I have moved the state up so that it can be shared with <Exercise /> component
+export default function Tool () {
+    // Moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [loadedWorkout, setLoadedWorkout] = useState();
     const [workoutName, setWorkoutName] = useState('');
@@ -78,8 +80,11 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
     }) 
     setWorkoutChanged(true)
 }
+
     return (
         <>
+           <App />
+            <Profile />
             {showForm ? (<Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
@@ -129,6 +134,4 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             </div>
         </>
     );
-};
-
-export default Tool;
+}
