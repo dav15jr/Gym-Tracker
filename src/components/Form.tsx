@@ -35,7 +35,6 @@ export default function Form({
                     exercise: '',
                 };
             });
-            console.log(exerciseData)
             return
         } 
         console.log(exerciseData)

@@ -10,15 +10,15 @@ const defaultProfile:ProfileData = {
     weight:80,
 };
 
-export default function Profile () {
+export default function Profile ({setUserID}) {
 
 const [profileData, setProfileData] = useState(defaultProfile);
-const [storedProfiles, setStoredProfiles] = useState([]);
+const [storedProfiles, setStoredProfiles] = useState(['Davis', 'Mike', 'John', 'Mary']);
 const [selectedProfile, setSelectedProfile] = useState();
-const [loadedProfile, setLoadedProfile] = useState();
+const [loadedProfile, setLoadedProfile] = useState('');
 const [profileChosen, setProfileChosen] = useState(false)
 
-const {profileExists, savedProfiles} = useCheckStoredProfiles(selectedProfile);
+const {profileExists, savedProfiles} = useCheckStoredProfiles('selectedProfile');
 
 function handleChange(event) {   //  Handle form input value change
     const {name, value } = event.target;
@@ -28,7 +28,7 @@ function handleChange(event) {   //  Handle form input value change
             [name]: value,
         };
     });
-} 
+    } 
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -43,18 +43,24 @@ function handleSubmit(event) {
 
     console.log(profileData);
     console.log(storedProfiles);
-}
+    }
+
 const handleSelect =(e) => {
     setSelectedProfile(e.target.value)
-}
+    console.log(e.target.value)
+    }
+
 const loadProfile = () => {
-    setLoadedProfile(JSON.parse(localStorage.getItem(`${selectedProfile}`)));
+    const prof = (localStorage.getItem(`${selectedProfile}`));
+    setLoadedProfile(prof);
+    setUserID(selectedProfile)
     setProfileChosen(true);
-}
+    }
+
 const delProfile = () => {
     localStorage.removeItem(`${selectedProfile}`);
     savedProfiles();
-}
+    }
 return (
 <>
     {profileExists && 
@@ -70,7 +76,7 @@ return (
             <button id='loadWorkoutBtn' onClick={loadProfile}>Load Profile</button>
             <button id='delWorkoutBtn' onClick={delProfile}>Delete Profile</button>
         </div>}
-    {profileChosen && 
+    {!profileChosen && 
         <form className="profile-form" id="profile-form" onSubmit={handleSubmit}>
             <h2>Create Your Profile</h2>           
         <label htmlFor="name">Name:</label>

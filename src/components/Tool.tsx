@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { doc, setDoc} from "firebase/firestore";
+import { useState} from 'react';
+import { doc, setDoc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import App from './App';
 import Exercise from './Exercise';
@@ -24,76 +24,82 @@ export default function Tool () {
     const [savedWorkout, setSavedWorkout] = useState();
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
-    const [userID, setUserID] = useState('');
     const [workoutChanged, setWorkoutChanged] = useState(false);
     const [showForm, setShowForm] = useState(true);
+    const [userID, setUserID] = useState('Mike');
 
-    const { workoutExists, savedWorkouts, storedWorkouts} = useCheckStoredWorkouts(workoutName);
-    const {showWorkoutTitle, setShowWorkoutTitle} = useSetWorkoutTitle(workoutPlan)
+    const { workoutExists, savedWorkouts, fetchDataFromFirestore} = useCheckStoredWorkouts(workoutName, userID);
+    const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
         
-useCheckStoredWorkouts(workoutName);   //custom hook to check local storage and load workout list.
+useCheckStoredWorkouts(workoutName, userID);   //custom hook to check local storage and load workout list.
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden. 
 
-const handleLoadSelect =(e) => {
-        setLoadedWorkout(e.target.value)
-    }
-
-
+//------------------------------Save Workout----------------------
 
 const handleSaveChange =(e) => {
     setSavedWorkout(e.target.value)
+    setUserID('Davis')
     }
 
-    
-    const saveWorkoutPlan = (event) => {
-        event.preventDefault();
-        const workoutTitle = event.target.workoutName.value
-        setWorkoutName(workoutTitle)  
-        const json = JSON.stringify(workoutPlan);   //Convert the object to a string and store it in the local storage
-        localStorage.setItem(`${workoutTitle}`, json);
-        setShowWorkoutTitle(true);
-        setWorkoutChanged(false);
-        setUserID('Davis');  //set user id sample
+const saveWorkoutPlan = (event) => {
+    event.preventDefault();
+    const workoutTitle = event.target.workoutName.value
+    setWorkoutName(workoutTitle)  
+    setShowWorkoutTitle(true);
+    setWorkoutChanged(false);
 
-        saveDataToFirestore();   //save data to firestore
-        }
+    saveDataToFirestore();   //save data to firestore
+    }
         
-const saveDataToFirestore = async () => {
-               await setDoc(doc(db, `${userID}`, `${savedWorkout}`), {    // Add a new 'Workout' document in 'userID' collection
-                workoutPlan
-              });
-            //   alert("Workout saved successfully");
-            };
+async function saveDataToFirestore  (){
+    await setDoc(doc(db, userID, savedWorkout), {    // Add a new 'Workout' document in 'userID' collection
+    workoutPlan
+    });
+    alert("Workout saved successfully");
+    }
+    
+//------------------------------Load Workout--------------------
 
-const currentWorkouts = workoutPlan.map((workout) => workout.exercise);
+const handleLoadSelect =(e) => {
+    setLoadedWorkout(e.target.value)
+    console.log(loadedWorkout)
+    }
 
 const loadWorkout = () => {
-    if(currentWorkouts.includes(`${loadedWorkout}`)){    //check if the current exercise already exists
-        alert('Sorry, Workout already exists')
-        } 
-    else if(!loadedWorkout){    //check if the current workout already exists
+    if(loadedWorkout == 'default'){    //check if the current workout already exists
         alert('Please select a Workout')
         } 
     else{
-        const storedWorkout = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
-        const mergedWorkout = [...storedWorkout, ...workoutPlan];  //merge the current workout with the loaded workout.
-        const newWorkoutPlan = mergedWorkout.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
-            return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
-            obj.exercise === item.exercise // Compare objects based on 'exercise' property
-        ));
-    });
-    setWorkoutName(loadedWorkout)
-        setWorkoutPlan(newWorkoutPlan)
-        setShowWorkoutTitle(true);
-        setWorkoutChanged(false)
-        }
-    } 
+        const fetchWorkoutData = async () => {
+            try {
+                const docRef = doc(db, userID, loadedWorkout);
+                const docSnap = await getDoc(docRef);
+                const tempArr = [];
 
+                const workData = docSnap.data()
+                workData.workoutPlan.forEach((doc) => {
+                tempArr.push(doc);
+                });
+                setWorkoutPlan(tempArr)
+            } catch (error) {
+            console.log(error)
+            }
+             };
+            fetchWorkoutData();
+
+            setWorkoutName(loadedWorkout)
+            setShowWorkoutTitle(true);
+            setWorkoutChanged(false)
+    }
+} 
+//------------------------------Delete Workout--------------------
 const delWorkout = () => {
-    localStorage.removeItem(`${loadedWorkout}`);
-    storedWorkouts();
+    deleteDoc(doc(db, userID, loadedWorkout)); //delete workout from Firestore DB
+    fetchDataFromFirestore();   //Fetch fresh data from Firestore DB
 }
+
+//------------------------------Edit Workout--------------------
 
 const deleteExercise = (index: number) => {      //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
     setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
@@ -105,7 +111,9 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
     return (
         <>
            <App />
-            <Profile />
+            <Profile
+                  setUserID={setUserID}
+            />
             {showForm ? (<Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
