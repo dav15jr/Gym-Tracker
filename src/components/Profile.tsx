@@ -1,83 +1,54 @@
-import {useState} from 'react';
-import { ProfileData } from '../types';
-import useCheckStoredProfiles from '../assets/hooks/useCheckStoredProfiles';
+
+import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
+import { doc, setDoc} from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 
-const defaultProfile:ProfileData = {
-    name: 'John',
-    age: 18,
-    sex:'male',
-    weight:80,
-};
+export default function Profile ({userID, userName, setUserName}) {
 
-export default function Profile ({setUserID}) {
 
-const [profileData, setProfileData] = useState(defaultProfile);
-const [storedProfiles, setStoredProfiles] = useState(['Davis', 'Mike', 'John', 'Mary']);
-const [selectedProfile, setSelectedProfile] = useState();
-const [loadedProfile, setLoadedProfile] = useState('');
-const [profileChosen, setProfileChosen] = useState(false)
+    const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName );
+    
+    
+    useCheckStoredProfile(userID, setUserName)   // Check if profile exists
 
-const {profileExists, savedProfiles} = useCheckStoredProfiles('selectedProfile');
+    function handleChange(event) {   //  Handle form input value change
+        const {name, value } = event.target;
+        setProfileData((prevData) => {
+            return {
+                ...prevData,
+                [name]: value,
+            };
+        });
+        console.log('profile error change')
+        } 
+        
+    const saveProfile = (event) => {
+            event.preventDefault();
+            setUserName(profileData.name);
+            
+            console.log(profileData);
+            saveProfileToFirestore();   //save data to firestore
+            setProfileExists(true)
+            }
+                
+    async function saveProfileToFirestore  (){
+            await setDoc(doc(db, userID, 'profileData'), {    // Add a new 'Workout' document in 'userID' collection
+            profileData
+            });
+            alert("Profile saved successfully");
+            }
 
-function handleChange(event) {   //  Handle form input value change
-    const {name, value } = event.target;
-    setProfileData((prevData) => {
-        return {
-            ...prevData,
-            [name]: value,
-        };
-    });
-    } 
+    // const loadProfile = () => {
+    //     fetchProfileFromFirestore
+    //     }
 
-function handleSubmit(event) {
-    event.preventDefault();
+    console.log('profile page rendered')
 
-    const json = JSON.stringify(profileData);   //Convert the object to a string and store it in the local storage
-    const profileName = `${profileData.name}`;
-    localStorage.setItem(profileName, json);
-
-    setStoredProfiles(prevArray => [...prevArray, profileName])
-    const jsonProfiles= JSON.stringify(storedProfiles); 
-    localStorage.setItem( 'Profiles', jsonProfiles);
-
-    console.log(profileData);
-    console.log(storedProfiles);
-    }
-
-const handleSelect =(e) => {
-    setSelectedProfile(e.target.value)
-    console.log(e.target.value)
-    }
-
-const loadProfile = () => {
-    const prof = (localStorage.getItem(`${selectedProfile}`));
-    setLoadedProfile(prof);
-    setUserID(selectedProfile)
-    setProfileChosen(true);
-    }
-
-const delProfile = () => {
-    localStorage.removeItem(`${selectedProfile}`);
-    savedProfiles();
-    }
 return (
 <>
-    {profileExists && 
-        <div>
-            <p>Load Profile.</p>
-            <select onChange={handleSelect} defaultValue='default'>
-                <option value='default'>Select Profile</option> {
-                    storedProfiles.map((name, index) => (
-                    <option key={index} value={name}>{name}</option>
-                ))
-                }
-            </select>
-            <button id='loadWorkoutBtn' onClick={loadProfile}>Load Profile</button>
-            <button id='delWorkoutBtn' onClick={delProfile}>Delete Profile</button>
-        </div>}
-    {!profileChosen && 
-        <form className="profile-form" id="profile-form" onSubmit={handleSubmit}>
+    {!profileExists ? (  
+        <form className="profile-form" id="profile-form" onSubmit={saveProfile}>
             <h2>Create Your Profile</h2>           
         <label htmlFor="name">Name:</label>
             <input
@@ -111,16 +82,22 @@ return (
                 onChange={handleChange}  // Handle change from typed input.
                 value={profileData.weight}
                 required/>
-        <button id="formSubmitBtn" type="submit">
+        <button className="formSubmitBtn" type="submit">
             Save Profile
         </button>
         </form>
-    }
-<div>
-    <h2>Welcome {selectedProfile} </h2>
-    <p>{loadedProfile}</p>
-</div>
-</>
+    ) : 
+    ( <div>
+        <h2>Welcome {userName} </h2>
+        <ul>
+        <li>Name: {profileData.name}</li>
+        <li>Age: {profileData.age}</li>
+        <li>Sex: {profileData.sex}</li>
+        <li>Weight: {profileData.weight}</li>
+        </ul>
+    </div>
+    )}
+    </>
 )
 
 }

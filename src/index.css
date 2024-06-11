@@ -219,7 +219,7 @@ button:hover {
 button:focus-visible {
   outline: 3px dashed rgb(255, 38, 0);
 }
-#formSubmitBtn {
+.formSubmitBtn {
   color:rgb(255, 230, 0) ;
   background: rgb(120, 2, 179);
   padding: 5px 10px ;
@@ -227,7 +227,7 @@ button:focus-visible {
   border-radius: 20px;
   border: 1px solid transparent;
 }
-#formSubmitBtn:hover {
+.formSubmitBtn:hover {
   color:rgb(0, 0, 0) ;
   background: rgb(240, 198, 13);
 }
