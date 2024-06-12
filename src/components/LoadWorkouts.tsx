@@ -4,16 +4,13 @@ import { db } from "../firebaseConfig";
 import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
 
 
-export default function LoadWorkouts({userID, setWorkoutPlan, workoutName, setWorkoutChanged, setWorkoutName, setShowWorkoutTitle}){
+export default function LoadWorkouts({userID, setWorkoutPlan, workoutName, setWorkoutName, setShowWorkoutTitle}){
     const [loadedWorkout, setLoadedWorkout] = useState();
     const { workoutExists, savedWorkouts, fetchStoredWorkouts} = useCheckStoredWorkouts(userID, workoutName );
     
 //------------------------------Load Workout--------------------
 
 useCheckStoredWorkouts(userID, workoutName);  //custom hook to check and load stored workouts in the DB.
-
-console.log(workoutExists)
-console.log(savedWorkouts)
 
 const handleLoadSelect =(e) => {
     setLoadedWorkout(e.target.value)
@@ -40,11 +37,9 @@ const loadWorkout = () => {
             console.log(error)
             }
              };
-            fetchWorkoutData();
-
+            fetchWorkoutData()
             setWorkoutName(loadedWorkout)
-            setShowWorkoutTitle(true);
-            setWorkoutChanged(false)
+            setShowWorkoutTitle(true)
     }
 } 
 //------------------------------Delete Workout--------------------

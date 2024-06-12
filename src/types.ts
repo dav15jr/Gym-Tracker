@@ -12,5 +12,6 @@ export type ProfileData = {
     name: string;
     age: number;
     sex:string;
+    height:number;
     weight:number;
 }

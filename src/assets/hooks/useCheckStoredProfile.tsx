@@ -4,9 +4,10 @@ import { db } from "../../firebaseConfig";
 import { ProfileData } from '../../types';
 
 const defaultProfile:ProfileData = {
-    name: 'John',
-    age: 18,
+    name: 'John Snow',
+    age: 28,
     sex:'male',
+    height:170,
     weight:80,
 };
 export default function useCheckStoredProfile(userID, setUserName) {
@@ -14,7 +15,6 @@ export default function useCheckStoredProfile(userID, setUserName) {
     const [profileData, setProfileData] = useState(defaultProfile);
     const [profileExists, setProfileExists] = useState(false);
   
-
     useEffect(() => {
         fetchProfileFromFirestore();
         console.log('Check profile rendered')
@@ -26,7 +26,7 @@ export default function useCheckStoredProfile(userID, setUserName) {
             const docRef = doc(db, userID, 'profileData');
             const docSnap = await getDoc(docRef);
             const profData = docSnap.data()
-            
+
             console.log(profData.profileData)
             setProfileData(profData.profileData)
             setUserName(profData.profileData.name)
@@ -36,7 +36,7 @@ export default function useCheckStoredProfile(userID, setUserName) {
         }
     }
 
-            console.log('profile page rendered')
+        console.log('Check profile page rendered')
 
 return {profileExists, setProfileExists, profileData, setProfileData, fetchProfileFromFirestore}
 }

@@ -21,6 +21,7 @@ export default function Tool () {
     // Moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [savedWorkout, setSavedWorkout] = useState();
+    const [showSaveBTN, setShowSaveBTN] = useState();
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
     const [workoutChanged, setWorkoutChanged] = useState(false);
@@ -31,11 +32,11 @@ export default function Tool () {
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
 
-
 console.log('tool page rendered')
-
+console.log(`Is the user logged in ${isLoggedIn}`)
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
+
 //------------------------------Save Workout----------------------
 
 const handleSaveChange =(e) => {
@@ -49,18 +50,15 @@ const saveWorkoutPlan = (event) => {
     setShowWorkoutTitle(true);
     setWorkoutChanged(false);
 
-    saveDataToFirestore();   //save data to firestore
+    saveWorkoutsToFirestore();   //save data to firestore
     }
         
-async function saveDataToFirestore  (){
+async function saveWorkoutsToFirestore  (){
     await setDoc(doc(db, userID, savedWorkout), {    // Add a new 'Workout' document in 'userID' collection
     workoutPlan
     });
     alert("Workout saved successfully");
     }
-    
-//------------------------------Load Workout--------------------
-
 
 //------------------------------Edit Workout--------------------
 
@@ -83,20 +81,22 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                 userID = {userID} 
                 userName ={userName}
                 setUserName ={setUserName}
+                setIsLoggedIn = {setIsLoggedIn}
                 />
                 {showForm ? 
-                    (<Form
-                        setExerciseData={setExerciseData}
-                        exerciseData={exerciseData}
-                        setWorkoutPlan={setWorkoutPlan}
-                        workoutPlan={workoutPlan}
-                        defaultExerciseState={defaultExerciseState}
-                        setWorkoutChanged ={setWorkoutChanged}
-                    />):(<button 
-                        id="showFormBtn" 
-                        onClick={()=> (setShowForm(true))} 
-                        >Add New Exercise
-                    </button>)
+                (<Form
+                    setExerciseData={setExerciseData}
+                    exerciseData={exerciseData}
+                    setWorkoutPlan={setWorkoutPlan}
+                    setShowSaveBTN={setShowSaveBTN}
+                    workoutPlan={workoutPlan}
+                    defaultExerciseState={defaultExerciseState}
+                    setWorkoutChanged ={setWorkoutChanged}
+                />):(<button 
+                    id="showFormBtn" 
+                    onClick={()=> (setShowForm(true))} 
+                    >Add New Exercise
+                </button>)
                 }
                 <div className='loadsave'>
                     <LoadWorkouts
@@ -104,10 +104,9 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                         workoutName = {workoutName}
                         setWorkoutName = {setWorkoutName}
                         setWorkoutPlan = {setWorkoutPlan}
-                        setWorkoutChanged = {setWorkoutChanged}
                         setShowWorkoutTitle = {setShowWorkoutTitle}
-                    />
-                    {(workoutPlan.length > 1) && 
+                        />
+                    {showSaveBTN && 
                     <div>
                         <form onSubmit={saveWorkoutPlan}>
                             <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name'

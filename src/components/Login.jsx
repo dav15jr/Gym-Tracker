@@ -1,19 +1,37 @@
-import {useState} from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-// import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
+import {useState, useEffect} from 'react';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+
 
 export default function Login ({setIsLoggedIn, setUserID}) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const auth = getAuth();
     console.log('login page rendered')
-    //----------------------- USER REGISTRATION & LOGIN --------------------------------//
-    // useCheckStoredProfile(userID)             
+    //----------------------- USER REGISTRATION & LOGIN --------------------------------// 
+
+useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          console.log(user.uid)
+          setUserID(user.uid)
+          setIsLoggedIn(true)
+          // ...
+        } else {
+          // User is signed out
+          // ...
+          console.log('User is not signed')
+        }
+      });
+    })
+
+
 
     async function handleLogin (e) {
         e.preventDefault();
-        const auth = getAuth();
+    
 
         if (document.activeElement.name === 'Register') {  // Check which button name was used to submit the form.
             try {
