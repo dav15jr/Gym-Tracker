@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  /* display: grid; */
+  display: grid;
   place-items: center;
   min-width: 350px;
   min-height: 50vh;
@@ -69,7 +69,7 @@ nav{
     background-color: #ffffff;
   }
   a:hover {
-    color: #1a2ff0;
+    color: #747bff;
   }
   button {
     background-color: #f9f9f9;

@@ -18,8 +18,8 @@ const defaultExerciseState = {
     sets: '',
     rest: '',
 };
-export default function Tool () {
-    // Moved the state up so that it can be shared with <Exercise /> component
+const Tool = () => {
+    // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
     const [saveWorkout, setSaveWorkout] = useState();
     const [showSaveBTN, setShowSaveBTN] = useState(false);
@@ -141,4 +141,6 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
             </div>)}
         </>
     );
-}
+};
+
+export default Tool;
