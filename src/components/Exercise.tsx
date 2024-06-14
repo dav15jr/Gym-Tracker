@@ -10,8 +10,7 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
     const [showProgress, setShowProgress] = useState(false);
     const [setDone, setSetDone] = useState(false);
     const [count, setCount] = useState(0);
-    const { restTime, setRestTime, timerDone, setTimerDone} 
-        = useTimer(workout.rest, count, exerciseDone);
+    const { restTime, setRestTime, timerDone, setTimerDone} = useTimer(workout.rest, count, exerciseDone);
 
     const startExercise = () => {  
         setCount(0);
