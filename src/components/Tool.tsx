@@ -53,8 +53,8 @@ const loadWorkout = () => {
         alert('Please select a Workout')
         } 
     else{
-        const storedWorkout = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
-        const mergedWorkout = [...storedWorkout, ...workoutPlan];  //merge the current workout with the loaded workout.
+        const load = JSON.parse(localStorage.getItem(`${loadedWorkout}`)) //load the exercise if it is not already loaded.
+        const mergedWorkout = [...load, ...workoutPlan];  //merge the current workout with the loaded workout.
         const newWorkoutPlan = mergedWorkout.filter((item, index, self) => {  //Use filter to remove duplicate objects, keeping the last occurrence
             return index === self.findIndex(obj => (  // Use findIndex to check if the current item is the last occurrence of the object
             obj.exercise === item.exercise // Compare objects based on 'exercise' property
