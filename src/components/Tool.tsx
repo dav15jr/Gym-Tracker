@@ -7,7 +7,8 @@ import LoadWorkouts from './LoadWorkouts';
 import Form from './Form';
 import Exercise from './Exercise';
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
-// import './src/index.css';
+
+import '../index.css';
 
 const defaultExerciseState = {
     exercise: '',
@@ -20,41 +21,44 @@ const defaultExerciseState = {
 export default function Tool () {
     // Moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
-    const [savedWorkout, setSavedWorkout] = useState();
-    const [showSaveBTN, setShowSaveBTN] = useState();
+    const [saveWorkout, setSaveWorkout] = useState();
+    const [showSaveBTN, setShowSaveBTN] = useState(false);
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
     const [workoutChanged, setWorkoutChanged] = useState(false);
+    const [showExercises, setShowExercises] = useState(false);
     const [showForm, setShowForm] = useState(true);
     const [userID, setUserID] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('');
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
-
-console.log('tool page rendered')
-console.log(`Is the user logged in ${isLoggedIn}`)
+  
+    console.log('tool page rendered')
+    console.log('isLoggedIn is', isLoggedIn)
+    // console.log('User ID on tools page', userID);
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
 
 //------------------------------Save Workout----------------------
 
 const handleSaveChange =(e) => {
-    setSavedWorkout(e.target.value)
+    setSaveWorkout(e.target.value)
     }
 
 const saveWorkoutPlan = (event) => {
     event.preventDefault();
     const workoutTitle = event.target.workoutName.value
+    saveWorkoutsToFirestore();   //save data to firestore
     setWorkoutName(workoutTitle)  
     setShowWorkoutTitle(true);
     setWorkoutChanged(false);
-
-    saveWorkoutsToFirestore();   //save data to firestore
+    setShowSaveBTN(false)
+    // refetch() //refetch workouts from firestore
     }
         
 async function saveWorkoutsToFirestore  (){
-    await setDoc(doc(db, userID, savedWorkout), {    // Add a new 'Workout' document in 'userID' collection
+    await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
     workoutPlan
     });
     alert("Workout saved successfully");
@@ -67,8 +71,8 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
         return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
     }) 
     setWorkoutChanged(true)
+    setShowSaveBTN(true)
 }
-
     return (
         <>
             {!isLoggedIn ? ( 
@@ -78,17 +82,21 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                 /> ) : (
             <div>
                 <Profile 
-                userID = {userID} 
-                userName ={userName}
-                setUserName ={setUserName}
-                setIsLoggedIn = {setIsLoggedIn}
+                    userID = {userID} 
+                    userName ={userName}
+                    setUserName ={setUserName}
+                    setIsLoggedIn = {setIsLoggedIn}
+                    setWorkoutPlan = {setWorkoutPlan}
+                    setShowForm = {setShowForm}
+                    setShowExercises = {setShowExercises}
                 />
-                {showForm ? 
+                {showExercises && (
+                showForm ? 
                 (<Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
-                    setWorkoutPlan={setWorkoutPlan}
                     setShowSaveBTN={setShowSaveBTN}
+                    setWorkoutPlan={setWorkoutPlan}
                     workoutPlan={workoutPlan}
                     defaultExerciseState={defaultExerciseState}
                     setWorkoutChanged ={setWorkoutChanged}
@@ -96,17 +104,17 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                     id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
-                </button>)
-                }
+                </button>)  
+                  )}
                 <div className='loadsave'>
                     <LoadWorkouts
                         userID ={userID}
-                        workoutName = {workoutName}
+                        setShowSaveBTN = {setShowSaveBTN}
                         setWorkoutName = {setWorkoutName}
                         setWorkoutPlan = {setWorkoutPlan}
                         setShowWorkoutTitle = {setShowWorkoutTitle}
                         />
-                    {showSaveBTN && 
+                    {(showSaveBTN && workoutPlan.length > 1) &&
                     <div>
                         <form onSubmit={saveWorkoutPlan}>
                             <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name'

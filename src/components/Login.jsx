@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 
 
 export default function Login ({setIsLoggedIn, setUserID}) {
@@ -7,6 +7,7 @@ export default function Login ({setIsLoggedIn, setUserID}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const auth = getAuth();
+
     console.log('login page rendered')
     //----------------------- USER REGISTRATION & LOGIN --------------------------------// 
 
@@ -27,8 +28,6 @@ useEffect(() => {
       });
     })
 
-
-
     async function handleLogin (e) {
         e.preventDefault();
     
@@ -37,9 +36,12 @@ useEffect(() => {
             try {
                 await createUserWithEmailAndPassword(auth, email, password)
                 setIsLoggedIn(true)
+                setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
                 alert('Welcome! You have successfully registered')
             } catch(error) {
                 console.log(error)
+                console.log(error.message)
+                console.log(error.code)
                 alert('Account already registered. Please Login')
             }
         } else if (document.activeElement.name === 'Login') {
@@ -47,16 +49,22 @@ useEffect(() => {
                 await signInWithEmailAndPassword(auth, email, password)
                 setIsLoggedIn(true)
                 alert('Sign in successful')
+                setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
                 setEmail('')
                 setPassword('')
             } catch(error) {
-                alert('Account not found, please Register.')
-                console.log(error)
+                if (error.code === 'auth/wrong-password') {
+                    alert('Wrong Password, please try again.')
+                } else if (error.code === 'auth/user-not-found') {
+                    alert('Wrong Email or you are not Registered.')
+                } else if (error.code === 'auth/too-many-requests') {
+                    alert('Too many attempts, please reset your password - check your email')
+                    sendPasswordResetEmail(auth, email) //Send password reset email
+                }
+                console.log(error.message)
+                // alert(error.message)
             }
         }
-        setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from firebase.
-        console.log(auth.currentUser.uid)
-        setPassword('')
     }               
 return (
 <>

@@ -1,37 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback} from "react";
 import { collection, getDocs} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
-export default function useCheckStoredWorkouts(userID, workoutName ) {
+export default function useCheckStoredWorkouts(userID) {
     
-const [savedWorkouts, setSavedWorkouts] = useState([]);
+const [storedWorkouts, setStoredWorkouts] = useState([]);
 const [workoutExists, setWorkoutExists] = useState(false);
 
+const fetchStoredWorkouts = useCallback(async () => {
+    const temporaryArr = [];
+    try {
+        const collRef = collection(db, userID)
+        const querySnapshot = await getDocs(collRef);
+       querySnapshot.forEach((doc) => {
+            temporaryArr.push(doc.id);
+            });
+        const workouts =  temporaryArr.filter((name) => name  !== 'profileData')  //Filter out profile Data from Stored Workouts.
+        setStoredWorkouts(workouts)
+        console.log(workouts.length)
+
+        if (workouts.length > 0){  //check if a workout exists
+            setWorkoutExists(true)
+        } else {
+            setWorkoutExists(false)
+            }
+
+    } catch (error) {
+            console.log(error.message);
+            }
+    console.log('Checked workouts page rendered')
+}, [userID])
 
 useEffect(() => {
-    fetchStoredWorkouts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userID, workoutName ])
+   fetchStoredWorkouts();
+    }, [userID, fetchStoredWorkouts])
     
-    async function fetchStoredWorkouts (){
-        const temporaryArr = [];
-        try {
-            const querySnapshot = await getDocs(collection(db, userID));
-            querySnapshot.forEach((doc) => {
-                temporaryArr.push(doc.id);
-                });
-            setSavedWorkouts(temporaryArr.filter((name) => name  !== 'profileData'))  //Filter out profile Data from Stored Workouts.
-            console.log(temporaryArr);
-        } catch (error) {
-        console.log(error);
-        }
-    if (temporaryArr.length > 1){  //check if a workout exists
-        setWorkoutExists(true)
-        console.log(temporaryArr);
-        console.log('Workout exists');
-        }
-        console.log(userID);
-    }
-return {workoutExists, savedWorkouts, fetchStoredWorkouts}
+return { workoutExists, storedWorkouts, fetchStoredWorkouts }
 }
 

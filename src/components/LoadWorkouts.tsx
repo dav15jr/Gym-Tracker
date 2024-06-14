@@ -3,14 +3,16 @@ import { doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
 
+export default function LoadWorkouts({userID, setWorkoutPlan, setWorkoutName, setShowWorkoutTitle, setShowSaveBTN}){
 
-export default function LoadWorkouts({userID, setWorkoutPlan, workoutName, setWorkoutName, setShowWorkoutTitle}){
-    const [loadedWorkout, setLoadedWorkout] = useState();
-    const { workoutExists, savedWorkouts, fetchStoredWorkouts} = useCheckStoredWorkouts(userID, workoutName );
+
+ const [loadedWorkout, setLoadedWorkout] = useState();
+ const { workoutExists, storedWorkouts, fetchStoredWorkouts} = useCheckStoredWorkouts(userID );
     
 //------------------------------Load Workout--------------------
+useCheckStoredWorkouts(userID); 
 
-useCheckStoredWorkouts(userID, workoutName);  //custom hook to check and load stored workouts in the DB.
+// console.log('User ID on Loads page', userID);
 
 const handleLoadSelect =(e) => {
     setLoadedWorkout(e.target.value)
@@ -38,8 +40,9 @@ const loadWorkout = () => {
             }
              };
             fetchWorkoutData()
-            setWorkoutName(loadedWorkout)
             setShowWorkoutTitle(true)
+            setWorkoutName(loadedWorkout)
+            setShowSaveBTN(false)
     }
 } 
 //------------------------------Delete Workout--------------------
@@ -49,14 +52,15 @@ const delWorkout = () => {
 }
 
 console.log('Load Workout page rendered')
+console.log('Workout exists?', workoutExists);
 
 return (
     <>
-    {workoutExists && 
+       {workoutExists && 
         <div>
             <select onChange={handleLoadSelect} defaultValue='default'>
                 <option value='default'>Select Workout</option> {
-                    savedWorkouts.map((workout, index) => (
+                    storedWorkouts.map((workout, index) => (
                     <option key={index} value={workout}>{workout}</option>
                 ))
                 }
@@ -64,7 +68,7 @@ return (
             <button id='loadWorkoutBtn' onClick={loadWorkout}>Load Workout</button>
             <button id='delWorkoutBtn' onClick={delWorkout}>Delete Workout</button>
         </div>
-    }
+}
     </>
 )
 

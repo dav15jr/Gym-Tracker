@@ -40,16 +40,12 @@ export default function Form({
             return
         } 
         console.log(exerciseData)
-        setShowSaveBTN(true)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
         // document.querySelector('form').reset(); //Reset the form    
         setWorkoutChanged(true)
+        setShowSaveBTN(true)
         }
-        
-        // if (workoutPlan.length > 1) {setWorkoutChanged(true)}
-        // else if (workoutPlan.length < 1) {setWorkoutChanged(false)}
-
 
     return (
         <>
