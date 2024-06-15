@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: grid;    /*display the nav section full width*/
+  /* display: grid;    display the nav section full width */
   place-items: center;
   min-width: 350px;
   min-height: 50vh;
