@@ -24,7 +24,7 @@ a:hover {
 
 body {
   margin: 0;
-  /* display: grid; */
+  display: grid;
   place-items: center;
   min-width: 350px;
   min-height: 50vh;
@@ -69,7 +69,7 @@ nav{
     background-color: #ffffff;
   }
   a:hover {
-    color: #1a2ff0;
+    color: #747bff;
   }
   button {
     background-color: #f9f9f9;
@@ -99,7 +99,7 @@ nav{
   align-self: center;
   align-content: center;
   border-radius: 30px; */
-  padding: 15px 20px;
+  padding: 15px 25px;
   /* border: 3px solid rgb(24, 116, 255);
   background-color: rgb(19, 41, 4); */
 }
