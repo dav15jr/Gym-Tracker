@@ -10,6 +10,7 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
     const [showProgress, setShowProgress] = useState(false);
     const [setDone, setSetDone] = useState(false);
     const [count, setCount] = useState(0);
+    // const [exProgress, setExProgress] = useState(0);
     const { restTime, setRestTime, timerDone, setTimerDone} = useTimer(workout.rest, count, exerciseDone);
 
     const startExercise = () => {  
@@ -26,10 +27,12 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
             setExerciseDone(true);
             setSetDone(false);
             setExerciseStarted(false);
+            // setExProgress(Math.ceil(count / workout.sets * 100))
         } else {
             setSetDone(true);
             setTimerDone(false);
             setRestTime(workout.rest);
+            // setExProgress(0)
         }
     }
 
@@ -59,6 +62,9 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                     >{!exerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
                 </button>
             </div>
+            {/* <div className="progress w-75" role="progressbar" aria-label="Warning example" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
+                <div className="progress-bar bg-success" style={{width: "${70}%"}}>65% {exProgress}</div>
+            </div> */}
             <button 
                 className='startBtn' 
                 id={`${workout.exercise}start`} 
@@ -70,7 +76,7 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                 className={!timerDone ? 'timerBtn': 'restDone'}
                 id={`${workout.exercise}timer`}
                 style={{display: setDone ? 'initial' : 'none'}}
-                // onClick = {}
+                // onClick = {} pause timer.
                  >{!timerDone ? `⏳ ${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
             </button>
                 <button

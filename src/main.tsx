@@ -1,6 +1,7 @@
 // import React from 'react'
 import ReactDOM from 'react-dom/client'
 import Tool from './components/Tool'
+import 'bootstrap/dist/css/bootstrap.min.css';  // Import Bootstrap CSS
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

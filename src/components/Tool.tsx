@@ -2,6 +2,7 @@ import { useState} from 'react';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import Login from './Login';
+import NavBar from './NavBar';
 import Profile from './Profile';
 import LoadWorkouts from './LoadWorkouts';
 import Form from './Form';
@@ -81,6 +82,7 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                 setUserID = {setUserID}
                 /> ) : (
             <div>
+                <NavBar/>
                 <Profile 
                     userID = {userID} 
                     userName ={userName}
@@ -101,7 +103,8 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                     defaultExerciseState={defaultExerciseState}
                     setWorkoutChanged ={setWorkoutChanged}
                 />):(<button 
-                    id="showFormBtn" 
+                    className='btn btn-primary m-2'
+                    // id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
                 </button>)  

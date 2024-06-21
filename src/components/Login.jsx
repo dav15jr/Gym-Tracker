@@ -68,30 +68,54 @@ useEffect(() => {
     }               
 return (
 <>
-    <form className="login-form" id="login-form" onSubmit={handleLogin}>
-        <h2>Please Login</h2>           
-    <label htmlFor="email">Email:</label>
-        <input
-            type="email"
-            placeholder="Enter email"
-            id="email"
-            name="email"
-            onChange={e => setEmail(e.target.value)} 
-            value={email}
-            required/>
-    <label htmlFor="password">Password:</label>
-        <input
-            type="password"
-            placeholder="Enter password"
-            id="password"
-            name="password"
-            onChange={e => setPassword(e.target.value)}  
-            value={password}
-            required/>
-    <button className="formSubmitBtn" type="submit" value='Register' name='Register' required> Register </button>
-    <button className="formSubmitBtn" type="submit" value='Login' name='Login' required> Login </button>
+    <div className="container" id="hero"> 
+      <div className="row flex-lg-row align-items-center g-5 py-5" id="hero-info">
+        <div className="col-lg-6">
+          <h1 className='h1'>Gym Tracker</h1>
+          <h3>Unleash your inner beast to be your best self.</h3>
+        </div>
+        <div className="col-8 col-sm-10 col-lg-6 mx-auto">
+          <img className="img-fluid rounded" src="img/gym man front.jpg"/>
+        </div>
+      </div>
+    </div>
+    <form className="form-group" id="login-form" onSubmit={handleLogin}>
+        <p className="h2">Please Login</p>   
+    <div className="row justify-content-center">
+    <div className="col-7 col-md-4">
+        <div className ="form-floating">
+            <input
+                className="form-control" 
+                id="floatingEmail"
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                onChange={e => setEmail(e.target.value)} 
+                value={email}
+                required/>
+            <label htmlFor="floatingEmail">Email:</label>
+        </div>
+    </div>
+    <div className ="col-7 col-md-4">
+        <div className ="form-floating">
+            <input
+                className="form-control" 
+                id="floatingPassword"
+                type="password"
+                placeholder="Enter password"
+                name="password"
+                onChange={e => setPassword(e.target.value)}  
+                value={password}
+                required/>
+            <label htmlFor="floatingPassword">Password:</label>
+        </div>
+    </div>
+    </div>     
+    <div className="btn-group col-6 col-md-5" role="group"  >
+        <button className="btn btn-primary" id="LoginBtn" type="submit" value='Login' name='Login' required> Login </button>
+        <button className="btn btn-outline-secondary" id="RegisterBtn" type="submit" value='Register' name='Register' required> Register </button>
+    </div>
     </form>
 </>
 )
-
 }
