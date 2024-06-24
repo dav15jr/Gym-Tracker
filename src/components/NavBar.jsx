@@ -1,26 +1,29 @@
+import { getAuth, signOut } from "firebase/auth";
+import EditProfile from "./EditProfile";
 
+export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, userID, setUserName, setShowExercises }) {
 
-export default function NavBar() {
+  const logoutUser = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('Successfully logged out')
+        setIsLoggedIn(false)
+        setWorkoutPlan([]) // reset workout plan
+        setShowForm(true) //reset show form
+      }).catch((error) => {
+        // An error happened.
+        console.log('User already logged out')
+        console.log(error)
+      });
 
-        {/* <nav className="nav">
-            <div className="logo">
-                Gym Tracker
-            </div>
-                <div className="menu">
-                <a href="#home">Home</a>
-                <a href="#workouts">Workouts</a>
-                <a href="#progress">Progress</a>
-                <a href="#profile">Profile</a>
-            </div>
-        </nav>  
-        */}
-
+    }
 
     
 return (  
 <>
 
-  <nav className="navbar navbar-expand-sm" style={{backgroundColor: "#e3f2fd"}}>
+  <nav className="navbar navbar-expand-sm mb-5" style={{backgroundColor: "#e3f2fd"}}>
   <div className="container-fluid">
     <a className="navbar-brand" href="#">GYM APP</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,32 +33,25 @@ return (
       <ul className="navbar-nav my-2 my-lg-0 navbar-nav-scroll" >
       {/* style="--bs-scroll-height: 100px;" */}
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
+          <a className="nav-link " aria-current="page" href="#">Home</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Profile</a>
+          <a className="nav-link" href="#">Workouts</a>
         </li>
-        <li className="nav-item dropdown d-flex">
-          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
-          </a>
-          <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Action</a></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
-            <li><hr className="dropdown-divider"/></li>
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li className="nav-item">
+          <a className="nav-link active" href="#">Progress</a>
         </li>
-        <li className="nav-item d-flex">
-          <a className="nav-link disabled" aria-disabled="true">Log Out</a>
-        </li>
+    <EditProfile 
+      role="button" 
+        userID = {userID} 
+        setUserName ={setUserName}
+        setShowExercises = {setShowExercises}
+    />
+          <button className="nav-link" role="button" onClick={logoutUser} >Log Out</button>
       </ul>
     </div>
   </div>
 </nav>
-
-
-
 
 </>      
 )

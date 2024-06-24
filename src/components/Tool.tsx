@@ -82,14 +82,19 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                 setUserID = {setUserID}
                 /> ) : (
             <div>
-                <NavBar/>
+                <NavBar
+                setIsLoggedIn ={setIsLoggedIn}
+                setWorkoutPlan = {setWorkoutPlan}
+                setShowForm = {setShowForm}
+                userID = {userID} 
+                setUserName ={setUserName}
+                setShowExercises = {setShowExercises}
+                
+                />
                 <Profile 
                     userID = {userID} 
                     userName ={userName}
                     setUserName ={setUserName}
-                    setIsLoggedIn = {setIsLoggedIn}
-                    setWorkoutPlan = {setWorkoutPlan}
-                    setShowForm = {setShowForm}
                     setShowExercises = {setShowExercises}
                 />
                 {showExercises && (
@@ -109,23 +114,32 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                     >Add New Exercise
                 </button>)  
                   )}
-                <div className='loadsave'>
-                    <LoadWorkouts
+                <div className='loadsave row'>
+                    <div className='col-12 col-sm-8'>
+                    <LoadWorkouts 
                         userID ={userID}
                         setShowSaveBTN = {setShowSaveBTN}
                         setWorkoutName = {setWorkoutName}
                         setWorkoutPlan = {setWorkoutPlan}
                         setShowWorkoutTitle = {setShowWorkoutTitle}
                         />
-                    {(showSaveBTN && workoutPlan.length > 1) &&
-                    <div>
-                        <form onSubmit={saveWorkoutPlan}>
-                            <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name'
-                            onChange={handleSaveChange}  // Handle change from typed input. 
-                            required></input>
-                            <button id='saveWorkoutBtn' type='submit'>Save WorkOut</button>
-                        </form>
                     </div>
+                    {(showSaveBTN && workoutPlan.length > 1) &&
+                    // <div className=''>
+                        <form className='col-9 col-xs-8 col-sm-6 col-md-5 mb-3' onSubmit={saveWorkoutPlan}>
+                        <div className='input-group'>
+                            <input 
+                                className='form-control' 
+                                name='workoutName' 
+                                id='saveWorkout' 
+                                type="text" 
+                                placeholder='Workout Name'
+                                onChange={handleSaveChange}  // Handle change from typed input. 
+                                required/>
+                            <button className='btn btn-success' type='submit'>Save WorkOut</button> 
+                        </div>
+                        </form>
+                    // </div>
                     } 
                 </div>
                 <div>

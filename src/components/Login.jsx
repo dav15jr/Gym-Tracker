@@ -81,8 +81,8 @@ return (
     </div>
     <form className="form-group" id="login-form" onSubmit={handleLogin}>
         <p className="h2">Please Login</p>   
-    <div className="row justify-content-center">
-    <div className="col-7 col-md-4">
+    <div className="row justify-content-center p-3 g-2">
+    <div className="col-10 col-sm-6 col-lg-3">
         <div className ="form-floating">
             <input
                 className="form-control" 
@@ -96,7 +96,7 @@ return (
             <label htmlFor="floatingEmail">Email:</label>
         </div>
     </div>
-    <div className ="col-7 col-md-4">
+    <div className ="col-10 col-sm-6 col-lg-3">
         <div className ="form-floating">
             <input
                 className="form-control" 
@@ -111,7 +111,7 @@ return (
         </div>
     </div>
     </div>     
-    <div className="btn-group col-6 col-md-5" role="group"  >
+    <div className="btn-group col-7 col-md-6" role="group"  >
         <button className="btn btn-primary" id="LoginBtn" type="submit" value='Login' name='Login' required> Login </button>
         <button className="btn btn-outline-secondary" id="RegisterBtn" type="submit" value='Register' name='Register' required> Register </button>
     </div>
