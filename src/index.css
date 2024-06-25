@@ -23,13 +23,13 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: grid;    /*display the nav section full width*/
+  /* margin: 0;
+  display: grid;    
   place-items: center;
   min-width: 1500px;
   min-height: 50vh;
   font-size: 1em;
-  line-height: 1.5;
+  line-height: 1.5; */
   border: 3px solid rgb(255, 24, 197);
 }
 
@@ -43,14 +43,21 @@ h2 {
   color: rgb(89, 8, 165);
 }
 
-/*------------------- HTML STATIC-------------------*/
-nav{
-  display:flex;
-  justify-content: space-between;
-  /* margin:5%; */
-  padding:2% 5%;
-  background-color:#8f0394
-}
+/*------------------- Nav Bar -------------------*/
+
+.nav-link:hover, 
+.nav-link:focus{
+  color:gold !important;
+  font-weight: bold;
+  font-style: italic;
+  text-shadow: 0 0 10px #ffffff;
+
+} 
+.nav-item:active{
+  color:rgb(94, 255, 0) !important;
+  font-weight: bold !important;
+} 
+
 .menu{
   display:flex;
   width: 300px;
@@ -78,11 +85,12 @@ nav{
 }
 
 #root {
-  max-width: 1200px;
-  min-width: 1000px;
-  height:  100%;
-  margin: 0 auto;
-  padding: 1rem;
+  max-width: 1500px;
+  width: auto;
+  min-width: 300px;
+  height:  auto;
+  margin: auto;
+  /* padding: 1rem; */
   text-align: center;
   border: 3px solid rgb(24, 116, 255);
 }
@@ -147,10 +155,7 @@ span{
   justify-content:center ;
   align-content: center;
   gap: 10px;
-  max-width:1050px;
   height: fit-content;
-  margin: 20px;
-  padding:20px;
   /* border: 3px solid rgb(24, 116, 255); */
   /* background-color: rgb(3, 214, 144); */
 }
@@ -167,15 +172,13 @@ span{
   justify-content: top;
   align-items: center;
   gap: 15px;
-  padding-top: 10px;
+  padding-top: 30px;
   width:330px;
   height:fit-content;
   min-height: 250px;
   border-radius: 30px;
   /* border: 3px solid rgb(47, 164, 241); */
   background-color:rgba(179, 112, 255, 0.582);
-  /* opacity: 0.5; */
-
 }
 /* .infoDiv{
   margin-bottom: 5px;

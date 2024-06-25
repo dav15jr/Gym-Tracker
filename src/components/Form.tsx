@@ -49,9 +49,9 @@ export default function Form({
 
     return (
         <>
-            <form className="form-group" id="ex" onSubmit={handleSubmit}>
+            <form className="form-group container-fluid" id="ex" onSubmit={handleSubmit}>
             <div className="row justify-content-center g-3 m-3">
-                <div className ="form-floating col-6 col-sm-5 col-md-3">
+                <div className ="form-floating col-6 col-sm-4 col-md-auto">
                     <input
                         className="form-control" 
                         type="text"
@@ -71,7 +71,7 @@ export default function Form({
                     </datalist>
                     <label htmlFor="exercise">Exercise:</label>
                 </div>
-                <div className ="form-floating col-6 col-sm-4 col-md-2">
+                <div className ="form-floating col-6 col-sm-3 col-md-auto">
                     <select 
                             className="form-control"
                             id="type" 
@@ -88,7 +88,7 @@ export default function Form({
                 <>
                     {  //check whether the value is 'bodyWeight' to determine showing exercise amount
                     exerciseData.type !== 'body weight' && (
-                        <div className ="form-floating col-3 col-sm-2 col-lg-1">
+                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
                         <input
                             className="form-control" 
                             type="number"
@@ -104,7 +104,7 @@ export default function Form({
                     )
                     }
                 </>
-                <div className ="form-floating col-3 col-md-2">
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
                         className="form-control" 
                         type="number"
@@ -118,7 +118,7 @@ export default function Form({
                     />
                     <label htmlFor="reps">No. of Reps:</label>
                 </div>
-                <div className ="form-floating col-3 col-md-2">
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
                         className="form-control" 
                         type="number"
@@ -133,7 +133,7 @@ export default function Form({
                     <label htmlFor="sets">No. of Sets:</label>
                 </div>
 
-                <div className ="form-floating col-3 col-md-2">
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
                         className="form-control" 
                         type="number"

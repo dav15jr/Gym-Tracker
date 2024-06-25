@@ -57,17 +57,17 @@ console.log('Workout exists?', workoutExists);
 return (
 <>
     {workoutExists && 
-    <div className='col m-3'>
+    <div className='col-12 col-sm-8'>
         <h2>Stored Workouts</h2>
-        <div className="input-group justify-content-center " role="group" aria-label="Button group with nested select list">
-            <button type="button" className="btn btn-danger px-3 px-sm-4" onClick={delWorkout}>Delete</button>
+        <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
+            <button type="button" className="btn btn-danger px-3 px-sm-4 px-lg-5" onClick={delWorkout}>Delete</button>
             <select  className="select px-1" onChange={handleLoadSelect} defaultValue='default'>
                         <option value='default'>Select Workout</option> {
                             storedWorkouts.map((workout, index) => (
                                 <option key={index} value={workout}>{workout}</option>
                             ))}
             </select>
-            <button type="button" className="btn btn-success px-3 px-sm-4" onClick={loadWorkout}>Load</button>
+            <button type="button" className="btn btn-success px-3 px-sm-4 px-lg-5" onClick={loadWorkout}>Load</button>
         </div>    
     </div>
     }

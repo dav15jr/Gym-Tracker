@@ -36,7 +36,7 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
 return(
 <>    
 <button 
-    className="nav-link" 
+    className="btn nav-link" 
     data-bs-target="#profileModalToggle" 
     data-bs-toggle="modal">
     Profile
@@ -87,7 +87,6 @@ return(
                     required/>
                 <label htmlFor="name">Name:</label>
             </div> 
-
         <div className ="form-floating col-sm-5"> 
             <select 
                 className="form-control" 
