@@ -7,7 +7,7 @@ const SaveWorkout = ({userID, setShowSaveBTN, setWorkoutName, workoutPlan, setWo
 
     const [saveWorkout, setSaveWorkout] = useState();
 
-//------------------------------Save Workout----------------------
+//--------------Save Workout----------------
 
 const handleSaveChange =(e) => {
     setSaveWorkout(e.target.value)

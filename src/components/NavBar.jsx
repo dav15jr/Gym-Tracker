@@ -16,9 +16,7 @@ export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, user
         console.log('User already logged out')
         console.log(error)
       });
-
     }
-
 return (  
 <>
   <nav className="navbar navbar-expand-md mb-5 px-1 px-md-5" style={{backgroundColor: "#D300FF"}}>

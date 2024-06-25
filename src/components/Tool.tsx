@@ -96,7 +96,7 @@ return (
                     />
                 </div>
                 <div>
-                {(showWorkoutTitle) && <h2 className='workoutTitle mt-2'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
+                {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
                     {(showSaveBTN && workoutPlan.length > 1) &&
                         <SaveWorkout 
                         userID ={userID}
