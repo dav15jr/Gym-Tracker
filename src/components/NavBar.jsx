@@ -1,22 +1,9 @@
-import { getAuth, signOut } from "firebase/auth";
 import EditProfile from "./EditProfile";
+import LogOff from "./LogOff";
 
 export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, userID, setUserName, setShowExercises }) {
 
-  const logoutUser = () => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-        // Sign-out successful.
-        console.log('Successfully logged out')
-        setIsLoggedIn(false)
-        setWorkoutPlan([]) // reset workout plan
-        setShowForm(true) //reset show form
-      }).catch((error) => {
-        // An error happened.
-        console.log('User already logged out')
-        console.log(error)
-      });
-    }
+
 return (  
 <>
 <nav className="navbar navbar-expand-lg mb-5" style={{backgroundColor: "#D300FF"}}>
@@ -34,19 +21,22 @@ return (
           <a className="nav-link" href="#">Workouts</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link active" href="#">Progress</a>
+          <a className="nav-link" href="#">Progress</a>
         </li>
         <EditProfile 
             userID = {userID} 
             setUserName ={setUserName}
             setShowExercises = {setShowExercises}
         />
-        <button className="btn nav-link" onClick={logoutUser} >Log Out</button>
+        <LogOff 
+          setIsLoggedIn = {setIsLoggedIn}
+          setWorkoutPlan = {setWorkoutPlan}
+          setShowForm = {setShowForm}
+        />
       </ul>
     </div>
   </div>
 </nav>
-
 </>      
 )
 }
