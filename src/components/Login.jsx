@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 
 
-export default function Login ({setIsLoggedIn, setUserID}) {
+export default function Login ({setIsLoggedIn, setUserID, setNewUser}) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -37,6 +37,7 @@ useEffect(() => {
                 await createUserWithEmailAndPassword(auth, email, password)
                 setIsLoggedIn(true)
                 setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
+                setNewUser(true)
                 alert('Welcome! You have successfully registered')
             } catch(error) {
                 console.log(error)
@@ -52,6 +53,7 @@ useEffect(() => {
                 setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
                 setEmail('')
                 setPassword('')
+                setNewUser(false)
             } catch(error) {
                 if (error.code === 'auth/wrong-password') {
                     alert('Wrong Password, please try again.')
@@ -68,30 +70,54 @@ useEffect(() => {
     }               
 return (
 <>
-    <form className="login-form" id="login-form" onSubmit={handleLogin}>
-        <h2>Please Login</h2>           
-    <label htmlFor="email">Email:</label>
-        <input
-            type="email"
-            placeholder="Enter email"
-            id="email"
-            name="email"
-            onChange={e => setEmail(e.target.value)} 
-            value={email}
-            required/>
-    <label htmlFor="password">Password:</label>
-        <input
-            type="password"
-            placeholder="Enter password"
-            id="password"
-            name="password"
-            onChange={e => setPassword(e.target.value)}  
-            value={password}
-            required/>
-    <button className="formSubmitBtn" type="submit" value='Register' name='Register' required> Register </button>
-    <button className="formSubmitBtn" type="submit" value='Login' name='Login' required> Login </button>
+    <div className="container" id="hero"> 
+      <div className="row flex-lg-row align-items-center g-5 py-5" id="hero-info">
+        <div className="col-lg-6">
+          <h1 className='h1'>Gym Tracker</h1>
+          <h3>Unleash your inner beast to be your best self.</h3>
+        </div>
+        <div className="col-8 col-sm-10 col-lg-6 mx-auto">
+          <img className="img-fluid rounded" src="img/gym man front.jpg"/>
+        </div>
+      </div>
+    </div>
+    <form className="form-group" id="login-form" onSubmit={handleLogin}>
+        <p className="h2">Please Login</p>   
+    <div className="row justify-content-center p-3 g-2">
+    <div className="col-10 col-sm-6 col-lg-3">
+        <div className ="form-floating">
+            <input
+                className="form-control" 
+                id="floatingEmail"
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                onChange={e => setEmail(e.target.value)} 
+                value={email}
+                required/>
+            <label htmlFor="floatingEmail">Email:</label>
+        </div>
+    </div>
+    <div className ="col-10 col-sm-6 col-lg-3">
+        <div className ="form-floating">
+            <input
+                className="form-control" 
+                id="floatingPassword"
+                type="password"
+                placeholder="Enter password"
+                name="password"
+                onChange={e => setPassword(e.target.value)}  
+                value={password}
+                required/>
+            <label htmlFor="floatingPassword">Password:</label>
+        </div>
+    </div>
+    </div>     
+    <div className="btn-group col-7 col-md-6" role="group"  >
+        <button className="btn btn-primary" id="LoginBtn" type="submit" value='Login' name='Login' required> Login </button>
+        <button className="btn btn-outline-secondary" id="RegisterBtn" type="submit" value='Register' name='Register' required> Register </button>
+    </div>
     </form>
 </>
 )
-
 }

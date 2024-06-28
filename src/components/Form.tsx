@@ -1,4 +1,4 @@
-// import './index.css'
+// import './../index.css'
 import defaultExercises from '../assets/defaultExercises';
 
 export default function Form({
@@ -49,10 +49,11 @@ export default function Form({
 
     return (
         <>
-            <form className="form" id="form" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="exercise">Exercise:</label>
+            <form className="form-group container-fluid" id="ex" onSubmit={handleSubmit}>
+            <div className="row justify-content-center g-3 m-3">
+                <div className ="form-floating col-6 col-sm-4 col-md-auto">
                     <input
+                        className="form-control" 
                         type="text"
                         list='data'
                         placeholder="Select Exercise"
@@ -63,44 +64,49 @@ export default function Form({
                         value={exerciseData.exercise}
                         required
                     />
-                    <datalist id='data'>                    //data list of default exercises to select 
+                    <datalist id='data'>                  
                         {defaultExercises.map((ex, index) => (      /*go through default exercise data and populate list*/
                             <option key={index} value={ex.exercise}/>
                         ))}
                     </datalist>
+                    <label htmlFor="exercise">Exercise:</label>
                 </div>
-                <div>
-                    <label htmlFor="type">Type:</label>
-                    <select id="type" name="type" value={exerciseData.type} onChange={handleChange}>
+                <div className ="form-floating col-6 col-sm-3 col-md-auto">
+                    <select 
+                            className="form-control"
+                            id="type" 
+                            name="type" 
+                            value={exerciseData.type} 
+                            onChange={handleChange}>
                         <option value="resistance">Resistance</option>
                         <option value="kgs">Kilo Grams (Kg's)</option>
                         <option value="lbs">Pounds (Lb's)</option>
                         <option value="body weight">Body Weight</option>
                     </select>
+                    <label htmlFor="type">Type:</label>
                 </div>
-                <div>
-                    {          //check whether the value is 'bodyWeight' to determine showing exercise amount
+                <>
+                    {  //check whether the value is 'bodyWeight' to determine showing exercise amount
                     exerciseData.type !== 'body weight' && (
-                        <>
-                            <label htmlFor="amount" id="amountLabel">
-                                Amount:
-                            </label>
-                            <input
-                                type="number"
-                                min='1'
-                                placeholder="Amount"
-                                id="amount"
-                                name="amount"
-                                onChange={handleChange}
-                                value={exerciseData.amount}
-                                required/>
-                        </>
+                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
+                        <input
+                            className="form-control" 
+                            type="number"
+                            min='1'
+                            placeholder="Amount"
+                            id="amount"
+                            name="amount"
+                            onChange={handleChange}
+                            value={exerciseData.amount}
+                            required/>
+                        <label htmlFor="amount" id="amountLabel">Amount:</label>
+                        </div>
                     )
                     }
-                </div>
-                <div>
-                    <label htmlFor="reps">No. of Reps:</label>
+                </>
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
+                        className="form-control" 
                         type="number"
                         min='1'
                         placeholder="Reps"
@@ -109,11 +115,12 @@ export default function Form({
                         onChange={handleChange}
                         value={exerciseData.reps}
                         required
-                    ></input>
+                    />
+                    <label htmlFor="reps">No. of Reps:</label>
                 </div>
-                <div>
-                    <label htmlFor="sets">No. of Sets:</label>
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
+                        className="form-control" 
                         type="number"
                         min='1'
                         placeholder="Sets"
@@ -122,11 +129,13 @@ export default function Form({
                         onChange={handleChange}
                         value={exerciseData.sets}
                         required
-                    ></input>
+                    />
+                    <label htmlFor="sets">No. of Sets:</label>
                 </div>
-                <div>
-                    <label htmlFor="rest">Rest time (s):</label>
+
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
+                        className="form-control" 
                         type="number"
                         min='5'
                         placeholder="Rest Time"
@@ -135,12 +144,16 @@ export default function Form({
                         onChange={handleChange}
                         value={exerciseData.rest}
                         required
-                    ></input>
+                    />
+                    <label htmlFor="rest">Rest time (s):</label>
                 </div>
-                <br></br>
-                <button className="formSubmitBtn" type="submit">
-                    Add Exercise
-                </button>
+                <div className="row justify-content-center m-3">
+                    <button className="btn btn-primary col-6" style={{maxWidth: '250px'}} type="submit">
+                        Add Exercise
+                    </button>
+                </div>
+                </div>
+                
             </form>
         </>
     );

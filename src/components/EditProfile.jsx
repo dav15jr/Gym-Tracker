@@ -1,16 +1,11 @@
+import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 
+export default function EditProfile({userID, setUserName, setShowExercises }) {
 
-export default function Profile ({userID, userName, setUserName, setShowExercises, newUser}) {
+const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises);
 
-    const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
-    
-    useCheckStoredProfile(userID, setUserName, setShowExercises)   // Check if profile exists
-
-    // console.log('User ID on Profile page', userID);
-    console.log('Profile is', profileExists)
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
         setProfileData((prevData) => {
@@ -38,31 +33,63 @@ export default function Profile ({userID, userName, setUserName, setShowExercise
             });
             alert("Profile saved successfully");
             }
+return(
+<>    
+<button 
+    className="btn nav-link" 
+    data-bs-target="#profileModalToggle" 
+    data-bs-toggle="modal">
+    Profile
+</button>
 
-    console.log('profile page rendered')
+<div className="modal fade" id="profileModalToggle" aria-hidden="true" aria-labelledby="profileModalToggleLabel" tabIndex={-1}>
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="profileModalToggleLabel">Profile</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body" id='profile'>
+        <ul>
+            <li><span>Name:</span> {profileData.name}</li>
+            <li><span>Sex:</span> {profileData.sex}</li>
+            <li><span>Age:</span> {profileData.age}</li>
+            <li><span>Height:</span> {profileData.height} Cm's</li>
+            <li><span>Weight:</span> {profileData.weight} Kg's</li>
+        </ul>
+      </div>
+      <div className="modal-footer justify-content-center">
+        <button className="btn btn-primary" data-bs-target="#profileModalToggle2" data-bs-toggle="modal">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-return (
-<>
-    {!profileExists ? (  
-    <form className="form-group" id="profile-form" onSubmit={saveProfile}>
-            <h2>Create Your Profile</h2>   
-    <div className="row justify-content-center g-3 mb-3">
-        <div className ="form-floating col-8 col-sm-auto col-md-auto">       
-            <input
-                className="form-control" 
-                type="text"
-                placeholder="Enter name"
-                id="name"
-                name="name"
-                onChange={handleChange}  // Handle change from typed input.
-                value={profileData.name}
-                required/>
-            <label htmlFor="name">Name:</label>
-        </div> 
-
-        <div className ="form-floating col-5 col-sm-3 col-md-2"> 
+<div className="modal fade" id="profileModalToggle2" aria-hidden="true" aria-labelledby="profileModalToggleLabel2" tabIndex={-1}>
+  <div className="modal-dialog modal-dialog-centered">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="profileModalToggleLabel2">Edit Your Profile</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <form className="form-floating align-content-center m-4" id="profile-form" onSubmit={saveProfile}>
+        <div className="row justify-content-center g-3 mb-3">
+            <div className ="form-floating col-sm-6">       
+                <input
+                    className="form-control" 
+                    type="text"
+                    placeholder="Enter name"
+                    id="name"
+                    name="name"
+                    onChange={handleChange}  // Handle change from typed input.
+                    value={profileData.name}
+                    required/>
+                <label htmlFor="name">Name:</label>
+            </div> 
+        <div className ="form-floating col-sm-5"> 
             <select 
-                className="form-control " 
+                className="form-control" 
                 id="sex" 
                 name="sex" 
                 value={profileData.sex} 
@@ -72,7 +99,7 @@ return (
             </select>
             <label htmlFor="sex">Sex:</label>
         </div>
-        <div className ="form-floating col-4 col-sm-auto col-md-2"> 
+        <div className ="form-floating col-sm-3"> 
             <input
                 className="form-control" 
                 type="number"
@@ -84,8 +111,7 @@ return (
                 required/>
             <label htmlFor="age">Age:</label>
         </div>
-
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-sm-4">
             <div className ="input-group">
                 <div className ="form-floating"> 
                 <input
@@ -102,7 +128,7 @@ return (
                 <span className="input-group-text">Cm's</span>
             </div>
         </div>
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-sm-4">
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
@@ -119,16 +145,14 @@ return (
             <span className="input-group-text">Kg's</span>
             </div>
         </div>
-            <button className="btn btn-lg btn-primary w-50" type="submit">
-                Save Profile
-            </button>
         </div>
-    </form>
-    
-    ) : ( 
-    <div>
-        <h2>Welcome {newUser ? ' ' :'back '}{userName} </h2>
+        <button className="btn btn-success justify-self-center" type="submit" data-bs-target="#profileModalToggle" data-bs-toggle="modal">Save Profile</button>
+        </form>
+      </div>
     </div>
-    )}
+  </div>
+</div>
 </>
-)}
+)
+
+}

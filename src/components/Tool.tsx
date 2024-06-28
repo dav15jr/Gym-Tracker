@@ -1,13 +1,12 @@
 import { useState} from 'react';
-import { doc, setDoc} from "firebase/firestore";
-import { db } from "../firebaseConfig";
 import Login from './Login';
+import NavBar from './NavBar';
 import Profile from './Profile';
 import LoadWorkouts from './LoadWorkouts';
+import SaveWorkout from './SaveWorkout';
 import Form from './Form';
 import Exercise from './Exercise';
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
-
 import '../index.css';
 
 const defaultExerciseState = {
@@ -21,7 +20,6 @@ const defaultExerciseState = {
 const Tool = () => {
     // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
-    const [saveWorkout, setSaveWorkout] = useState();
     const [showSaveBTN, setShowSaveBTN] = useState(false);
     const [workoutName, setWorkoutName] = useState('');
     const [workoutPlan, setWorkoutPlan] = useState([]);
@@ -31,38 +29,16 @@ const Tool = () => {
     const [userID, setUserID] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('');
+    const [newUser, setNewUser] = useState(false);
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
   
     console.log('tool page rendered')
     console.log('isLoggedIn is', isLoggedIn)
+    console.log('are they a new user ?', newUser)
     // console.log('User ID on tools page', userID);
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
-
-//------------------------------Save Workout----------------------
-
-const handleSaveChange =(e) => {
-    setSaveWorkout(e.target.value)
-    }
-
-const saveWorkoutPlan = (event) => {
-    event.preventDefault();
-    const workoutTitle = event.target.workoutName.value
-    saveWorkoutsToFirestore();   //save data to firestore
-    setWorkoutName(workoutTitle)  
-    setShowWorkoutTitle(true);
-    setWorkoutChanged(false);
-    setShowSaveBTN(false)
-    // refetch() //refetch workouts from firestore
-    }
-        
-async function saveWorkoutsToFirestore  (){
-    await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
-    workoutPlan
-    });
-    alert("Workout saved successfully");
-    }
 
 //------------------------------Edit Workout--------------------
 
@@ -73,22 +49,29 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
     setWorkoutChanged(true)
     setShowSaveBTN(true)
 }
-    return (
+return (
         <>
             {!isLoggedIn ? ( 
                 <Login 
                 setIsLoggedIn = {setIsLoggedIn}
                 setUserID = {setUserID}
+                setNewUser = {setNewUser}
                 /> ) : (
             <div>
+                <NavBar
+                    setIsLoggedIn ={setIsLoggedIn}
+                    setWorkoutPlan = {setWorkoutPlan}
+                    setShowForm = {setShowForm}
+                    userID = {userID} 
+                    setUserName ={setUserName}
+                    setShowExercises = {setShowExercises}
+                />
                 <Profile 
                     userID = {userID} 
                     userName ={userName}
                     setUserName ={setUserName}
-                    setIsLoggedIn = {setIsLoggedIn}
-                    setWorkoutPlan = {setWorkoutPlan}
-                    setShowForm = {setShowForm}
                     setShowExercises = {setShowExercises}
+                    newUser = {newUser}
                 />
                 {showExercises && (
                 showForm ? 
@@ -101,39 +84,45 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
                     defaultExerciseState={defaultExerciseState}
                     setWorkoutChanged ={setWorkoutChanged}
                 />):(<button 
-                    id="showFormBtn" 
+                    className='btn btn-primary m-2'
+                    // id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
                 </button>)  
                   )}
-                <div className='loadsave'>
-                    <LoadWorkouts
+                <div className='loadsave row m-3'>
+                <LoadWorkouts 
+                    userID ={userID}
+                    setShowSaveBTN = {setShowSaveBTN}
+                    setWorkoutName = {setWorkoutName}
+                    setWorkoutPlan = {setWorkoutPlan}
+                    setShowWorkoutTitle = {setShowWorkoutTitle}
+                    />
+                </div>
+                <div>
+                {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
+                    {(showSaveBTN && workoutPlan.length > 1) &&
+                        <SaveWorkout 
                         userID ={userID}
                         setShowSaveBTN = {setShowSaveBTN}
                         setWorkoutName = {setWorkoutName}
-                        setWorkoutPlan = {setWorkoutPlan}
+                        workoutPlan = {workoutPlan}
+                        setWorkoutChanged = {setWorkoutChanged}
                         setShowWorkoutTitle = {setShowWorkoutTitle}
                         />
-                    {(showSaveBTN && workoutPlan.length > 1) &&
-                    <div>
-                        <form onSubmit={saveWorkoutPlan}>
-                            <input name='workoutName' id='saveWorkout' type="text" placeholder='Workout Name'
-                            onChange={handleSaveChange}  // Handle change from typed input. 
-                            required></input>
-                            <button id='saveWorkoutBtn' type='submit'>Save WorkOut</button>
-                        </form>
-                    </div>
-                    } 
-                </div>
-                <div>
-                {(showWorkoutTitle) && <h1 className='workoutTitle'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h1>}
-                    <div className='workoutDiv' >
+                        } 
+                    <div className='workoutDiv m-3' >
                         {
-                        // Checking that the workout plan array has a length
-                        // IF it does then loop through the Exercise component and return a seperate copy of that component
+                        // If the workout plan array has a lengthdoes then loop through the Exercise component and return a seperate copy of that component
                         workoutPlan.length > 0 &&
                             workoutPlan.map((workout, index) => {
-                            return <Exercise key={workout.exercise} workout={workout} index={index} deleteExercise={deleteExercise} setShowForm={setShowForm} />;
+                            return <Exercise 
+                            key={workout.exercise} 
+                            workout={workout} 
+                            index={index} 
+                            deleteExercise={deleteExercise} 
+                            setShowForm={setShowForm} 
+                            />;
                             })
                         }
                     </div>
