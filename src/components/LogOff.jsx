@@ -25,7 +25,7 @@ return (
     </button>
 
     {/* // -- Modal -- */}
-    <div className="modal fade" id="logOffModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div className="modal fade" id="logOffModal" tabIndex={-1} aria-labelledby="modalLabel" aria-hidden="true">
     <div className="modal-dialog">
         <div className="modal-content bg-danger-subtle">
         <div className="modal-header">

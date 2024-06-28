@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react';
+import { useState} from 'react';
 import { doc, getDoc, deleteDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import useCheckStoredWorkouts from '../assets/hooks/useCheckStoredWorkouts'; 
@@ -7,26 +7,22 @@ export default function LoadWorkouts({userID, setWorkoutPlan, setWorkoutName, se
 
 
  const [loadedWorkout, setLoadedWorkout] = useState();
- const [btnDisabled, setBtnDisabled] = useState(true);
- const { workoutExists, storedWorkouts, fetchStoredWorkouts} = useCheckStoredWorkouts(userID );
-//  let myModal = document.getElementById('staticBackdrop');
+ const { workoutExists, storedWorkouts, fetchStoredWorkouts, btnDisabled, setBtnDisabled} = useCheckStoredWorkouts(userID );
 
 //------------------------------Load Workout--------------------
 useCheckStoredWorkouts(userID); 
-
-useEffect(() => {
-    if(loadedWorkout === 'default'){    //check if the current workout already exists
-        setBtnDisabled(true)
-        } else {
-        setBtnDisabled(false)
-        }
-},[loadedWorkout, userID])
 
 // console.log('User ID on Loads page', userID);
 
 const handleLoadSelect =(e) => {
     setLoadedWorkout(e.target.value)
     console.log(loadedWorkout)
+
+    if(e.target.value == 'default'){    //check if the current workout already exists
+        setBtnDisabled(true)
+    } else {
+        setBtnDisabled(false)
+    }
     }
 
 const loadWorkout = () => {

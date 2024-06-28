@@ -3,7 +3,7 @@ import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 
 
-export default function Profile ({userID, userName, setUserName, setShowExercises}) {
+export default function Profile ({userID, userName, setUserName, setShowExercises, newUser}) {
 
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
@@ -127,7 +127,7 @@ return (
     
     ) : ( 
     <div>
-        <h2>Welcome {userName} </h2>
+        <h2>Welcome {newUser ? ' ' :'back '}{userName} </h2>
     </div>
     )}
 </>

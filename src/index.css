@@ -245,7 +245,8 @@ button{
 }
 button:hover {
   border-color: #013b10;
-  color: #28da04;
+  background-color: #28da04;
+  transform: scale(1.1); 
 }
 button:focus-visible {
   outline: 3px dashed rgb(255, 38, 0);

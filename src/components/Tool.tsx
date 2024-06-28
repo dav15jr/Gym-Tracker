@@ -29,11 +29,13 @@ const Tool = () => {
     const [userID, setUserID] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('');
+    const [newUser, setNewUser] = useState(false);
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
   
     console.log('tool page rendered')
     console.log('isLoggedIn is', isLoggedIn)
+    console.log('are they a new user ?', newUser)
     // console.log('User ID on tools page', userID);
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
@@ -53,6 +55,7 @@ return (
                 <Login 
                 setIsLoggedIn = {setIsLoggedIn}
                 setUserID = {setUserID}
+                setNewUser = {setNewUser}
                 /> ) : (
             <div>
                 <NavBar
@@ -68,6 +71,7 @@ return (
                     userName ={userName}
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
+                    newUser = {newUser}
                 />
                 {showExercises && (
                 showForm ? 

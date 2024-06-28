@@ -6,9 +6,11 @@ export default function useCheckStoredWorkouts(userID) {
     
 const [storedWorkouts, setStoredWorkouts] = useState([]);
 const [workoutExists, setWorkoutExists] = useState(false);
+const [btnDisabled, setBtnDisabled] = useState(true);
 
 const fetchStoredWorkouts = useCallback(async () => {
     const temporaryArr = [];
+    setBtnDisabled(true)
     try {
         const collRef = collection(db, userID)
         const querySnapshot = await getDocs(collRef);
@@ -21,8 +23,10 @@ const fetchStoredWorkouts = useCallback(async () => {
 
         if (workouts.length > 0){  //check if a workout exists
             setWorkoutExists(true)
+
         } else {
             setWorkoutExists(false)
+
             }
 
     } catch (error) {
@@ -35,6 +39,6 @@ useEffect(() => {
    fetchStoredWorkouts();
     }, [userID, fetchStoredWorkouts])
     
-return { workoutExists, storedWorkouts, fetchStoredWorkouts }
+return { workoutExists, storedWorkouts, fetchStoredWorkouts, btnDisabled, setBtnDisabled }
 }
 

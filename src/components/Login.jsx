@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 
 
-export default function Login ({setIsLoggedIn, setUserID}) {
+export default function Login ({setIsLoggedIn, setUserID, setNewUser}) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -37,6 +37,7 @@ useEffect(() => {
                 await createUserWithEmailAndPassword(auth, email, password)
                 setIsLoggedIn(true)
                 setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
+                setNewUser(true)
                 alert('Welcome! You have successfully registered')
             } catch(error) {
                 console.log(error)
@@ -52,6 +53,7 @@ useEffect(() => {
                 setUserID(auth.currentUser.uid) // Set the user ID using the provided uniques id from 
                 setEmail('')
                 setPassword('')
+                setNewUser(false)
             } catch(error) {
                 if (error.code === 'auth/wrong-password') {
                     alert('Wrong Password, please try again.')
