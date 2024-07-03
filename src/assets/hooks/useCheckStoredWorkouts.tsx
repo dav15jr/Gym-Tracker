@@ -17,7 +17,7 @@ const fetchStoredWorkouts = useCallback(async () => {
        querySnapshot.forEach((doc) => {
             temporaryArr.push(doc.id);
             });
-        const workouts =  temporaryArr.filter((name) => name  !== 'profileData')  //Filter out profile Data from Stored Workouts.
+        const workouts =  temporaryArr.filter((name) => name  !== 'profileData'&& name !== 'progressHistory')  //Filter out profile & Progress Data from Stored Workouts.
         setStoredWorkouts(workouts)
         console.log(workouts.length)
 

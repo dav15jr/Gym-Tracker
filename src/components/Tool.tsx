@@ -2,6 +2,7 @@ import { useState} from 'react';
 import Login from './Login';
 import NavBar from './NavBar';
 import Profile from './Profile';
+import Progress from './Progress';
 import LoadWorkouts from './LoadWorkouts';
 import SaveWorkout from './SaveWorkout';
 import Form from './Form';
@@ -72,6 +73,9 @@ return (
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
                     newUser = {newUser}
+                />
+                < Progress
+                    userID ={userID}
                 />
                 {showExercises && (
                 showForm ? 

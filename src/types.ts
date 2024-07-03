@@ -14,4 +14,8 @@ export type ProfileData = {
     sex:string;
     height:number;
     weight:number;
+};
+export type ProgressData = {
+    date: string;
+    weight:number;
 }

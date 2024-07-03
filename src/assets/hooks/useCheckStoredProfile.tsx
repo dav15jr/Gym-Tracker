@@ -3,6 +3,7 @@ import { doc, getDoc} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { ProfileData } from '../../types';
 
+
 const defaultProfile:ProfileData = {
     name: 'John Snow',
     age: 28,

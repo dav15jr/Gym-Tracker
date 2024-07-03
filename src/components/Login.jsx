@@ -98,7 +98,7 @@ return (
             <label htmlFor="floatingEmail">Email:</label>
         </div>
     </div>
-    <div className ="col-10 col-sm-6 col-lg-3">
+    <div className ="col-10 col-sm-6 col-lg-3 mb-3">
         <div className ="form-floating">
             <input
                 className="form-control" 

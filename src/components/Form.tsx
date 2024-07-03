@@ -42,9 +42,9 @@ export default function Form({
         console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
-        // document.querySelector('form').reset(); //Reset the form    
         setWorkoutChanged(true)
         setShowSaveBTN(true)
+        // document.querySelector('form').reset(); //Reset the form    
         }
 
     return (
@@ -132,7 +132,6 @@ export default function Form({
                     />
                     <label htmlFor="sets">No. of Sets:</label>
                 </div>
-
                 <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
                     <input
                         className="form-control" 
@@ -153,7 +152,6 @@ export default function Form({
                     </button>
                 </div>
                 </div>
-                
             </form>
         </>
     );

@@ -21,10 +21,9 @@ const saveWorkoutPlan = (event) => {
     setShowWorkoutTitle(true);
     setWorkoutChanged(false);
     setShowSaveBTN(false)
-    // refetch() //refetch workouts from firestore
     }
         
-async function saveWorkoutsToFirestore  (){
+async function saveWorkoutsToFirestore (){
     await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
     workoutPlan
     });
