@@ -13,7 +13,8 @@ export type ProfileData = {
     age: number;
     sex:string;
     height:number;
-    weight:number;
+    weightNow:number; 
+    weightGoal:number; 
 };
 export type ProgressData = {
     date: string;

@@ -3,7 +3,7 @@ import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 
 
-export default function Profile ({userID, userName, setUserName, setShowExercises, newUser}) {
+export default function Profile ({userID, userName, setUserName, setShowExercises, newUser, setUserHeight}) {
 
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
@@ -30,6 +30,7 @@ export default function Profile ({userID, userName, setUserName, setShowExercise
             saveProfileToFirestore();   //save data to firestore
             setProfileExists(true)
             setShowExercises(true)
+            setUserHeight(profileData.height)
             }
                 
     async function saveProfileToFirestore  (){
@@ -108,13 +109,30 @@ return (
                     <input 
                         className="form-control" 
                         type="number"
-                        placeholder="Enter weight"
-                        id="weight"
-                        name="weight"
+                        placeholder="Enter current weight"
+                        id="weightNow"
+                        name="weightNow"
                         onChange={handleChange}  // Handle change from typed input.
-                        value={profileData.weight}
+                        value={profileData.weightNow}
                         required/>
-                    <label htmlFor="weight">Weight:</label>
+                    <label htmlFor="weightNow">Current Weight:</label>
+                </div>
+            <span className="input-group-text">Kg's</span>
+            </div>
+        </div>
+        <div className ="col-5 col-sm-auto col-md-2">
+            <div className ="input-group">
+                <div className ="form-floating"> 
+                    <input 
+                        className="form-control" 
+                        type="number"
+                        placeholder="Enter Target weight"
+                        id="weightGoal"
+                        name="weightGoal"
+                        onChange={handleChange}  // Handle change from typed input.
+                        value={profileData.weightGoal}
+                        required/>
+                    <label htmlFor="weightGoal">Target Weight:</label>
                 </div>
             <span className="input-group-text">Kg's</span>
             </div>

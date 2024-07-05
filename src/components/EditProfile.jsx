@@ -2,7 +2,7 @@ import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-export default function EditProfile({userID, setUserName, setShowExercises }) {
+export default function EditProfile({userID, setUserName, setShowExercises, setUserHeight }) {
 
 const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises);
 
@@ -25,6 +25,7 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
             saveProfileToFirestore();   //save data to firestore
             setProfileExists(true)
             setShowExercises(true)
+            setUserHeight(profileData.height)
             }
                 
     async function saveProfileToFirestore  (){
@@ -55,7 +56,8 @@ return(
             <li><span>Sex:</span> {profileData.sex}</li>
             <li><span>Age:</span> {profileData.age}</li>
             <li><span>Height:</span> {profileData.height} Cm's</li>
-            <li><span>Weight:</span> {profileData.weight} Kg's</li>
+            <li><span>Current Weight:</span> {profileData.weightNow} Kg's</li>
+            <li><span>🎯 Target Weight:</span> {profileData.weightGoal} Kg's</li>
         </ul>
       </div>
       <div className="modal-footer justify-content-center">
@@ -99,7 +101,7 @@ return(
             </select>
             <label htmlFor="sex">Sex:</label>
         </div>
-        <div className ="form-floating col-sm-3"> 
+        <div className ="form-floating col-sm-4"> 
             <input
                 className="form-control" 
                 type="number"
@@ -111,7 +113,7 @@ return(
                 required/>
             <label htmlFor="age">Age:</label>
         </div>
-        <div className ="col-sm-4">
+        <div className ="col-sm-5">
             <div className ="input-group">
                 <div className ="form-floating"> 
                 <input
@@ -128,19 +130,36 @@ return(
                 <span className="input-group-text">Cm's</span>
             </div>
         </div>
-        <div className ="col-sm-4">
+        <div className ="col-sm-5">
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
                         className="form-control" 
                         type="number"
-                        placeholder="Enter weight"
-                        id="weight"
-                        name="weight"
+                        placeholder="Enter current weight"
+                        id="weightNow"
+                        name="weightNow"
                         onChange={handleChange}  // Handle change from typed input.
-                        value={profileData.weight}
+                        value={profileData.weightNow}
                         required/>
-                    <label htmlFor="weight">Weight:</label>
+                    <label htmlFor="weightNow">Current Weight:</label>
+                </div>
+            <span className="input-group-text">Kg's</span>
+            </div>
+        </div>
+        <div className ="col-sm-5">
+            <div className ="input-group">
+                <div className ="form-floating"> 
+                    <input 
+                        className="form-control" 
+                        type="number"
+                        placeholder="Enter Target weight"
+                        id="weightGoal"
+                        name="weightGoal"
+                        onChange={handleChange}  // Handle change from typed input.
+                        value={profileData.weightGoal}
+                        required/>
+                    <label htmlFor="weightGoal">Target Weight:</label>
                 </div>
             <span className="input-group-text">Kg's</span>
             </div>

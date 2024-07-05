@@ -2,8 +2,9 @@ import { useState, useCallback} from 'react';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { ProgressData } from '../types';
-import { CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area, Legend, ReferenceLine } from 'recharts';
 import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
+import WeightProgressChart from './WeightProgressChart';
+import BMIProgressChart from './BMIProgressChart';
 
 
 const defaultProgress: ProgressData = {
@@ -11,110 +12,82 @@ const defaultProgress: ProgressData = {
     weight: 0,
 };
 
-export default function Progress({userID}) {
+export default function Progress({userID, userHeight}) {
 
 const [progressData, setProgressData] = useState(defaultProgress)
 const [showProgressForm, setShowProgressForm] = useState(false)
-const {progressHistory, setProgressHistory} = useCheckStoredProgress(userID)
+const {progressHistory, setProgressHistory, bmiHistory, setBmiHistory} = useCheckStoredProgress(userID)
+const [bmiRounded, setBmiRounded] = useState(null);
 
 useCheckStoredProgress(userID)
+const bmiHeight = Math.pow(userHeight, 2)
 
     function handleChange(event) {   //  Handle form input value change
-        const {name, value } = event.target;
-        setProgressData((prevData) => {
-            return {
-                ...prevData,
-                [name]: value,
-            };
+      
+      const {name, value } = event.target;
+      setProgressData((prevData) => {
+        return {
+          ...prevData,
+          [name]: value,
+        };
+      });
+      
+      if (name === 'weight') {
+        const bmi = (event.target.value /bmiHeight) * 10000
+        const roundedBmi = Math.round(bmi * 10) / 10;
+        setBmiRounded((prevData) => {
+          return {
+            ...prevData,
+            bmi: roundedBmi,
+          };
         });
-        console.log(progressHistory)
+      }
         } 
         
-        const saveProgressToFirestore = useCallback(async () => {
+        const saveProgressToFirestore = useCallback(async (updatedProgress, updatedBmiHistory) => {
           try {
             await setDoc(doc(db, userID, 'progressHistory'), { 
-              progressHistory
+              Progress: updatedProgress,
+              BMI: updatedBmiHistory
             });
             alert('Progress saved');
           } catch (error) {
             console.error('Error saving progress: ', error);
           }
-        }, [progressHistory, userID]);
+        }, [userID]);
       
         const saveProgress = (event) => {
           event.preventDefault();
-          setProgressHistory((prevHistory) => [...prevHistory, progressData]);
-            saveProgressToFirestore();
-            return ;
-        
+      
+          setBmiHistory((prevBmiHistory) => {
+            const updatedBmiHistory = [...prevBmiHistory, bmiRounded];
+            setProgressHistory((prevHistory) => {
+              const updatedProgress = [...prevHistory, progressData];
+              // Call the Firestore save function with the updated history and BMI
+              saveProgressToFirestore(updatedProgress, updatedBmiHistory);
+              return updatedProgress;
+            });
+            return updatedBmiHistory;
+          });
+      
           setShowProgressForm(false);
         };
 
-        // const saveProgress = (event) => {
-        //   event.preventDefault();
-        //   setProgressHistory((prevHistory) => [...prevHistory, progressData]);
-        //   setShowProgressForm(false);
-        // };
-      
-        // useEffect(() => {
-        //   if (!showProgressForm) {
-        //     const saveProgressToFirestore = async () => {
-        //       try {
-        //         await setDoc(doc(db, userID, 'progressHistory'), { 
-        //           progressHistory
-        //         });
-        //         alert('Progress saved');
-        //       } catch (error) {
-        //         console.error('Error saving progress: ', error);
-        //       }
-        //     };
-        //     saveProgressToFirestore();
-        //   }
-        // }, [progressHistory, showProgressForm, userID]);
-
-
   return (
 <>
-    <div className="row justify-content-center mb-3">Progress Chart
-      <AreaChart
-        width={800}
-        height={500}
-        data={progressHistory}
-        margin={{ right: 30 }}
-      >
-        <YAxis />
-        <XAxis dataKey="date" />
-        <CartesianGrid strokeDasharray="10 10" />
-        <ReferenceLine x="May" label="Summer Holiday" stroke="red" />
-        <ReferenceLine x="2024-07-25" label="Sams Wedding" stroke="red" />
-        <ReferenceLine y={6000} label="Target Weight" stroke="green" />
-        <Tooltip />
-        <Legend />
-
-        <Area
-          type="monotone"
-          dataKey="weight"
-          stroke="#2563eb"
-          fill="#3b82f6"
-          stackId="1"
-        />
-
-        <Area
-          type="monotone"
-          dataKey="date"
-          stroke="#7c3aed"
-          fill="#8b5cf6"
-          stackId="1"
-        />
-      </AreaChart>
-      </div> 
+  <WeightProgressChart
+    progressHistory={progressHistory}
+    />
+  <BMIProgressChart
+    bmiHistory={bmiHistory}
+    />
     {!showProgressForm ? 
     (<button 
           className='btn btn-lg btn-primary m-2'
           onClick={()=> (setShowProgressForm(true))} 
           >Update Progress
       </button>) : (
-  <div > Progress Form
+  <div className="container-fluid" >
       <form className="form-group" id="profile-form" onSubmit={saveProgress}>
             <h2>Track Your Progress</h2>   
     <div className="row justify-content-center g-3 mb-3 ">

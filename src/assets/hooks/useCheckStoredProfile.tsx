@@ -9,7 +9,8 @@ const defaultProfile:ProfileData = {
     age: 28,
     sex:'male',
     height:170,
-    weight:80,
+    weightNow:80,
+    weightGoal:70,
     };
 
 export default function useCheckStoredProfile(userID, setUserName, setShowExercises) {

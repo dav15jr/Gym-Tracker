@@ -31,6 +31,8 @@ const Tool = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('');
     const [newUser, setNewUser] = useState(false);
+    const [userHeight, setUserHeight] = useState(130);
+
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
   
@@ -66,6 +68,7 @@ return (
                     userID = {userID} 
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
+                    setUserHeight = {setUserHeight}
                 />
                 <Profile 
                     userID = {userID} 
@@ -73,9 +76,11 @@ return (
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
                     newUser = {newUser}
+                    setUserHeight = {setUserHeight}
                 />
                 < Progress
                     userID ={userID}
+                    userHeight = {userHeight}
                 />
                 {showExercises && (
                 showForm ? 
