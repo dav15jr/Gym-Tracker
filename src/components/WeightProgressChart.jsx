@@ -1,6 +1,6 @@
 import { CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area, Legend, ReferenceLine } from 'recharts';
 
-export default function WeightProgressChart({progressHistory}) {
+export default function WeightProgressChart({progressHistory, targetWeight}) {
 
   return (
 <>
@@ -15,7 +15,7 @@ export default function WeightProgressChart({progressHistory}) {
         <XAxis dataKey="date" label="Date" />
         <CartesianGrid strokeDasharray="10 10" />
         <ReferenceLine x="May" label="Summer Holiday" stroke="red" />
-        <ReferenceLine y={90} label="Target Weight" stroke="green" />
+        <ReferenceLine y={targetWeight} label="Target Weight" stroke="green" />
         <Tooltip />
         <Legend />
 

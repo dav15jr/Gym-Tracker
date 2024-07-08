@@ -13,10 +13,11 @@ import '../index.css';
 const defaultExerciseState = {
     exercise: '',
     type: 'resistance',
-    amount: '',
-    reps: '',
-    sets: '',
-    rest: '',
+    amount: null,
+    reps: null,
+    sets: null,
+    rest: null,
+
 };
 const Tool = () => {
     // I have moved the state up so that it can be shared with <Exercise /> component
@@ -31,7 +32,8 @@ const Tool = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [userName, setUserName] = useState('');
     const [newUser, setNewUser] = useState(false);
-    const [userHeight, setUserHeight] = useState(130);
+    const [userHeight, setUserHeight] = useState(null);
+    const [targetWeight, setTargetWeight] = useState(null);
 
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
@@ -39,7 +41,6 @@ const Tool = () => {
     console.log('tool page rendered')
     console.log('isLoggedIn is', isLoggedIn)
     console.log('are they a new user ?', newUser)
-    // console.log('User ID on tools page', userID);
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
 
@@ -69,6 +70,7 @@ return (
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
                     setUserHeight = {setUserHeight}
+                    setTargetWeight = {setTargetWeight}
                 />
                 <Profile 
                     userID = {userID} 
@@ -77,10 +79,12 @@ return (
                     setShowExercises = {setShowExercises}
                     newUser = {newUser}
                     setUserHeight = {setUserHeight}
+                    setTargetWeight = {setTargetWeight}
                 />
                 < Progress
                     userID ={userID}
                     userHeight = {userHeight}
+                    targetWeight = {targetWeight}
                 />
                 {showExercises && (
                 showForm ? 

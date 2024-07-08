@@ -3,7 +3,7 @@ import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 
 
-export default function Profile ({userID, userName, setUserName, setShowExercises, newUser, setUserHeight}) {
+export default function Profile ({userID, userName, setUserName, setShowExercises, newUser, setUserHeight, setTargetWeight}) {
 
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
@@ -31,6 +31,7 @@ export default function Profile ({userID, userName, setUserName, setShowExercise
             setProfileExists(true)
             setShowExercises(true)
             setUserHeight(profileData.height)
+            setTargetWeight(profileData.weightGoal)
             }
                 
     async function saveProfileToFirestore  (){

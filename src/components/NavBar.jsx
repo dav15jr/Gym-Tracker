@@ -1,7 +1,7 @@
 import EditProfile from "./EditProfile";
 import LogOff from "./LogOff";
 
-export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, userID, setUserName, setShowExercises, setUserHeight}) {
+export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, userID, setUserName, setShowExercises, setUserHeight, setTargetWeight}) {
 
 
 return (  
@@ -28,6 +28,7 @@ return (
             setUserName ={setUserName}
             setShowExercises = {setShowExercises}
             setUserHeight = {setUserHeight}
+            setTargetWeight = {setTargetWeight}
         />
         <LogOff 
           setIsLoggedIn = {setIsLoggedIn}

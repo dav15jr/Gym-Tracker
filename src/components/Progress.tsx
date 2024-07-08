@@ -12,7 +12,7 @@ const defaultProgress: ProgressData = {
     weight: 0,
 };
 
-export default function Progress({userID, userHeight}) {
+export default function Progress({userID, userHeight, targetWeight}) {
 
 const [progressData, setProgressData] = useState(defaultProgress)
 const [showProgressForm, setShowProgressForm] = useState(false)
@@ -32,7 +32,7 @@ const bmiHeight = Math.pow(userHeight, 2)
         };
       });
       
-      if (name === 'weight') {
+      if (name === 'weight') {    //if the input is the weight value then calculate the bmi value.
         const bmi = (event.target.value /bmiHeight) * 10000
         const roundedBmi = Math.round(bmi * 10) / 10;
         setBmiRounded((prevData) => {
@@ -76,10 +76,11 @@ const bmiHeight = Math.pow(userHeight, 2)
   return (
 <>
   <WeightProgressChart
-    progressHistory={progressHistory}
+    progressHistory = {progressHistory}
+    targetWeight = {targetWeight}
     />
   <BMIProgressChart
-    bmiHistory={bmiHistory}
+    bmiHistory = {bmiHistory}
     />
     {!showProgressForm ? 
     (<button 
