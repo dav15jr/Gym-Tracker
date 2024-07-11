@@ -29,16 +29,16 @@ const fetchProgressHistory = useCallback(async () =>{
         
         console.log('Check progress func rendered')
     } catch (error) {
-    console.log('Can not fetch progress data')
+    console.log('Can not fetch progress data', error)
     }
 },[userID])
 
-// console.log('This is your progress', progressHistory)
+
 
 useEffect(() => {
     fetchProgressHistory();
     console.log('Check progress rendered')
     }, [userID, fetchProgressHistory])
 
-return { progressHistory, setProgressHistory, bmiHistory, setBmiHistory}
+return { progressHistory, setProgressHistory, bmiHistory, setBmiHistory, fetchProgressHistory}
 }

@@ -1,13 +1,13 @@
 import { useState} from 'react';
 import { useAppContext } from '../assets/AppContext';
-import Login from './Login';
-import NavBar from './NavBar';
-import Profile from './Profile';
-import LoadWorkouts from './LoadWorkouts';
-import SaveWorkout from './SaveWorkout';
-import Form from './Form';
-import Exercise from './Exercise';
+import NavBar from '../components/NavBar';
+import Profile from '../components/Profile';
+import LoadWorkouts from '../components/LoadWorkouts';
+import SaveWorkout from '../components/SaveWorkout';
+import Form from '../components/Form';
+import Exercise from '../components/Exercise';
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
+// import LoginPage from '../pages/LoginPage';
 // import '../index.css';
 
 const defaultExerciseState = {
@@ -19,8 +19,8 @@ const defaultExerciseState = {
     rest: 0,
 
 };
-const Tool = () => {
-    const { userID, setUserID, setUserHeight, setTargetWeight } = useAppContext();
+const HomePage = () => {
+    const { userID, setUserHeight, setTargetWeight, isLoggedIn, setIsLoggedIn, newUser} = useAppContext();
 
     // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
@@ -31,11 +31,7 @@ const Tool = () => {
     const [showExercises, setShowExercises] = useState(false);
     const [showForm, setShowForm] = useState(true);
     const [userName, setUserName] = useState('');
-    // const [userID, setUserID] = useState('');
-    // const [isLoggedIn, setIsLoggedIn] = useState(false)
-    // const [newUser, setNewUser] = useState(false);
-    // const [userHeight, setUserHeight] = useState(null);
-    // const [targetWeight, setTargetWeight] = useState(null);
+
 
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
@@ -57,12 +53,9 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
 }
 return (
         <>
-            {!isLoggedIn ? ( 
-                <Login 
-                setIsLoggedIn = {setIsLoggedIn}
-                setUserID = {setUserID}
-                setNewUser = {setNewUser}
-                /> ) : (
+            {/* {!isLoggedIn ? ( 
+            <LoginPage /> 
+            ) : ( */}
             <div>
                 <NavBar
                     setIsLoggedIn ={setIsLoggedIn}
@@ -137,9 +130,10 @@ return (
                         }
                     </div>
                 </div>
-            </div>)}
+            </div>
+        {/* // )} */}
         </>
     );
 };
 
-export default Tool;
+export default HomePage;

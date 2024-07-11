@@ -1,3 +1,4 @@
+import { Link} from 'react-router-dom'
 import EditProfile from "./EditProfile";
 import LogOff from "./LogOff";
 
@@ -15,13 +16,13 @@ return (
     <div className="collapse navbar-collapse justify-content-end px-md-5" id="navbarScroll">
       <ul className="navbar-nav  ">
         <li className="nav-item">
-          <a className="nav-link " aria-current="page" href="#">Home</a>
+        <Link className="nav-link" to="/home">Home</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Workouts</a>
+        <Link className="nav-link" to="/">Workouts</Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Progress</a>
+          <Link className="nav-link" to="/progress">Progress</Link>
         </li>
         <EditProfile 
             userID = {userID} 
