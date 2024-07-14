@@ -1,39 +1,29 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../assets/AuthContext';
-// import { useAppContext } from '../assets/AppContext';
+import { useAppContext } from '../assets/AppContext';
 import useCheckAuthState from '../assets/hooks/useCheckAuthState';
 
 
 
 const ProtectedRoute = ({ children }) => {
-    //   const { isLoggedIn } = useAuth();
-    
-    const { isLoggedIn} = useCheckAuthState()
+    const { isLoggedIn} = useAppContext()
     const navigate  = useNavigate(); 
-    console.log('Protected Route isLoggedIn is', isLoggedIn)
-    // useCheckAuthState()
+    useCheckAuthState()
 
 useEffect(() => {
-  if (!isLoggedIn) {
+  if (isLoggedIn === false) {
     navigate("/login", { replace: true });
-    console.log('Protected Route isLoggedIn is', isLoggedIn)
-  }
+  } 
+
 },[isLoggedIn, navigate]);
+
+ // Show a loading indicator while determining auth status
+ if (isLoggedIn === undefined) {
+    return <div>Loading...</div>;
+  }
 
   return children;
 };
 
 export default ProtectedRoute;
 
-// import { Outlet ,useNavigate } from "react-router-dom";
-// import useCheckAuthState from '../assets/hooks/useCheckAuthState';
-
-// const ProtectedRoute = () => {
-//     const navigate  = useNavigate(); 
-//     const { isLoggedIn} = useCheckAuthState()
-
-//     return  isLoggedIn ? <Outlet /> : navigate("/login", { replace: true });
-//     }
-
-//     export default ProtectedRoute;

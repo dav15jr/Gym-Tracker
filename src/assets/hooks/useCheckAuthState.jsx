@@ -3,8 +3,8 @@ import {useEffect, useState} from 'react';
 
 export default function useCheckAuthState() {
 
-    const [userID, setUserID] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userID, setUserID] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(undefined);
 
 const auth = getAuth();
 
@@ -19,6 +19,7 @@ useEffect(() => {
         } else {
           // User is signed out
           // ...
+          setIsLoggedIn(false)
           console.log('User is signed out')
         }
       });

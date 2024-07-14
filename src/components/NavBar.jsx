@@ -1,9 +1,11 @@
 import { Link} from 'react-router-dom'
 import EditProfile from "./EditProfile";
 import LogOff from "./LogOff";
+import { useAppContext } from '../assets/AppContext';
 
-export default function NavBar({setIsLoggedIn, setWorkoutPlan, setShowForm, userID, setUserName, setShowExercises, setUserHeight, setTargetWeight}) {
-
+export default function NavBar({setWorkoutPlan, setShowForm, setUserName, setShowExercises}) {
+ 
+  const { setIsLoggedIn} = useAppContext();
 
 return (  
 <>
@@ -16,20 +18,17 @@ return (
     <div className="collapse navbar-collapse justify-content-end px-md-5" id="navbarScroll">
       <ul className="navbar-nav  ">
         <li className="nav-item">
-        <Link className="nav-link" to="/home">Home</Link>
+        <Link className="nav-link" to="/">Home</Link>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
         <Link className="nav-link" to="/">Workouts</Link>
-        </li>
+        </li> */}
         <li className="nav-item">
           <Link className="nav-link" to="/progress">Progress</Link>
         </li>
         <EditProfile 
-            userID = {userID} 
             setUserName ={setUserName}
             setShowExercises = {setShowExercises}
-            setUserHeight = {setUserHeight}
-            setTargetWeight = {setTargetWeight}
         />
         <LogOff 
           setIsLoggedIn = {setIsLoggedIn}

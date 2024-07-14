@@ -1,10 +1,11 @@
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
+import { useAppContext } from '../assets/AppContext';
 
+export default function Profile ({userName, setUserName, setShowExercises, newUser}) {
 
-export default function Profile ({userID, userName, setUserName, setShowExercises, newUser, setUserHeight, setTargetWeight}) {
-
+    const { userID, setUserHeight, setTargetWeight} = useAppContext();
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
     useCheckStoredProfile(userID, setUserName, setShowExercises)   // Check if profile exists

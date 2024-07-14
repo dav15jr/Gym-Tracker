@@ -2,8 +2,8 @@ import { useState, useCallback} from 'react';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { ProgressData } from '../types';
+import NavBar from '../components/NavBar';
 import { useAppContext } from '../assets/AppContext';
-// import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 import WeightProgressChart from '../components/WeightProgressChart';
 import BMIProgressChart from '../components/BMIProgressChart';
 
@@ -78,6 +78,7 @@ const bmiHeight = Math.pow(userHeight, 2)
 
   return (
 <>
+  <NavBar />
   <WeightProgressChart
     progressHistory = {progressHistory}
     targetWeight = {targetWeight}

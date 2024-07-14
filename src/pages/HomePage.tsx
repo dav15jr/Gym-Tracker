@@ -20,7 +20,7 @@ const defaultExerciseState = {
 
 };
 const HomePage = () => {
-    const { userID, setUserHeight, setTargetWeight, isLoggedIn, setIsLoggedIn, newUser} = useAppContext();
+    const { userID, isLoggedIn, newUser} = useAppContext();
 
     // I have moved the state up so that it can be shared with <Exercise /> component
     const [exerciseData, setExerciseData] = useState(defaultExerciseState);
@@ -36,7 +36,7 @@ const HomePage = () => {
 
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
   
-    console.log('tool page rendered')
+    console.log('Home page rendered')
     console.log('isLoggedIn is', isLoggedIn)
     console.log('are they a new user ?', newUser)
 
@@ -53,28 +53,18 @@ const deleteExercise = (index: number) => {      //Takes the index of the curren
 }
 return (
         <>
-            {/* {!isLoggedIn ? ( 
-            <LoginPage /> 
-            ) : ( */}
             <div>
                 <NavBar
-                    setIsLoggedIn ={setIsLoggedIn}
                     setWorkoutPlan = {setWorkoutPlan}
                     setShowForm = {setShowForm}
-                    userID = {userID} 
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
-                    setUserHeight = {setUserHeight}
-                    setTargetWeight = {setTargetWeight}
                 />
                 <Profile 
-                    userID = {userID} 
                     userName ={userName}
                     setUserName ={setUserName}
                     setShowExercises = {setShowExercises}
                     newUser = {newUser}
-                    setUserHeight = {setUserHeight}
-                    setTargetWeight = {setTargetWeight}
                 />
                 {showExercises && (
                 showForm ? 
@@ -131,7 +121,6 @@ return (
                     </div>
                 </div>
             </div>
-        {/* // )} */}
         </>
     );
 };

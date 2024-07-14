@@ -1,28 +1,35 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { useAppContext } from '../assets/AppContext';
+import { useNavigate } from 'react-router-dom';
 import useCheckAuthState from '../assets/hooks/useCheckAuthState';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 
 export default function LoginPage () {
 
-
-    const { setNewUser} = useAppContext();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const {setUserID, userID, setNewUser, setIsLoggedIn, isLoggedIn} = useAppContext()
     const auth = getAuth();
-
+    
     console.log('login page rendered')
-    //----------------------- USER REGISTRATION & LOGIN --------------------------------// 
-    const {setUserID, setIsLoggedIn, isLoggedIn} = useCheckAuthState()
     console.log('Login Page isLoggedIn is', isLoggedIn)
-
+    console.log('Login Page UserID is', userID)
+    //----------------------- USER REGISTRATION & LOGIN --------------------------------// 
+    
     useCheckAuthState()
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      if (isLoggedIn) {
+        navigate('/home', { replace: true });
+      }
+    }, [isLoggedIn, navigate]);
+
 
     async function handleLogin (e) {
         e.preventDefault();
     
-
         if (document.activeElement.name === 'Register') {  // Check which button name was used to submit the form.
             try {
                 await createUserWithEmailAndPassword(auth, email, password)

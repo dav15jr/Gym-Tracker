@@ -1,10 +1,13 @@
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { useAppContext } from '../assets/AppContext';
 
-export default function EditProfile({userID, setUserName, setShowExercises, setUserHeight, setTargetWeight }) {
-
+export default function EditProfile({ setUserName, setShowExercises}) {
+    
+const { userID, setUserHeight, setTargetWeight} = useAppContext();
 const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises);
+
 
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
