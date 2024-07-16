@@ -154,7 +154,7 @@ export default function Form({
                     <label htmlFor="rest">Rest time:</label>
                 </div>
                 <div className="row justify-content-center m-3">
-                    <button className="btn btn-primary col-6" style={{maxWidth: '250px'}} type="submit">
+                    <button className="btn btn-success col-6" style={{maxWidth: '250px'}} type="submit">
                         Add Exercise
                     </button>
                 </div>

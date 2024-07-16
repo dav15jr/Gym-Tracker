@@ -31,6 +31,7 @@ const HomePage = () => {
     const [workoutChanged, setWorkoutChanged] = useState(false);
     const [showExercises, setShowExercises] = useState(false);
     const [showForm, setShowForm] = useState(true);
+    const [showLoad, setShowLoad] = useState(true);
     const [userName, setUserName] = useState('');
 
 
@@ -67,9 +68,11 @@ return (
                     setShowExercises = {setShowExercises}
                     newUser = {newUser}
                 />
+            <div className="row justify-content-center">
                 {showExercises && (
-                showForm ? 
-                (<Form
+                    showForm ? (             
+            <div className="col-12">
+                <Form
                     setExerciseData={setExerciseData}
                     exerciseData={exerciseData}
                     setShowSaveBTN={setShowSaveBTN}
@@ -77,14 +80,20 @@ return (
                     workoutPlan={workoutPlan}
                     defaultExerciseState={defaultExerciseState}
                     setWorkoutChanged ={setWorkoutChanged}
-                />):(<button 
-                    className='btn btn-primary m-2'
+                />
+            </div>
+            ):(
+            <div className="col-auto">
+                <button 
+                    className='btn btn-primary m-2 '
                     // id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
-                </button>)  
-                  )}
-                <div className='loadsave row m-3'>
+                </button>
+            </div>
+            ))}
+                {showLoad ? (
+                <div className='loadsave m-2 col-12'>
                 <LoadWorkouts 
                     userID ={userID}
                     setShowSaveBTN = {setShowSaveBTN}
@@ -92,7 +101,20 @@ return (
                     setWorkoutPlan = {setWorkoutPlan}
                     setShowWorkoutTitle = {setShowWorkoutTitle}
                     />
+                </div>             
+                ):(
+                <div className="col-auto">
+                    <button 
+                        className='btn btn-primary m-2'
+                        // id="showFormBtn" 
+                        onClick={()=> (setShowLoad(true))} 
+                        >Load Workout
+                    </button>
                 </div>
+                     )}
+                     </div>
+
+
                 <div>
                 {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>
                     {workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
@@ -117,6 +139,7 @@ return (
                             index={index} 
                             deleteExercise={deleteExercise} 
                             setShowForm={setShowForm} 
+                            setShowLoad={setShowLoad} 
                             />;
                             })
                         }

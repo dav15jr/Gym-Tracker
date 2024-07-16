@@ -4,7 +4,7 @@ import useTimer from '../assets/hooks/useTimer';
 import { Tooltip } from "bootstrap"
 // This component should have its own individual state...
 
-export default function Exercise ({workout, deleteExercise, index, setShowForm}: { workout: ExerciseData, deleteExercise, index: number, setShowForm}) {
+export default function Exercise ({workout, deleteExercise, index, setShowForm, setShowLoad}: { workout: ExerciseData, deleteExercise, index: number, setShowForm, setShowLoad}) {
 
     const [exerciseStarted, setExerciseStarted] = useState(false);
     const [exerciseDone, setExerciseDone] = useState(false);
@@ -14,10 +14,6 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
     const [exProgress, setExProgress] = useState(0);
     const { restTime, setRestTime, timerDone, setTimerDone} = useTimer(workout.rest, count, exerciseDone);
 
-
-    // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-    
     useEffect(() => {
         const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.forEach(tooltipTriggerEl => {
@@ -31,44 +27,51 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
         setExerciseStarted(true); 
         setShowProgress(true);  // show progress bar
         setShowForm(false);     //set state to hide the form and show add exercise
+        setShowLoad(false);     //set state to hide the load workout
     }
+
+    
+    useEffect(() => {
+        const perc = Math.round((count / Number(workout.sets)) * 1000) / 10;
+        setExProgress(perc);
+    }, [count, workout.sets]);
 
     const countSets = () => {
         setCount((count) => count + 1);
+        
         if (workout.sets-count <= 1) {
             setExerciseDone(true);
             setSetDone(false);
             setExerciseStarted(false);
-            setExProgress(Math.ceil(count / workout.sets * 100))
         } else {
             setSetDone(true);
             setTimerDone(false);
             setRestTime(workout.rest);
-            setExProgress(0)
         }
+        setShowForm(false);     
+        setShowLoad(false);  
     }
+    console.log("% =",exProgress)
+    console.log("count is",count)
 
     return (
-        <div className='card text-center exerciseDiv bg-info pt-3' id={`${workout.exercise}`} >
-            <div className={!exerciseDone ? 'infoDiv' : 'exfin'} 
+        <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-secondary pt-3'} id={`${workout.exercise}`} >
+            <div className={!exerciseDone ? 'initial' : 'exfin'} 
                 id={`${workout.exercise}info`} >
-                <div className="card-body">
+                <div className="card-body pb-0 mt-3">
                 <h3 className="card-title">{workout.exercise}</h3>
-                {workout.sets} sets of {workout.reps} reps{' '}
-                {workout.type === 'body weight' ? `using ${workout.type}` :
-                `with ${workout.amount} ${workout.type}`} <br />
-                <span>Rest time:</span> {workout.rest} secs.
+                    {workout.sets} sets of {workout.reps} reps{' '}
+                    {workout.type === 'body weight' ? `using ${workout.type}` :
+                    `with ${workout.amount} ${workout.type}`} <br />
+                    <span>Rest time:</span> {workout.rest} secs.
                 </div>
             </div>
             <div className='progressDiv' id={`${workout.exercise}bar`} 
                 style={{ display: showProgress ? 'inherit' : 'none' }}>
                 Progress:
-                <progress 
-                    className='progressEle' 
-                    id={`${workout.exercise}progress`}
-                    value={`${count}`}
-                    max={`${workout.sets}`}>
-                </progress>
+            <div className="progress " role="progressbar" aria-label="Warning example" aria-valuenow={exProgress}  aria-valuemin={0} aria-valuemax={100}>
+                <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style={{width: `${exProgress}%`}}>{exProgress}%</div>
+            </div>
                 <button
                     className={!exerciseDone ? 'setBtn btn btn-success' : 'btn btn-secondary disabled'} 
                     id={`${workout.exercise}set`}
@@ -76,9 +79,6 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                     >{!exerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
                 </button>
             </div>
-            {/* <div className="progress w-75" role="progressbar" aria-label="Warning example" aria-valuenow={75} aria-valuemin={0} aria-valuemax={100}>
-                <div className="progress-bar bg-success" style={{width: "${70}%"}}>65% {exProgress}</div>
-            </div> */}
             <button 
                 className='btn btn-primary startBtn' 
                 id={`${workout.exercise}start`} 
@@ -86,13 +86,12 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                 onClick = {startExercise}
                 > {!exerciseDone ? 'Start' : 'Restart' }{` ${workout.exercise}`}
             </button>
-            <button
-                className={!timerDone ? 'timerBtn': 'restDone'}
+            <h5
+                className={!timerDone ? 'timer': 'restDone'}
                 id={`${workout.exercise}timer`}
                 style={{display: setDone ? 'initial' : 'none'}}
-                // onClick = {} pause timer.
                  >{!timerDone ? `⏳ ${restTime}'s rest left.` : `Get back to work.🏋️‍♂️`}
-            </button>
+            </h5>
             <button 
                 type="button" 
                 className=" btn-close btn-close-custom" 
@@ -103,13 +102,6 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm}:
                 data-bs-placement="top" 
                 title="Delete Exercise">
                 </button>
-                {/* <button
-                type="button"
-                    className='deleteBTN'data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Exercise"
-                    id={`${workout.exercise}delete`}
-                    onClick = {()=> deleteExercise(index)}
-                    > ×
-                </button> */}
          </div>
     );
 }

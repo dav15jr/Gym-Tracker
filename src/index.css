@@ -181,22 +181,26 @@ span{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   margin: 5px;
-  width:330px;
-  min-width:300px;
+  width:360px;
+  min-width:350px;
   height:fit-content;
   min-height: 250px;
   border-radius: 30px;
   color: #28da04;
   background-color:rgba(172, 115, 236, 0.479);
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+  /* border: 13px solid rgb(238, 240, 233); */
 }
 .exerciseDiv:hover{
   transform: translateY(5px);
   box-shadow: 0px 10px 20px 2px rgb(195, 19, 248);
 }
-
+.card{
+  background-color:rgba(172, 115, 236) !important;
+  border-radius: 20px !important;
+}
 /* .infoDiv{
   margin-bottom: 5px;
   align-items: center;
@@ -207,6 +211,7 @@ span{
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
   height:auto;
   /* border: 3px solid rgb(138, 194, 9); */
 }
@@ -216,16 +221,19 @@ span{
   justify-items: center;
   align-self: center;
 }
+.progress {
+  width: 150px;
+  height: 20px !important;
+  justify-items: center;
+  align-self: center;
+}
 
 .exfin{
   font-style: italic;
   font-weight: bold;
   text-decoration: line-through;
-  text-decoration-thickness: 2.5px;
-  color:rgb(184, 177, 177, 0.4);
-  h2 { 
-    color:rgba(138, 129, 129, 0.3);
-  }
+  text-decoration-thickness: 1.5px;
+  color:rgba(221, 164, 243, 0.4);
 
 }
 /*---------------------Buttons-------------------*/
@@ -296,15 +304,13 @@ button:focus-visible {
   background: rgb(250, 176, 142);
   border: 2px solid rgb(223, 134, 0);
 }
-.timerBtn{
-  background-color: #3cf8b0;
-  color:black;
+.timer{
+  color:rgb(237, 252, 25);
   align-self: center;
 }
-.timerBtn:hover{
-  background-color: #dfdfdf;
-  color:black;
-}
+.restDone{
+  color: #da0404;
+  }
 .btnFin{
   background-color: #aaaaaa;
   color:black;
@@ -350,6 +356,7 @@ button:focus-visible {
 .btn-close{
   transition: transform .4s;
   font-size: 1.0em;
+  color:rgb(255, 118, 6) !important;
 }
 .btn-close:hover{
   transform: scale(1.2); /* Bootstrap modal button close zoom 130% */
@@ -362,7 +369,7 @@ button:focus-visible {
   right: 10px;
   font-size: 1.2em;
   background-color: transparent;
-  color:rgb(89, 209, 8);
+  color:rgb(89, 209, 8) !important;
   transition: transform .4s;
 }
 
@@ -372,9 +379,6 @@ button:focus-visible {
   color:rgb(255, 118, 6);
 }
 
-.restDone{
-  background-color: #da0404;
-  }
 /*-------Default button settings----*/
 bttn {
   border-radius: 10px;
