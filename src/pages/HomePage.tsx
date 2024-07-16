@@ -5,7 +5,8 @@ import Profile from '../components/Profile';
 import LoadWorkouts from '../components/LoadWorkouts';
 import SaveWorkout from '../components/SaveWorkout';
 import Form from '../components/Form';
-import Exercise from '../components/Exercise';
+// import Exercise from '../components/Exercise';
+import Exercise from '../components/Exercise BS';
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
 // import LoginPage from '../pages/LoginPage';
 // import '../index.css';
@@ -93,7 +94,8 @@ return (
                     />
                 </div>
                 <div>
-                {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>{workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
+                {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>
+                    {workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
                     {(showSaveBTN && workoutPlan.length > 1) &&
                         <SaveWorkout 
                         userID ={userID}
@@ -106,7 +108,7 @@ return (
                         } 
                     <div className='workoutDiv m-3' >
                         {
-                        // If the workout plan array has a lengthdoes then loop through the Exercise component and return a seperate copy of that component
+                        // If the workout plan array has a length then loop through the Exercise component and return a seperate copy of that component
                         workoutPlan.length > 0 &&
                             workoutPlan.map((workout, index) => {
                             return <Exercise 

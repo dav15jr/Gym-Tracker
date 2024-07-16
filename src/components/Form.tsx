@@ -132,19 +132,26 @@ export default function Form({
                     />
                     <label htmlFor="sets">No. of Sets:</label>
                 </div>
-                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
-                    <input
-                        className="form-control" 
-                        type="number"
-                        min='5'
-                        placeholder="Rest Time"
-                        id="rest"
-                        name="rest"
-                        onChange={handleChange}
-                        value={exerciseData.rest}
-                        required
-                    />
-                    <label htmlFor="rest">Rest time (s):</label>
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
+                    <select 
+                            className="form-control"
+                            id="rest"
+                            name="rest"
+                            value={exerciseData.rest} 
+                            onChange={handleChange}>
+                        <option value={15}>15 sec</option>
+                        <option value={30}>30 sec</option>
+                        <option value={45}>45 sec</option>
+                        <option value={60}>1:00 min</option>
+                        <option value={90}>1:30 min</option>
+                        <option value={120}>2:00 min</option>
+                        <option value={150}>2:30 min</option>
+                        <option value={180}>3:00 min</option>
+                        <option value={210}>3:30 min</option>
+                        <option value={240}>4:00 min</option>
+                        <option value={300}>5:00 min</option>
+                    </select>
+                    <label htmlFor="rest">Rest time:</label>
                 </div>
                 <div className="row justify-content-center m-3">
                     <button className="btn btn-primary col-6" style={{maxWidth: '250px'}} type="submit">
