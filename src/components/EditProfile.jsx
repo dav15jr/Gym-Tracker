@@ -2,10 +2,11 @@ import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useAppContext } from '../assets/AppContext';
+import { Link} from 'react-router-dom'
 
-export default function EditProfile({ setUserName, setShowExercises}) {
+export default function EditProfile() {
     
-const { userID, setUserHeight, setTargetWeight} = useAppContext();
+const { userID, setUserHeight, setTargetWeight, setUserName, setShowExercises} = useAppContext();
 const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises);
 
 
@@ -15,9 +16,8 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
             return {
                 ...prevData,
                 [name]: value,
-            };
-        });
-        console.log('profile error change')
+                };
+            });
         } 
         
     const saveProfile = (event) => {
@@ -36,22 +36,20 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
             await setDoc(doc(db, userID, 'profileData'), {    // Add a new 'Workout' document in 'userID' collection
             profileData
             });
-            alert("Profile saved successfully");
             }
 return(
-<>    
-<button 
-    className="btn nav-link" 
+<> 
+<Link 
+    className="nav-link" 
     data-bs-target="#profileModalToggle" 
     data-bs-toggle="modal">
     Profile
-</button>
-
-<div className="modal fade" id="profileModalToggle" aria-hidden="true" aria-labelledby="profileModalToggleLabel" tabIndex={-1}>
+</Link>
+<div className="modal" id="profileModalToggle" aria-hidden="true" aria-labelledby="profileModalToggleLabel" tabIndex={-1}>
   <div className="modal-dialog modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
-        <h1 className="modal-title fs-5" id="profileModalToggleLabel">Profile</h1>
+        <h1 className="modal-title fs-5" id="profileModalTitle">Profile</h1>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body" id='profile'>
@@ -71,11 +69,11 @@ return(
   </div>
 </div>
 
-<div className="modal fade" id="profileModalToggle2" aria-hidden="true" aria-labelledby="profileModalToggleLabel2" tabIndex={-1}>
+<div className="modal" id="profileModalToggle2" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="profileModalToggleLabel2" tabIndex={-1}>
   <div className="modal-dialog modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
-        <h1 className="modal-title fs-5" id="profileModalToggleLabel2">Edit Your Profile</h1>
+        <h1 className="modal-title fs-5" id="profileModalTitle2">Edit Your Profile</h1>
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">

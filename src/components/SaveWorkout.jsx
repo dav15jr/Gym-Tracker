@@ -2,11 +2,11 @@ import React from 'react'
 import { useState} from 'react';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { useAppContext } from '../assets/AppContext';
 
-const SaveWorkout = ({userID, setShowSaveBTN, setWorkoutName, workoutPlan, setWorkoutChanged, setShowWorkoutTitle}) => {
-
-    const [saveWorkout, setSaveWorkout] = useState();
-
+const SaveWorkout = ({ setShowWorkoutTitle}) => {
+const [saveWorkout, setSaveWorkout] = useState();
+const { userID, setShowSaveBTN, setWorkoutName, workoutPlan, setWorkoutChanged } = useAppContext();
 //--------------Save Workout----------------
 
 const handleSaveChange =(e) => {
@@ -33,17 +33,17 @@ async function saveWorkoutsToFirestore (){
   return (
       <>
     <div className='row justify-content-center '>
-        <form className='col-9 col-sm-6 col-md-5 col-lg-4 mb-3' onSubmit={saveWorkoutPlan}>
+        <form className='col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 col-xxl-2.5 m-3 ' onSubmit={saveWorkoutPlan}>
         <div className='input-group'>
             <input 
-                className='form-control' 
+                className='form-control input-group-box' 
                 name='workoutName' 
                 id='saveWorkout' 
                 type="text" 
                 placeholder='Workout Name'
                 onChange={handleSaveChange}  // Handle change from typed input. 
                 required/>
-            <button className='btn btn-success' type='submit'>Save WorkOut</button> 
+            <button className='btn btn-success btn-load' type='submit'>Save WorkOut</button> 
         </div>
         </form>
     </div>

@@ -133,17 +133,9 @@ h2 {
 
 /*---------------------Exercise Form Component------------------------*/
 
-input, select{
-  width: auto;
-  padding: 5px;
-  margin: 20px 40px;
-  border-radius: 10px;
-  /* border: 2px solid rgb(110, 0, 212); */
-}
 select:focus-visible {
   outline: 3px solid rgb(162, 0, 255, 0.4);
 }
-
 span{
   font-weight: bold;
 }
@@ -353,6 +345,23 @@ button:focus-visible {
   color:rgb(255, 118, 6);
   border:none;
 }
+.input-group-box{
+  border-radius: 20px 0px 0px 20px !important;
+}
+.btn{
+  color:rgb(255, 118, 6);
+  border-radius: 20px !important;
+}
+.btn-delete{
+  border-radius: 20px 0px 0px 20px !important;
+}
+.btn-load{
+  border-radius: 0px 20px 20px 0px !important;
+}
+/* .btn:hover{
+  transform: scale(1.2);
+  background-color: transparent;
+} */
 .btn-close{
   transition: transform .4s;
   font-size: 1.0em;

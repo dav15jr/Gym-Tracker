@@ -1,15 +1,23 @@
 // import './../index.css'
+import { useState} from 'react';
 import defaultExercises from '../assets/defaultExercises';
+import { useAppContext } from '../assets/AppContext';
+import { ExerciseData } from '../types';
 
-export default function Form({
-    setExerciseData,
-    exerciseData,
-    setWorkoutPlan,
-    setShowSaveBTN,
-    workoutPlan,
-    defaultExerciseState,
-    setWorkoutChanged,
-}) {
+const defaultExerciseState: ExerciseData = {
+    exercise: '',
+    type: 'resistance',
+    amount: 0,
+    reps: 0,
+    sets: 0,
+    rest: 15,
+};
+
+export default function Form() {
+
+    const { setWorkoutPlan, workoutPlan, setShowSaveBTN, setWorkoutChanged } = useAppContext();
+    const [exerciseData, setExerciseData] = useState(defaultExerciseState);
+    const currentExercises = workoutPlan.map((workout) => workout.exercise);
 
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
@@ -25,7 +33,6 @@ export default function Form({
         const def = defaultExercises.filter((ex) => ex.exercise === val)
         setExerciseData(def[0])
     }
-    const currentExercises = workoutPlan.map((workout) => workout.exercise);
     
     function handleSubmit(event) {
         event.preventDefault();
@@ -39,12 +46,10 @@ export default function Form({
             });
             return
         } 
-        console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
         setWorkoutChanged(true)
         setShowSaveBTN(true)
-        // document.querySelector('form').reset(); //Reset the form    
         }
 
     return (

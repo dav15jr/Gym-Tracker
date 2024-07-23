@@ -3,15 +3,13 @@ import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { useAppContext } from '../assets/AppContext';
 
-export default function Profile ({userName, setUserName, setShowExercises, newUser}) {
+export default function Profile () {
 
-    const { userID, setUserHeight, setTargetWeight} = useAppContext();
+    const { userID, setUserHeight, setTargetWeight, userName, setUserName, setShowExercises, newUser} = useAppContext();
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
     useCheckStoredProfile(userID, setUserName, setShowExercises)   // Check if profile exists
 
-    // console.log('User ID on Profile page', userID);
-    console.log('Profile is', profileExists)
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
         setProfileData((prevData) => {
@@ -20,15 +18,12 @@ export default function Profile ({userName, setUserName, setShowExercises, newUs
                 [name]: value,
             };
         });
-        console.log('profile error change')
         } 
         
     const saveProfile = (event) => {
-            event.preventDefault();
-            setUserName(profileData.name);
-            
-            console.log(profileData);
-            saveProfileToFirestore();   //save data to firestore
+            event.preventDefault()
+            setUserName(profileData.name)
+            saveProfileToFirestore()   //save data to firestore
             setProfileExists(true)
             setShowExercises(true)
             setUserHeight(profileData.height)
@@ -41,8 +36,6 @@ export default function Profile ({userName, setUserName, setShowExercises, newUs
             });
             alert("Profile saved successfully");
             }
-
-    console.log('profile page rendered')
 
 return (
 <>

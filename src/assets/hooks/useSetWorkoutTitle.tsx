@@ -8,7 +8,6 @@ useEffect(() => {
     if(plan.length < 2) {
         setShowWorkoutTitle(false)
         }
-        // setWorkoutChanged(true)
     }, [plan])
 
  return {showWorkoutTitle, setShowWorkoutTitle}

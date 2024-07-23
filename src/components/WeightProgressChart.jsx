@@ -1,32 +1,37 @@
-import { CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area, Legend, ReferenceLine } from 'recharts';
+import { CartesianGrid, XAxis, YAxis, Tooltip, AreaChart, Area, ReferenceLine, ResponsiveContainer } from 'recharts';
+import { useAppContext } from '../assets/AppContext';
 
-export default function WeightProgressChart({progressHistory, targetWeight}) {
+export default function WeightProgressChart({progressHistory}) {
+
+  const { targetWeight} = useAppContext();
 
   return (
 <>
-    <div className="row justify-content-center mb-3">
+    <div className="justify-content-center m-3">
+    <h4>Weight</h4>
+    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={300} height={450}>
       <AreaChart
-        width={800}
-        height={500}
         data={progressHistory}
-        margin={{ right: 30 }}
+        syncId="ProgressCharts"
       >
-        <YAxis type="number" unit="kg" label="Weight" />
-        <XAxis dataKey="date" label="Date" />
-        <CartesianGrid strokeDasharray="10 10" />
-        <ReferenceLine x="May" label="Summer Holiday" stroke="red" />
-        <ReferenceLine y={targetWeight} label="Target Weight" stroke="green" />
+        <YAxis type="number" unit="kg" />
+        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5 }}/>
+        <CartesianGrid strokeDasharray="3 3" />
         <Tooltip />
-        <Legend />
 
         <Area
+          name="Weight"
+          unit="kg"
           type="monotone"
           dataKey="weight"
-          stroke="#2563eb"
-          fill="#3b82f6"
-          stackId="1"
+          stroke="purple"
+          strokeWidth={2}
+          fill="Purple"
         />
+
+        <ReferenceLine y={targetWeight} label={{ position: 'bottom', value: 'Target Weight', fill: 'darkGreen', opacity:0.7}} stackId="1" stroke="green" strokeWidth={2} />
       </AreaChart>
+      </ResponsiveContainer>
       </div> 
 </>
   )

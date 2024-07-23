@@ -16,13 +16,11 @@ useEffect(() => {
         if (user) {
           // User is signed in, see docs for a list of available properties
           // https://firebase.google.com/docs/reference/js/auth.user
-          console.log(user.uid)
           setUserID(user.uid)
           setIsLoggedIn(true)
           // ...
         } else {
           // User is signed out
-          // ...
           console.log('User is not signed')
         }
       });
@@ -64,7 +62,6 @@ useEffect(() => {
                     sendPasswordResetEmail(auth, email) //Send password reset email
                 }
                 console.log(error.message)
-                // alert(error.message)
             }
         }
     }               

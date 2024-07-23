@@ -23,12 +23,10 @@ export default function useCheckStoredProfile(userID, setUserName, setShowExerci
             const docRef = doc(db, userID, 'profileData');
             const docSnap = await getDoc(docRef);
             const profData = docSnap.data()
-
             setProfileData(profData.profileData)
             setUserName(profData.profileData.name)
             setProfileExists(true)
             setShowExercises(true)
-            console.log('Check profile func rendered')
         } catch (error) {
         console.log('Can not fetch profile data')
         }
@@ -36,10 +34,7 @@ export default function useCheckStoredProfile(userID, setUserName, setShowExerci
   
     useEffect(() => {
         fetchProfileFromFirestore();
-        console.log('Check profile rendered')
         }, [userID, fetchProfileFromFirestore])
-    
-        console.log('Check profile page rendered')
 
 return {profileExists, setProfileExists, profileData, setProfileData, fetchProfileFromFirestore}
 }

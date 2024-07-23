@@ -5,11 +5,13 @@ import { db } from "../../firebaseConfig";
 export default function useCheckStoredProgress(userID) {
     
 const [progressHistory, setProgressHistory] = useState([])
-const [bmiHistory, setBmiHistory] = useState([])
+const [progressDates, setProgressDates] = useState([])
+const [newProgress, setNewProgress] = useState([])
 
 const fetchProgressHistory = useCallback(async () =>{
     const progArr = [];
-    const bmiArr = [];
+    const progDates = [];
+
     try {
         const docRef = doc(db, userID, 'progressHistory');
         const docSnap = await getDoc(docRef);
@@ -17,20 +19,12 @@ const fetchProgressHistory = useCallback(async () =>{
 
         progData.Progress.forEach((doc) => {
             progArr.push(doc);
+            progDates.push(doc.convDate);
             });
-            console.log('This is your progress',progArr)
         setProgressHistory(progArr)
-
-        progData.BMI.forEach((doc) => {
-            bmiArr.push(doc);
-            });
-            console.log('This is your progress',bmiArr)
-        setBmiHistory(bmiArr)
-        
-        console.log('Check progress func rendered')
+        setProgressDates(progDates)
     } catch (error) {
     console.log('Can not fetch progress data', error)
-    console.log('The user ID is:', userID)
     }
 },[userID])
 
@@ -39,5 +33,5 @@ useEffect(() => {
     console.log('Check progress rendered')
     }, [userID, fetchProgressHistory])
 
-return { progressHistory, setProgressHistory, bmiHistory, setBmiHistory}
+return { progressHistory, setProgressHistory, newProgress, setNewProgress, progressDates, setProgressDates, fetchProgressHistory}
 }

@@ -30,9 +30,8 @@ const fetchStoredWorkouts = useCallback(async () => {
             }
 
     } catch (error) {
-            console.log(error.message);
+            console.log('Error fetching workouts:',error.message);
             }
-    console.log('Checked workouts page rendered')
 }, [userID])
 
 useEffect(() => {

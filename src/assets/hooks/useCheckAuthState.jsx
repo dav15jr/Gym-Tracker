@@ -15,12 +15,9 @@ useEffect(() => {
           // https://firebase.google.com/docs/reference/js/auth.user
           setUserID(user.uid)
           setIsLoggedIn(true)
-          // ...
         } else {
           // User is signed out
-          // ...
           setIsLoggedIn(false)
-          console.log('User is signed out')
         }
       });
     })

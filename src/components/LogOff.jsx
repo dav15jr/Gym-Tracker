@@ -1,30 +1,32 @@
 import { getAuth, signOut } from "firebase/auth";
+import { useAppContext } from '../assets/AppContext';
+import { Link} from 'react-router-dom'
 
-export default function LogOff ({setIsLoggedIn, setWorkoutPlan, setShowForm}){
+export default function LogOff (){
+
+    const { setIsLoggedIn, setWorkoutPlan, setShowForm } = useAppContext();
 
     const logoutUser = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             // Sign-out successful.
-            console.log('Successfully logged out')
             setIsLoggedIn(false)
             setWorkoutPlan([]) // reset workout plan
             setShowForm(true) //reset show form
           }).catch((error) => {
             // An error happened.
-            console.log('User already logged out')
-            console.log(error)
+            console.log("Log out error",error)
           });
         }
 
 return (
 <>
-    {/* Button trigger modal  */}
-    <button className="btn nav-link"  data-bs-toggle="modal" data-bs-target="#logOffModal">
-    Log Out
-    </button>
-
-    {/* // -- Modal -- */}
+    <Link 
+        className="nav-link" 
+        data-bs-target="#logOffModal"
+        data-bs-toggle="modal">
+        Log Out
+    </Link>
     <div className="modal fade" id="logOffModal" tabIndex={-1} aria-labelledby="modalLabel" aria-hidden="true">
     <div className="modal-dialog">
         <div className="modal-content bg-danger-subtle">

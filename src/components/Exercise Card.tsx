@@ -2,10 +2,12 @@ import { useState, useEffect} from 'react';
 import { ExerciseData } from '../types';
 import useTimer from '../assets/hooks/useTimer';
 import { Tooltip } from "bootstrap"
+import { useAppContext } from '../assets/AppContext';
 // This component should have its own individual state...
 
-export default function Exercise ({workout, deleteExercise, index, setShowForm, setShowLoad}: { workout: ExerciseData, deleteExercise, index: number, setShowForm, setShowLoad}) {
+export default function Exercise ({workout, index, setShowForm, setShowLoad}: { workout: ExerciseData, index: number, setShowForm, setShowLoad}) {
 
+    const {setShowSaveBTN, setWorkoutChanged, setWorkoutPlan } = useAppContext();
     const [exerciseStarted, setExerciseStarted] = useState(false);
     const [exerciseDone, setExerciseDone] = useState(false);
     const [showProgress, setShowProgress] = useState(false);
@@ -14,12 +16,17 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm, 
     const [exProgress, setExProgress] = useState(0);
     const { restTime, setRestTime, timerDone, setTimerDone} = useTimer(workout.rest, count, exerciseDone);
 
-    useEffect(() => {
+    useEffect(() => { //handle tooltips toggle
         const tooltipTriggerList = Array.from(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.forEach(tooltipTriggerEl => {
           new Tooltip(tooltipTriggerEl);
         });
       }, []);
+      
+      useEffect(() => {
+          const perc = Math.round((count / Number(workout.sets)) * 1000) / 10;
+          setExProgress(perc);
+      }, [count, workout.sets]);
 
     const startExercise = () => {  
         setCount(0);
@@ -29,12 +36,6 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm, 
         setShowForm(false);     //set state to hide the form and show add exercise
         setShowLoad(false);     //set state to hide the load workout
     }
-
-    
-    useEffect(() => {
-        const perc = Math.round((count / Number(workout.sets)) * 1000) / 10;
-        setExProgress(perc);
-    }, [count, workout.sets]);
 
     const countSets = () => {
         setCount((count) => count + 1);
@@ -51,8 +52,14 @@ export default function Exercise ({workout, deleteExercise, index, setShowForm, 
         setShowForm(false);     
         setShowLoad(false);  
     }
-    console.log("% =",exProgress)
-    console.log("count is",count)
+
+    const deleteExercise = (index: number) => {      //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
+        setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
+            return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
+        }) 
+        setWorkoutChanged(true)
+        setShowSaveBTN(true)
+    }
 
     return (
         <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-secondary pt-3'} id={`${workout.exercise}`} >

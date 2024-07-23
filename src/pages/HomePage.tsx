@@ -4,83 +4,31 @@ import NavBar from '../components/NavBar';
 import Profile from '../components/Profile';
 import LoadWorkouts from '../components/LoadWorkouts';
 import SaveWorkout from '../components/SaveWorkout';
-import Form from '../components/Form';
-// import Exercise from '../components/Exercise';
-import Exercise from '../components/Exercise BS';
+import Form from '../components/Exercise Form';
+import Exercise from '../components/Exercise Card';
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle'; 
-// import LoginPage from '../pages/LoginPage';
-// import '../index.css';
 
-const defaultExerciseState = {
-    exercise: '',
-    type: 'resistance',
-    amount: 0,
-    reps: 0,
-    sets: 0,
-    rest: 0,
 
-};
 const HomePage = () => {
-    const { userID, isLoggedIn, newUser} = useAppContext();
+    const { showSaveBTN, showExercises, workoutPlan, workoutName, workoutChanged } = useAppContext();
 
     // I have moved the state up so that it can be shared with <Exercise /> component
-    const [exerciseData, setExerciseData] = useState(defaultExerciseState);
-    const [showSaveBTN, setShowSaveBTN] = useState(false);
-    const [workoutName, setWorkoutName] = useState('');
-    const [workoutPlan, setWorkoutPlan] = useState([]);
-    const [workoutChanged, setWorkoutChanged] = useState(false);
-    const [showExercises, setShowExercises] = useState(false);
-    const [showForm, setShowForm] = useState(true);
     const [showLoad, setShowLoad] = useState(true);
-    const [userName, setUserName] = useState('');
-
-
-
+    const [showForm, setShowForm] = useState(true);
     const { showWorkoutTitle, setShowWorkoutTitle } = useSetWorkoutTitle(workoutPlan)
-  
-    console.log('Home page rendered')
-    console.log('isLoggedIn is', isLoggedIn)
-    console.log('are they a new user ?', newUser)
 
 useSetWorkoutTitle(workoutPlan);  //custom hook to set whether the Workout title should be shown or hidden.
 
-//------------------------------Edit Workout--------------------
-
-const deleteExercise = (index: number) => {      //Takes the index of the current clicked exercise and checks if it exists in the current workoutPlan. 
-    setWorkoutPlan(oldPlan => {                 //updates the state of the workoutPlan
-        return oldPlan.filter((_, currentIndex) => currentIndex !== index)      //filters for indexs that don't match and sends them to the current workoutPlan. Uses underscore as the first argument to indicate an unused argument.
-    }) 
-    setWorkoutChanged(true)
-    setShowSaveBTN(true)
-}
 return (
         <>
             <div>
-                <NavBar
-                    setWorkoutPlan = {setWorkoutPlan}
-                    setShowForm = {setShowForm}
-                    setUserName ={setUserName}
-                    setShowExercises = {setShowExercises}
-                />
-                <Profile 
-                    userName ={userName}
-                    setUserName ={setUserName}
-                    setShowExercises = {setShowExercises}
-                    newUser = {newUser}
-                />
+                <NavBar />
+                <Profile />
             <div className="row justify-content-center">
                 {showExercises && (
                     showForm ? (             
             <div className="col-12">
-                <Form
-                    setExerciseData={setExerciseData}
-                    exerciseData={exerciseData}
-                    setShowSaveBTN={setShowSaveBTN}
-                    setWorkoutPlan={setWorkoutPlan}
-                    workoutPlan={workoutPlan}
-                    defaultExerciseState={defaultExerciseState}
-                    setWorkoutChanged ={setWorkoutChanged}
-                />
+                <Form />
             </div>
             ):(
             <div className="col-auto">
@@ -95,10 +43,6 @@ return (
                 {showLoad ? (
                 <div className='loadsave m-2 col-12'>
                 <LoadWorkouts 
-                    userID ={userID}
-                    setShowSaveBTN = {setShowSaveBTN}
-                    setWorkoutName = {setWorkoutName}
-                    setWorkoutPlan = {setWorkoutPlan}
                     setShowWorkoutTitle = {setShowWorkoutTitle}
                     />
                 </div>             
@@ -113,18 +57,11 @@ return (
                 </div>
                      )}
                      </div>
-
-
                 <div>
                 {(showWorkoutTitle) && <h2 className='workoutTitle mt-5'>
                     {workoutChanged ? 'Save Updated Workout?' : workoutName}</h2>}
                     {(showSaveBTN && workoutPlan.length > 1) &&
                         <SaveWorkout 
-                        userID ={userID}
-                        setShowSaveBTN = {setShowSaveBTN}
-                        setWorkoutName = {setWorkoutName}
-                        workoutPlan = {workoutPlan}
-                        setWorkoutChanged = {setWorkoutChanged}
                         setShowWorkoutTitle = {setShowWorkoutTitle}
                         />
                         } 
@@ -134,12 +71,11 @@ return (
                         workoutPlan.length > 0 &&
                             workoutPlan.map((workout, index) => {
                             return <Exercise 
-                            key={workout.exercise} 
-                            workout={workout} 
-                            index={index} 
-                            deleteExercise={deleteExercise} 
-                            setShowForm={setShowForm} 
-                            setShowLoad={setShowLoad} 
+                                key={workout.exercise} 
+                                workout={workout} 
+                                index={index} 
+                                setShowForm={setShowForm} 
+                                setShowLoad={setShowLoad} 
                             />;
                             })
                         }

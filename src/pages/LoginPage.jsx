@@ -9,12 +9,9 @@ export default function LoginPage () {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const {setUserID, userID, setNewUser, setIsLoggedIn, isLoggedIn} = useAppContext()
+    const {setUserID, setNewUser, setIsLoggedIn, isLoggedIn} = useAppContext()
     const auth = getAuth();
     
-    console.log('login page rendered')
-    console.log('Login Page isLoggedIn is', isLoggedIn)
-    console.log('Login Page UserID is', userID)
     //----------------------- USER REGISTRATION & LOGIN --------------------------------// 
     
     useCheckAuthState()
@@ -58,7 +55,7 @@ export default function LoginPage () {
                     alert('Too many attempts, please reset your password - check your email')
                     sendPasswordResetEmail(auth, email) //Send password reset email
                 }
-                console.log(error.message)
+                console.log("Error message:",error.message)
                 // alert(error.message)
             }
         }
