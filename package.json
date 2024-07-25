@@ -17,7 +17,8 @@
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.24.1",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "sass": "^1.77.8"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
