@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(41, 4, 4, 0.87);
-  background-color: #ffffff;
+  color: rgba(250, 203, 203, 0.87);
+  background-color: #a10c0c;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -35,7 +35,8 @@ footer{
   width: 100%;
   padding:10px;
   margin: 0;
-  background-color: rgb(251, 221, 255);
+  background-color: #33ff44;
+  color: #000000;
 }
 footer div{
   display:grid;
@@ -66,18 +67,16 @@ h2 {
 
 .nav-link:hover, 
 .nav-link:focus{
-  color:gold !important;
   font-weight: bold;
   font-style: italic;
-  text-shadow: 0 0 10px #ffffff
 } 
 .navbar{
   font-size: 1.1em;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 10px 0 rgba(21, 252, 0);
 } 
 .navbar:hover {
   /* transform: translate(5px); */
-  box-shadow: 0px 10px 20px 2px rgb(195, 19, 248, 0.9);
+  box-shadow: 0px 5px 10px 0px rgba(173, 3, 224, 0.9);
 } 
 
 .menu{
@@ -93,7 +92,7 @@ h2 {
   width: 500px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #f80202;
@@ -144,7 +143,6 @@ span{
   /* border: 3px solid rgb(24, 116, 255); */
 }
 
-
 /*---------------------Load Workouts Component------------------------*/
 .loadsave{
   display:flex;
@@ -179,25 +177,17 @@ span{
   min-width:350px;
   height:fit-content;
   min-height: 250px;
-  border-radius: 30px;
-  color: #28da04;
-  background-color:rgba(172, 115, 236, 0.479);
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 10px 0 rgba(106, 233, 21);
   /* border: 13px solid rgb(238, 240, 233); */
 }
 .exerciseDiv:hover{
   transform: translateY(5px);
   box-shadow: 0px 10px 20px 2px rgb(195, 19, 248);
 }
-.card{
-  background-color:rgba(172, 115, 236) !important;
-  border-radius: 20px !important;
+
+label{
+  margin-left: 5px;
 }
-/* .infoDiv{
-  margin-bottom: 5px;
-  align-items: center;
-  border: 3px solid rgb(194, 135, 9);
-} */
 .progressDiv{
   display: flex;
   justify-content: center;
@@ -207,17 +197,10 @@ span{
   height:auto;
   /* border: 3px solid rgb(138, 194, 9); */
 }
-.progressEle {
-  width: 130px;
-  height: 25px;
-  justify-items: center;
-  align-self: center;
-}
+
 .progress {
   width: 150px;
-  height: 20px !important;
-  justify-items: center;
-  align-self: center;
+  /* height: 20px !important; */
 }
 
 .exfin{
@@ -226,29 +209,16 @@ span{
   text-decoration: line-through;
   text-decoration-thickness: 1.5px;
   color:rgba(221, 164, 243, 0.4);
-
 }
 /*---------------------Buttons-------------------*/
 button{
-  width:auto;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  padding: 0.5em 1.1em;
   align-self: center;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #b018ec;
-  cursor: pointer;
-  transition: border-color 0.7s;
 }
 button:hover {
-  border-color: #013b10;
-  background-color: #28da04;
   transform: scale(1.1); 
 }
 button:focus-visible {
-  outline: 3px dashed rgb(255, 38, 0);
+  outline: 3px dashed rgb(48, 34, 32);
 }
 .formSubmitBtn {
   color:rgb(255, 230, 0) ;
@@ -297,11 +267,10 @@ button:focus-visible {
   border: 2px solid rgb(223, 134, 0);
 }
 .timer{
-  color:rgb(237, 252, 25);
-  align-self: center;
+  color:rgb(255, 255, 255);
 }
 .restDone{
-  color: #da0404;
+  color: #000000;
   }
 .btnFin{
   background-color: #aaaaaa;
@@ -345,31 +314,12 @@ button:focus-visible {
   color:rgb(255, 118, 6);
   border:none;
 }
-.input-group-box{
-  border-radius: 20px 0px 0px 20px !important;
-}
-.btn{
-  color:rgb(255, 118, 6);
-  border-radius: 20px !important;
-}
-.btn-delete{
-  border-radius: 20px 0px 0px 20px !important;
-}
-.btn-load{
-  border-radius: 0px 20px 20px 0px !important;
-}
-/* .btn:hover{
-  transform: scale(1.2);
-  background-color: transparent;
-} */
 .btn-close{
   transition: transform .4s;
   font-size: 1.0em;
-  color:rgb(255, 118, 6) !important;
 }
 .btn-close:hover{
   transform: scale(1.2); /* Bootstrap modal button close zoom 130% */
-  color:rgb(255, 118, 6);
   background-color: transparent;
 }
 .btn-close-custom {

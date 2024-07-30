@@ -5,16 +5,20 @@ export default function BMIProgressChart({ progressHistory }) {
 
   return (
 <>
-    <div className="row justify-content-center m-3">
+    <div className="row justify-content-center m-2">
       <h4>BMI</h4>
-    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={700} height={450}>
+    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={600} height={450}>
       <LineChart
         data={progressHistory}
         syncId="ProgressCharts"
         >
-        <YAxis domain={[0, 50]}/>
-        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5}} />
-        <Tooltip />
+        <YAxis domain={[0, 50]} tick={{ fill: 'white'}}/>
+        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5, fill: 'lime'}} tick={{ fill: 'white'}} tickMargin={5}/>
+        <Tooltip 
+            cursor={{ stroke: ''}}
+            labelStyle={{ color: 'black'}}
+            itemStyle={{ color: 'green'}}
+        />
 
       {/* ReferenceArea to fill background color for different levels */}
       <ReferenceArea label={{ value: 'Severly Under Weight', fill: 'white'}} y1={0} y2={16} fill="red" fillOpacity={0.8} />

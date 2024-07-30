@@ -1,6 +1,7 @@
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
+// import { useEffect } from 'react';
 import { useAppContext } from '../assets/AppContext';
 import { Link} from 'react-router-dom'
 
@@ -9,6 +10,16 @@ export default function EditProfile() {
 const { userID, setUserHeight, setTargetWeight, setUserName, setShowExercises} = useAppContext();
 const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises);
 
+
+    // useEffect(() => {
+    //   const modalElement = document.getElementById('profileModalToggle');
+    //   if (modalElement) {
+    //     const modalInstance = new window.bootstrap.Modal(modalElement);
+    //     modalInstance.hide();
+    //   } else {
+    //     console.error('Modal element not found');
+    //   }
+    // }, []); 
 
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
@@ -63,7 +74,7 @@ return(
         </ul>
       </div>
       <div className="modal-footer justify-content-center">
-        <button className="btn btn-primary" data-bs-target="#profileModalToggle2" data-bs-toggle="modal">Edit Profile</button>
+        <button className="btn btn-secondary" data-bs-target="#profileModalToggle2" data-bs-toggle="modal" data-backdrop="false">Edit Profile</button>
       </div>
     </div>
   </div>
@@ -74,7 +85,7 @@ return(
     <div className="modal-content">
       <div className="modal-header">
         <h1 className="modal-title fs-5" id="profileModalTitle2">Edit Your Profile</h1>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" data-backdrop="false" aria-label="Close"></button>
       </div>
       <div className="modal-body">
       <form className="form-floating align-content-center m-4" id="profile-form" onSubmit={saveProfile}>
@@ -129,7 +140,7 @@ return(
                     required/>
                 <label htmlFor="height">Height:</label>
                 </div>
-                <span className="input-group-text">Cm's</span>
+                <span className="input-group-text bg-dark">Cm's</span>
             </div>
         </div>
         <div className ="col-sm-5">
@@ -146,7 +157,7 @@ return(
                         required/>
                     <label htmlFor="weightNow">Current Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark">Kg's</span>
             </div>
         </div>
         <div className ="col-sm-5">
@@ -163,11 +174,11 @@ return(
                         required/>
                     <label htmlFor="weightGoal">Target Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark">Kg's</span>
             </div>
         </div>
         </div>
-        <button className="btn btn-success justify-self-center" type="submit" data-bs-target="#profileModalToggle" data-bs-toggle="modal">Save Profile</button>
+        <button className="btn btn-secondary justify-self-center" type="submit" data-bs-target="#profileModalToggle" data-bs-toggle="modal" data-backdrop="false">Save Profile</button>
         </form>
       </div>
     </div>
@@ -175,5 +186,4 @@ return(
 </div>
 </>
 )
-
 }

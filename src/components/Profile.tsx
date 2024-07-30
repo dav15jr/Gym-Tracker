@@ -95,7 +95,7 @@ return (
                     required/>
                 <label htmlFor="height">Height:</label>
                 </div>
-                <span className="input-group-text">Cm's</span>
+                <span className="input-group-text bg-dark">Cm's</span>
             </div>
         </div>
         <div className ="col-5 col-sm-auto col-md-2">
@@ -112,7 +112,7 @@ return (
                         required/>
                     <label htmlFor="weightNow">Current Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark">Kg's</span>
             </div>
         </div>
         <div className ="col-5 col-sm-auto col-md-2">
@@ -129,10 +129,10 @@ return (
                         required/>
                     <label htmlFor="weightGoal">Target Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark">Kg's</span>
             </div>
         </div>
-            <button className="btn btn-lg btn-primary w-50" type="submit">
+            <button className="btn btn-lg btn-secondary w-50" type="submit">
                 Save Profile
             </button>
         </div>

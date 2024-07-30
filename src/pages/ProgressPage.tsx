@@ -144,12 +144,12 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   <NavBar />
   <h2>Track Your Progress</h2>
   <div className='row justify-content-center '>
-    <div className='col-12 col-md-10 col-xxl-6'>
+    <div className='col-12 col-md-10 col-xxl-6 mb-3'>
       <WeightProgressChart 
       progressHistory={progressHistory}
       />
     </div>
-    <div className='col-12 col-md-10 col-xxl-6'>
+    <div className='col-12 col-md-10 col-xxl-6 mb-3'>
       <BMIProgressChart 
         progressHistory={progressHistory}
       />
@@ -165,7 +165,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   <div className="container-fluid m-4" >
       <form className="form-group" id="profile-form" onSubmit={saveProgress}>
             <h2>Update Your Progress</h2>   
-    <div className="row justify-content-center g-3 mb-3 ">
+    <div className="row justify-content-center gx-3 mb-3">
         <div className ="form-floating col-6 col-sm-5" style={{maxWidth: '350px'}}>       
             <input
                 className="form-control" 
@@ -193,10 +193,10 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
                         required/>
                     <label htmlFor="weight">Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark">Kg's</span>
           </div>
           </div>
-            <button className="btn btn btn-primary col-8" style={{maxWidth: '350px', minWidth: '100px'}} type="submit">
+            <button className="btn btn btn-primary col-8 mx-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
                 Save Progress
             </button>
         </div>
@@ -211,7 +211,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
           >Delete Progress
     </button>) : (
         <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
-        <select  className="select px-1 input-group-box px-3" onChange={handleProSelect} defaultValue='default'>
+        <select  className="select px-1 rounded-border px-3" onChange={handleProSelect} defaultValue='default'>
                     <option value='default'>Select Progress</option> {
                         progressDates.map((date, index) => (
                             <option key={index} value={date}>{date}</option>

@@ -35,7 +35,7 @@ export default function LoginPage () {
                 setNewUser(true)
                 // alert('Welcome! You have successfully registered')
             } catch(error) {
-                alert('Account already registered. Please Login')
+                alert('Account already registered. Please Log In')
             }
         } else if (document.activeElement.name === 'Login') {
             try {
@@ -106,7 +106,7 @@ return (
     </div>
     </div>     
     <div className="btn-group col-7 col-md-6" role="group"  >
-        <button className="btn btn-primary" id="LoginBtn" type="submit" value='Login' name='Login' required> Login </button>
+        <button className="btn btn-primary" id="LoginBtn" type="submit" value='Login' name='Login' required> Log In </button>
         <button className="btn btn-outline-secondary" id="RegisterBtn" type="submit" value='Register' name='Register' required> Register </button>
     </div>
     </form>

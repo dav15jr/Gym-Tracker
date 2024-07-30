@@ -1,29 +1,48 @@
+// Custom.scss
 
+// Import Bootstrap's functions, variables, and mixins
 @import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
 
-// $primary: #ff5733; // Custom primary color
-// $secondary: #3333ff;
-// $success: yellow;
-// $danger: #ec331a;
+$primary: #cc00fff3; // Custom primary color
+$secondary: #33ff44;
+$info: rgb(209, 209, 209);
 
-$theme-colors: (
-    "primary": #ae00d9,
-    // "success": rgb(0, 225, 255),
-    "danger": #ec331a
-    );
+$body-bg: #000000;
+$body-color: #ffffff;
 
-// $theme-colors: (
-//   "primary":    $primary,
-//   "secondary":  $secondary,
-//   "success":    $success,
-//   "info":       $info,
-//   "warning":    $warning,
-//   "danger":     $danger,
-//   "light":      $light,
-//   "dark":       $dark
-// ) 
-// Custom secondary color
-// Import Bootstrap
+$input-border-radius:20px;
+$btn-border-radius: 20px;
+
+.rounded-border {
+    border-radius:20px;
+}
+
+$card-bg: $primary;
+$card-border-radius: 20px;
+
+$tooltip-bg: $secondary;
+
+$progress-height: 20px;
+$progress-font-size:  1rem;
+$progress-bar-color:  rgb(0, 0, 0);
+$progress-bar-bg: $primary;
+
+$modal-backdrop-bg:   #000000;
+$modal-content-bg:  $primary; 
+$modal-footer-border-color: $primary; 
+$modal-header-border-color: $primary;
+
+$navbar-light-color:  #ffffff;
+$navbar-light-brand-color:  $secondary;
+$navbar-light-hover-color:  $secondary;
+
+.btn.btn-primary{
+    color: #ffffff;
+    }
+.btn.btn-primary:hover {
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(9, 255, 0, 0.8); // Add shadow
+    }
+
 @import "../node_modules/bootstrap/scss/bootstrap";

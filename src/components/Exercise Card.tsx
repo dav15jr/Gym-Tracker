@@ -62,7 +62,7 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
     }
 
     return (
-        <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-secondary pt-3'} id={`${workout.exercise}`} >
+        <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-dark pt-3'} id={`${workout.exercise}`} >
             <div className={!exerciseDone ? 'initial' : 'exfin'} 
                 id={`${workout.exercise}info`} >
                 <div className="card-body pb-0 mt-3">
@@ -77,17 +77,17 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
                 style={{ display: showProgress ? 'inherit' : 'none' }}>
                 Progress:
             <div className="progress " role="progressbar" aria-label="Warning example" aria-valuenow={exProgress}  aria-valuemin={0} aria-valuemax={100}>
-                <div className="progress-bar progress-bar-striped progress-bar-animated bg-success" style={{width: `${exProgress}%`}}>{exProgress}%</div>
+                <div className="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style={{width: `${exProgress}%`}}>{exProgress}%</div>
             </div>
                 <button
-                    className={!exerciseDone ? 'setBtn btn btn-success' : 'btn btn-secondary disabled'} 
+                    className={!exerciseDone ? 'btn btn-secondary' : 'btn btn-info disabled'} 
                     id={`${workout.exercise}set`}
                     onClick = {countSets}
                     >{!exerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
                 </button>
             </div>
             <button 
-                className='btn btn-primary startBtn' 
+                className={!exerciseDone ? 'btn btn-dark' : 'btn btn-primary' }
                 id={`${workout.exercise}start`} 
                 style={{display: exerciseStarted ? 'none' : 'initial' }}
                 onClick = {startExercise}

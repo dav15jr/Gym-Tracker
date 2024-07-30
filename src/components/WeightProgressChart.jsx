@@ -5,31 +5,37 @@ export default function WeightProgressChart({progressHistory}) {
 
   const { targetWeight} = useAppContext();
 
+
   return (
 <>
     <div className="justify-content-center m-3">
     <h4>Weight</h4>
-    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={300} height={450}>
+    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={600} height={450}>
       <AreaChart
         data={progressHistory}
         syncId="ProgressCharts"
       >
-        <YAxis type="number" unit="kg" />
-        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5 }}/>
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
+        <YAxis type="number" unit="kg" tick={{ fill: 'white' }} />
+        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5, fill: 'lime'}} tick={{ fill: 'white'}} tickMargin={5} />
+        <CartesianGrid strokeDasharray="5 5" stroke="grey" strokeOpacity={0.5} />
+        <Tooltip 
+            cursor={{ stroke: 'white', strokeWidth: 2}}
+            labelStyle={{ color: 'black'}}
+            itemStyle={{ color: 'purple'}}
+            separator=" "
+        />
 
         <Area
-          name="Weight"
+          name=" "
           unit="kg"
           type="monotone"
           dataKey="weight"
           stroke="purple"
           strokeWidth={2}
-          fill="Purple"
+          fill="purple"
         />
 
-        <ReferenceLine y={targetWeight} label={{ position: 'bottom', value: 'Target Weight', fill: 'darkGreen', opacity:0.7}} stackId="1" stroke="green" strokeWidth={2} />
+        <ReferenceLine y={targetWeight} label={{ position: 'bottom', value: 'Target Weight', fill: 'limeGreen', opacity:0.9}} stackId="1" stroke="limegreen" strokeWidth={2} />
       </AreaChart>
       </ResponsiveContainer>
       </div> 

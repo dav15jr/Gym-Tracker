@@ -16,6 +16,7 @@ export type ProfileData = {
     weightNow:number; 
     weightGoal:number; 
 };
+
 export type ProgressData = {
     date: string;
     weight:number;

@@ -6,7 +6,7 @@ export default function NavBar() {
 
 return (  
 <>
-<nav className="navbar navbar-expand-lg mb-5" style={{backgroundColor: "#D300FF"}}>
+<nav className="navbar navbar-expand-lg mb-5 bg-primary">
   <div className=" container-fluid container">
     <a className="navbar-brand px-sm-5" href="#">GYM APP</a>
     <button className="navbar-toggler mx-sm-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
