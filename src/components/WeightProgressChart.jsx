@@ -32,7 +32,8 @@ export default function WeightProgressChart({progressHistory}) {
           dataKey="weight"
           stroke="purple"
           strokeWidth={2}
-          fill="purple"
+          fill="#cc00fff3"
+          opacity= {1}
         />
 
         <ReferenceLine y={targetWeight} label={{ position: 'bottom', value: 'Target Weight', fill: 'limeGreen', opacity:0.9}} stackId="1" stroke="limegreen" strokeWidth={2} />

@@ -42,8 +42,6 @@ footer div{
   display:grid;
   justify-content: center;
   font-weight: bold;
-  font-style: italic;
-  /* color: rgb(156, 0, 196); */
 }
 
 #root {
@@ -68,10 +66,9 @@ h2 {
 .nav-link:hover, 
 .nav-link:focus{
   font-weight: bold;
-  font-style: italic;
 } 
 .navbar{
-  font-size: 1.1em;
+  font-size: 1.2em;
   box-shadow: 0 5px 10px 0 rgba(21, 252, 0);
 } 
 .navbar:hover {
@@ -132,9 +129,6 @@ h2 {
 
 /*---------------------Exercise Form Component------------------------*/
 
-select:focus-visible {
-  outline: 3px solid rgb(162, 0, 255, 0.4);
-}
 span{
   font-weight: bold;
 }
@@ -185,7 +179,7 @@ span{
   box-shadow: 0px 10px 20px 2px rgb(195, 19, 248);
 }
 
-label{
+form, label{
   margin-left: 5px;
 }
 .progressDiv{
@@ -313,29 +307,6 @@ button:focus-visible {
   background-color: transparent;
   color:rgb(255, 118, 6);
   border:none;
-}
-.btn-close{
-  transition: transform .4s;
-  font-size: 1.0em;
-}
-.btn-close:hover{
-  transform: scale(1.2); /* Bootstrap modal button close zoom 130% */
-  background-color: transparent;
-}
-.btn-close-custom {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2em;
-  background-color: transparent;
-  color:rgb(89, 209, 8) !important;
-  transition: transform .4s;
-}
-
-.btn-close-custom:hover {
-  transform: scale(1.5); /* zoom 150% */
-  background-color: transparent;
-  color:rgb(255, 118, 6);
 }
 
 /*-------Default button settings----*/

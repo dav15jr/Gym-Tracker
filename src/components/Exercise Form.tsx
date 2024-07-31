@@ -7,10 +7,10 @@ import { ExerciseData } from '../types';
 const defaultExerciseState: ExerciseData = {
     exercise: '',
     type: 'resistance',
-    amount: 0,
-    reps: 0,
-    sets: 0,
-    rest: 15,
+    amount: null,
+    reps: null,
+    sets: null,
+    rest: 45,
 };
 
 export default function Form() {

@@ -53,19 +53,19 @@ const delWorkout = () => {
 return (
 <>
     {workoutExists && 
-    <div className='col-12 col-sm-8'>
+    <div className='col-auto'>
         <h2>Stored Workouts</h2>
         <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
 
-            <button type="button" className="btn btn-delete btn-danger px-3 px-sm-4 px-lg-5" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled={btnDisabled}>Delete</button>
+            <button type="button" className="btn btn-primary px-3 px-sm-4 px-lg-5" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled={btnDisabled}>Delete</button>
 
-            <select  className="select px-1" onChange={handleLoadSelect} defaultValue='default'>
+            <select  className="form-select" onChange={handleLoadSelect} defaultValue='default'>
                         <option value='default'>Select Workout</option> {
                             storedWorkouts.map((workout, index) => (
                                 <option key={index} value={workout}>{workout}</option>
                             ))}
             </select>
-            <button type="button" className="btn btn-load btn-success px-3 px-sm-4 px-lg-5" onClick={loadWorkout} disabled={btnDisabled}>Load</button>
+            <button type="button" className="btn btn-secondary px-3 px-sm-4 px-lg-5" onClick={loadWorkout} disabled={btnDisabled}>Load</button>
         </div>    
 
          {/* <!-- Modal --> */}
@@ -80,7 +80,7 @@ return (
                 Are you sure you want to delete {loadedWorkout} Workout?
             </div>
             <div className="modal-footer justify-content-center">
-                <button type="button" className="btn btn-secondary mx-2" data-bs-dismiss="modal">No</button>
+                <button type="button" className="btn btn-info mx-2" data-bs-dismiss="modal">No</button>
                 <button type="button" className="btn btn-warning mx-2" data-bs-dismiss="modal" onClick={delWorkout}>Yes, Delete</button>
             </div>
             </div>

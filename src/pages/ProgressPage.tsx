@@ -11,7 +11,7 @@ import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
     date: '',
-    weight: 0
+    weight: null
 };
 
 export default function ProgressPage() {
@@ -143,7 +143,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
 <>
   <NavBar />
   <h2>Track Your Progress</h2>
-  <div className='row justify-content-center '>
+  <div className='row justify-content-center'>
     <div className='col-12 col-md-10 col-xxl-6 mb-3'>
       <WeightProgressChart 
       progressHistory={progressHistory}
@@ -153,12 +153,11 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
       <BMIProgressChart 
         progressHistory={progressHistory}
       />
-
     </div>
   </div>
     {!showProgressForm ? 
     (<button 
-          className='btn btn-lg btn-primary m-4'
+          className='btn btn-lg btn-secondary m-4'
           onClick={()=> (setShowProgressForm(true))} 
           >Update Progress
     </button>) : (
@@ -166,7 +165,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
       <form className="form-group" id="profile-form" onSubmit={saveProgress}>
             <h2>Update Your Progress</h2>   
     <div className="row justify-content-center gx-3 mb-3">
-        <div className ="form-floating col-6 col-sm-5" style={{maxWidth: '350px'}}>       
+        <div className ="form-floating col-6 col-sm-5 mb-2" style={{maxWidth: '350px'}}>       
             <input
                 className="form-control" 
                 type="date"
@@ -179,7 +178,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
                 required/>
             <label htmlFor="date">Date:</label>
         </div> 
-        <div className ="col-6 col-sm-5 " style={{maxWidth: '350px'}}>
+        <div className ="col-6 col-sm-5 mb-2" style={{maxWidth: '350px'}}>
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
@@ -196,7 +195,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
             <span className="input-group-text bg-dark">Kg's</span>
           </div>
           </div>
-            <button className="btn btn btn-primary col-8 mx-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
+            <button className="btn btn btn-secondary col-8 m-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
                 Save Progress
             </button>
         </div>
@@ -206,23 +205,22 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   )}
    {!showDelProgress ? 
     (<button 
-          className='btn btn-lg btn-warning m-4'
+          className='btn btn-lg btn-primary m-4'
           onClick={()=> (setShowDelProgress(true))} 
           >Delete Progress
     </button>) : (
-        <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
-        <select  className="select px-1 rounded-border px-3" onChange={handleProSelect} defaultValue='default'>
-                    <option value='default'>Select Progress</option> {
-                        progressDates.map((date, index) => (
-                            <option key={index} value={date}>{date}</option>
-                        ))}
+    <div className="container-fluid col-auto" style={{maxWidth: '450px', minWidth: '300px'}} >
+    <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
+        <select  className="form-select px-3" onChange={handleProSelect} defaultValue='default'>
+              <option value='default'>Select Progress</option> {
+                  progressDates.map((date, index) => (
+                      <option key={index} value={date}>{date}</option>
+                  ))}
         </select>
-        <button type="button" className="btn btn-load btn-danger px-2 px-sm-3 px-lg-4" onClick={()=>{deleteProgress(delProgress)}}>Delete Progress</button>
+        <button type="button" className="btn btn-danger px-2 px-sm-3 px-lg-4" onClick={()=>{deleteProgress(delProgress)}}>Delete Progress</button>
     </div> 
-
+    </div> 
     )}
 </>
   )
 }
-
-

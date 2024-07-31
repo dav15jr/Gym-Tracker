@@ -87,7 +87,7 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
                 </button>
             </div>
             <button 
-                className={!exerciseDone ? 'btn btn-dark' : 'btn btn-primary' }
+                className={!exerciseDone ? 'btn btn-secondary' : 'btn btn-primary' }
                 id={`${workout.exercise}start`} 
                 style={{display: exerciseStarted ? 'none' : 'initial' }}
                 onClick = {startExercise}

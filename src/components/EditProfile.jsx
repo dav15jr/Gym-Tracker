@@ -56,7 +56,7 @@ return(
     data-bs-toggle="modal">
     Profile
 </Link>
-<div className="modal" id="profileModalToggle" aria-hidden="true" aria-labelledby="profileModalToggleLabel" tabIndex={-1}>
+<div className="modal fade" id="profileModalToggle" aria-hidden="true" aria-labelledby="profileModalToggleLabel" tabIndex={-1}>
   <div className="modal-dialog modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
@@ -80,7 +80,7 @@ return(
   </div>
 </div>
 
-<div className="modal" id="profileModalToggle2" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="profileModalToggleLabel2" tabIndex={-1}>
+<div className="modal fade" id="profileModalToggle2" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="profileModalToggleLabel2" tabIndex={-1}>
   <div className="modal-dialog modal-dialog-centered">
     <div className="modal-content">
       <div className="modal-header">
