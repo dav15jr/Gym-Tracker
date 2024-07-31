@@ -11,7 +11,7 @@ import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
     date: '',
-    weight: null
+    weight: 0
 };
 
 export default function ProgressPage() {

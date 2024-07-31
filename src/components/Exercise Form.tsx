@@ -7,9 +7,9 @@ import { ExerciseData } from '../types';
 const defaultExerciseState: ExerciseData = {
     exercise: '',
     type: 'resistance',
-    amount: null,
-    reps: null,
-    sets: null,
+    amount: 0,
+    reps: 0,
+    sets: 0,
     rest: 45,
 };
 
@@ -28,6 +28,11 @@ export default function Form() {
             };
         });
     } 
+
+    const handleFocus = (event) => {
+        event.target.select(); 
+      };
+
     const handleExe =(e) => { // Handle exercise selection, when dropdown data list is used
         const val = (e.target.value)
         const def = defaultExercises.filter((ex) => ex.exercise === val)
@@ -101,6 +106,7 @@ export default function Form() {
                             placeholder="Amount"
                             id="amount"
                             name="amount"
+                            onFocus={handleFocus}
                             onChange={handleChange}
                             value={exerciseData.amount}
                             required/>
@@ -117,6 +123,7 @@ export default function Form() {
                         placeholder="Reps"
                         id="reps"
                         name="reps"
+                        onFocus={handleFocus}
                         onChange={handleChange}
                         value={exerciseData.reps}
                         required
@@ -131,6 +138,7 @@ export default function Form() {
                         placeholder="Sets"
                         id="sets"
                         name="sets"
+                        onFocus={handleFocus}
                         onChange={handleChange}
                         value={exerciseData.sets}
                         required
