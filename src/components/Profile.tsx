@@ -42,8 +42,8 @@ return (
     {!profileExists ? (  
     <form className="form-group" id="profile-form" onSubmit={saveProfile}>
             <h2>Create Your Profile</h2>   
-    <div className="row justify-content-center g-3 mb-3">
-        <div className ="form-floating col-8 col-sm-auto col-md-auto">       
+    <div className="row justify-content-center g-3 m-2">
+        <div className ="form-floating col-6 col-sm-5 col-md-auto">       
             <input
                 className="form-control" 
                 type="text"
@@ -56,7 +56,7 @@ return (
             <label htmlFor="name">Name:</label>
         </div> 
 
-        <div className ="form-floating col-5 col-sm-3 col-md-2"> 
+        <div className ="form-floating col-6 col-sm-5 col-md-auto"> 
             <select 
                 className="form-control " 
                 id="sex" 
@@ -68,7 +68,7 @@ return (
             </select>
             <label htmlFor="sex">Sex:</label>
         </div>
-        <div className ="form-floating col-4 col-sm-auto col-md-2"> 
+        <div className ="form-floating col-6 col-sm-5 col-md-1"> 
             <input
                 className="form-control" 
                 type="number"
@@ -81,7 +81,7 @@ return (
             <label htmlFor="age">Age:</label>
         </div>
 
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-6 col-sm-5 col-md-auto">
             <div className ="input-group">
                 <div className ="form-floating"> 
                 <input
@@ -95,10 +95,10 @@ return (
                     required/>
                 <label htmlFor="height">Height:</label>
                 </div>
-                <span className="input-group-text bg-dark">Cm's</span>
+                <span className="input-group-text bg-dark px-2 px-md-3">Cm's</span>
             </div>
         </div>
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-6 col-sm-5 col-md-auto">
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
@@ -112,10 +112,10 @@ return (
                         required/>
                     <label htmlFor="weightNow">Current Weight:</label>
                 </div>
-            <span className="input-group-text bg-dark">Kg's</span>
+            <span className="input-group-text bg-dark px-2 px-sm-3">Kg's</span>
             </div>
         </div>
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-6 col-sm-5 col-md-auto">
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
@@ -129,12 +129,14 @@ return (
                         required/>
                     <label htmlFor="weightGoal">Target Weight:</label>
                 </div>
-            <span className="input-group-text bg-dark">Kg's</span>
+            <span className="input-group-text bg-dark px-2 px-sm-3">Kg's</span>
             </div>
         </div>
-            <button className="btn btn-lg btn-secondary w-50" type="submit">
+        <div className="row justify-content-center m-3">
+            <button className="btn btn-secondary" style={{maxWidth: '250px'}} type="submit">
                 Save Profile
             </button>
+        </div>
         </div>
     </form>
     

@@ -11,7 +11,7 @@ import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
     date: '',
-    weight: 0
+    weight: ''
 };
 
 export default function ProgressPage() {
@@ -143,13 +143,13 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
 <>
   <NavBar />
   <h2>Track Your Progress</h2>
-  <div className='row justify-content-center'>
-    <div className='col-12 col-md-10 col-xxl-6 mb-3'>
+  <div className='row justify-content-center px-xl-4'>
+    <div className='col-11 col-md-10 col-xxl-6 mb-3'>
       <WeightProgressChart 
       progressHistory={progressHistory}
       />
     </div>
-    <div className='col-12 col-md-10 col-xxl-6 mb-3'>
+    <div className='col-11 col-md-10 col-xxl-6 mb-3'>
       <BMIProgressChart 
         progressHistory={progressHistory}
       />

@@ -5,15 +5,16 @@ export default function BMIProgressChart({ progressHistory }) {
 
   return (
 <>
-    <div className="row justify-content-center m-2">
       <h4>BMI</h4>
+    <div className="justify-content-center">
     <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={600} height={450}>
       <LineChart
         data={progressHistory}
         syncId="ProgressCharts"
+        margin={{left: -15, bottom: 10}}
         >
-        <YAxis domain={[0, 50]} tick={{ fill: 'white'}}/>
-        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -5, fill: 'lime'}} tick={{ fill: 'white'}} tickMargin={5}/>
+        <YAxis domain={[0, 50]} tick={{ fill: 'white', fontSize:13}}/>
+        <XAxis dataKey="convDate" label={{ value: "Date", position: "insideBottom", offset: -8, fill: 'lime'}} tick={{ fill: 'white', fontSize:13}} tickMargin={5}/>
         <Tooltip 
             cursor={{ stroke: ''}}
             labelStyle={{ color: 'black'}}

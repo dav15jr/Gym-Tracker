@@ -5,12 +5,12 @@ import { ProfileData } from '../../types';
 
 
 const defaultProfile:ProfileData = {
-    name: 'John Snow',
-    age: 28,
+    name: '',
+    age: '',
     sex:'male',
-    height:170,
-    weightNow:80,
-    weightGoal:70,
+    height:'',
+    weightNow:'',
+    weightGoal:'',
     };
 
 export default function useCheckStoredProfile(userID, setUserName, setShowExercises) {

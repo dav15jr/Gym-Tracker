@@ -7,9 +7,9 @@ import { ExerciseData } from '../types';
 const defaultExerciseState: ExerciseData = {
     exercise: '',
     type: 'resistance',
-    amount: 0,
-    reps: 0,
-    sets: 0,
+    amount: '',
+    reps: '',
+    sets: '',
     rest: 45,
 };
 
@@ -28,10 +28,6 @@ export default function Form() {
             };
         });
     } 
-
-    const handleFocus = (event) => {
-        event.target.select(); 
-      };
 
     const handleExe =(e) => { // Handle exercise selection, when dropdown data list is used
         const val = (e.target.value)
@@ -60,7 +56,7 @@ export default function Form() {
     return (
         <>
             <form className="form-group container-fluid" id="ex" onSubmit={handleSubmit}>
-            <div className="row justify-content-center g-3 m-3">
+            <div className="row justify-content-center g-3 m-2">
                 <div className ="form-floating col-6 col-sm-4 col-md-auto">
                     <input
                         className="form-control" 
@@ -98,7 +94,7 @@ export default function Form() {
                 <>
                     {  //check whether the value is 'bodyWeight' to determine showing exercise amount
                     exerciseData.type !== 'body weight' && (
-                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
+                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-xl-1">
                         <input
                             className="form-control" 
                             type="number"
@@ -106,7 +102,6 @@ export default function Form() {
                             placeholder="Amount"
                             id="amount"
                             name="amount"
-                            onFocus={handleFocus}
                             onChange={handleChange}
                             value={exerciseData.amount}
                             required/>
@@ -123,7 +118,6 @@ export default function Form() {
                         placeholder="Reps"
                         id="reps"
                         name="reps"
-                        onFocus={handleFocus}
                         onChange={handleChange}
                         value={exerciseData.reps}
                         required
@@ -138,14 +132,13 @@ export default function Form() {
                         placeholder="Sets"
                         id="sets"
                         name="sets"
-                        onFocus={handleFocus}
                         onChange={handleChange}
                         value={exerciseData.sets}
                         required
                     />
                     <label htmlFor="sets">No. of Sets:</label>
                 </div>
-                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-xl-1">
                     <select 
                             className="form-control"
                             id="rest"
@@ -171,8 +164,8 @@ export default function Form() {
                         Add Exercise
                     </button>
                 </div>
-                </div>
-            </form>
+            </div>
+        </form>
         </>
     );
 }

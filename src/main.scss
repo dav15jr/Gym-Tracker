@@ -4,6 +4,7 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/mixins";
 
+
 $primary: #cc00fff3; // Custom primary color
 $secondary: #33ff44;
 $info: rgb(209, 209, 209);
@@ -14,11 +15,12 @@ $body-color: #ffffff;
 $input-border-radius:20px;
 
 $btn-border-radius: 20px;
+$btn-border-radius-lg: 20px;
+$btn-border-radius-sm: 20px;
 
 .rounded-border {
     border-radius:20px;
 }
-$input-padding-x: 1rem; 
 
 $card-bg: $primary;
 $card-border-radius: 20px;
@@ -40,6 +42,27 @@ $navbar-light-brand-color:  $secondary;
 $navbar-light-hover-color:  $secondary;
 
 $btn-close-focus-shadow: 0 0 0 .25rem rgba($secondary, 0.7);
+
+.form-floating > label {
+    margin-left: 0.4rem;
+    font-size: 0.9rem;
+    width:auto;
+  }
+.input-group input[type="number"] ~ label { /* Adjust for number input as number spinner affects margin*/
+    margin-left: 0rem; 
+  }
+  
+@media (min-width: 768px) { // Change at md breakpoint
+  button.btn{
+    font-size: 1.20rem;  /* Larger size */
+    }
+  .form-floating> input.form-control  {
+      font-size: 1.2rem;
+      height: fit-content; // Adjust height based on font-size
+      padding: 1rem;
+    }
+  }
+
 
 .btn-close{
     transition: transform .4s;
