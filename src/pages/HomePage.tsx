@@ -33,7 +33,7 @@ return (
             ):(
             <div className="col-auto">
                 <button 
-                    className='btn btn-primary m-2 '
+                    className='btn btn-outline-primary m-2 '
                     // id="showFormBtn" 
                     onClick={()=> (setShowForm(true))} 
                     >Add New Exercise
@@ -49,7 +49,7 @@ return (
                 ):(
                 <div className="col-auto">
                     <button 
-                        className='btn btn-primary m-2'
+                        className='btn btn-outline-primary m-2'
                         // id="showFormBtn" 
                         onClick={()=> (setShowLoad(true))} 
                         >Load Workout

@@ -133,7 +133,7 @@ return (
             </div>
         </div>
         <div className="row justify-content-center m-3">
-            <button className="btn btn-secondary" style={{maxWidth: '250px'}} type="submit">
+            <button className="btn btn-primary" style={{maxWidth: '250px'}} type="submit">
                 Save Profile
             </button>
         </div>

@@ -40,7 +40,7 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
     const countSets = () => {
         setCount((count) => count + 1);
         
-        if (workout.sets-count <= 1) {
+        if ((workout.sets || 0)-count <= 1) {
             setExerciseDone(true);
             setSetDone(false);
             setExerciseStarted(false);
@@ -62,7 +62,7 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
     }
 
     return (
-        <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-dark pt-3'} id={`${workout.exercise}`} >
+        <div className={!exerciseDone ? 'card text-center exerciseDiv pt-3': 'card text-center exerciseDiv bg-info pt-3'} id={`${workout.exercise}`} >
             <div className={!exerciseDone ? 'initial' : 'exfin'} 
                 id={`${workout.exercise}info`} >
                 <div className="card-body pb-0 mt-3">
@@ -80,14 +80,14 @@ export default function Exercise ({workout, index, setShowForm, setShowLoad}: { 
                 <div className="progress-bar progress-bar-striped progress-bar-animated bg-secondary" style={{width: `${exProgress}%`}}>{exProgress}%</div>
             </div>
                 <button
-                    className={!exerciseDone ? 'btn btn-secondary' : 'btn btn-info disabled'} 
+                    className={!exerciseDone ? 'btn btn-outline-primary' : 'btn disabled'} 
                     id={`${workout.exercise}set`}
                     onClick = {countSets}
-                    >{!exerciseDone ? `${workout.sets-count} sets left.` : `Done 💪`}
+                    >{!exerciseDone ? `${(workout.sets || 0)-count} sets left.` : `Done 💪`}
                 </button>
             </div>
             <button 
-                className={!exerciseDone ? 'btn btn-secondary' : 'btn btn-primary' }
+                className={!exerciseDone ? 'btn btn-primary' : 'btn btn-outline-secondary' }
                 id={`${workout.exercise}start`} 
                 style={{display: exerciseStarted ? 'none' : 'initial' }}
                 onClick = {startExercise}

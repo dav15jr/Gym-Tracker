@@ -157,7 +157,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   </div>
     {!showProgressForm ? 
     (<button 
-          className='btn btn-lg btn-secondary m-4'
+          className='btn btn-lg btn-primary m-4'
           onClick={()=> (setShowProgressForm(true))} 
           >Update Progress
     </button>) : (
@@ -195,7 +195,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
             <span className="input-group-text bg-dark">Kg's</span>
           </div>
           </div>
-            <button className="btn btn btn-secondary col-8 m-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
+            <button className="btn btn btn-primary col-8 m-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
                 Save Progress
             </button>
         </div>
@@ -205,13 +205,13 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   )}
    {!showDelProgress ? 
     (<button 
-          className='btn btn-lg btn-primary m-4'
+          className='btn btn-lg btn-outline-secondary m-4'
           onClick={()=> (setShowDelProgress(true))} 
           >Delete Progress
     </button>) : (
     <div className="container-fluid col-auto" style={{maxWidth: '450px', minWidth: '300px'}} >
     <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
-        <select  className="form-select px-3" onChange={handleProSelect} defaultValue='default'>
+        <select  className="form-select px-3 border-danger" onChange={handleProSelect} defaultValue='default'>
               <option value='default'>Select Progress</option> {
                   progressDates.map((date, index) => (
                       <option key={index} value={date}>{date}</option>

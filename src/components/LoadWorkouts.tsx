@@ -57,7 +57,7 @@ return (
         <h2>Stored Workouts</h2>
         <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
 
-            <button type="button" className="btn btn-primary px-3 px-sm-4 px-lg-5" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled={btnDisabled}>Delete</button>
+            <button type="button" className="btn btn-outline-secondary px-3 px-sm-4 px-lg-5" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled={btnDisabled}>Delete</button>
 
             <select  className="form-select" onChange={handleLoadSelect} defaultValue='default'>
                         <option value='default'>Select Workout</option> {
@@ -65,10 +65,9 @@ return (
                                 <option key={index} value={workout}>{workout}</option>
                             ))}
             </select>
-            <button type="button" className="btn btn-secondary px-3 px-sm-4 px-lg-5" onClick={loadWorkout} disabled={btnDisabled}>Load</button>
+            <button type="button" className="btn btn-outline-primary px-3 px-sm-4 px-lg-5" onClick={loadWorkout} disabled={btnDisabled}>Load</button>
         </div>    
 
-         {/* <!-- Modal --> */}
         <div className="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content ">

@@ -79,7 +79,7 @@ return(
       <div className="modal-body">
       <form className="form-floating align-content-center m-4" id="profile-form" onSubmit={saveProfile}>
         <div className="row justify-content-center g-3 mb-3">
-            <div className ="form-floating col-sm-6">       
+            <div className ="form-floating col-sm-5">       
                 <input
                     className="form-control" 
                     type="text"
@@ -103,7 +103,7 @@ return(
             </select>
             <label htmlFor="sex">Sex:</label>
         </div>
-        <div className ="form-floating col-sm-4"> 
+        <div className ="form-floating col-sm-5"> 
             <input
                 className="form-control" 
                 type="number"

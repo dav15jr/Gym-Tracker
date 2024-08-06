@@ -1,13 +1,10 @@
-// Custom.scss
-
 // Import Bootstrap's functions, variables, and mixins
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/mixins";
 
-
-$primary: #cc00fff3; // Custom primary color
+$primary: #ae00fff3; // Custom primary color
 $secondary: #33ff44;
-$info: rgb(209, 209, 209);
+$info: rgb(105, 99, 99);
 
 $body-bg: #000000;
 $body-color: #ffffff;
@@ -22,7 +19,7 @@ $btn-border-radius-sm: 20px;
     border-radius:20px;
 }
 
-$card-bg: $primary;
+$card-bg: rgb(22, 1, 32);
 $card-border-radius: 20px;
 
 $tooltip-bg: rgb(255, 255, 255);
@@ -33,15 +30,17 @@ $progress-bar-color:  rgb(0, 0, 0);
 $progress-bar-bg: $primary;
 
 $modal-backdrop-bg:   #000000;
-$modal-content-bg:  $primary; 
+$modal-content-bg: $primary; 
 $modal-footer-border-color: $primary; 
 $modal-header-border-color: $primary;
 
-$navbar-light-color:  #ffffff;
-$navbar-light-brand-color:  $secondary;
+$navbar-light-color: white;
+$navbar-light-brand-color:  rgb(255, 255, 255);
+$navbar-light-brand-hover-color:  $secondary;
 $navbar-light-hover-color:  $secondary;
 
 $btn-close-focus-shadow: 0 0 0 .25rem rgba($secondary, 0.7);
+$btn-close-color: $secondary;
 
 .form-floating > label {
     margin-left: 0.4rem;
@@ -56,32 +55,31 @@ $btn-close-focus-shadow: 0 0 0 .25rem rgba($secondary, 0.7);
   button.btn{
     font-size: 1.20rem;  /* Larger size */
     }
-  .form-floating> input.form-control  {
-      font-size: 1.2rem;
+  .form-floating .form-control  {
+      font-size: 1.1rem;
       height: fit-content; // Adjust height based on font-size
-      padding: 1rem;
+      padding-left: 1rem;
+      padding-right: 0.5rem;
     }
   }
 
-
-.btn-close{
+.modal-header button.btn-close{
     transition: transform .4s;
-    font-size: 1.1em;
-  }
-  .btn-close:hover{
-    transform: scale(1.2);
+    font-size: 1.2em;
+    filter:  grayscale(100%)  brightness(200%); 
   }
   
-  .btn-close-custom {
+.btn-close-custom {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 1.2em;
     transition: transform .4s;
   } 
-  .btn-close-custom:hover {
+  .btn-close:hover {
     transform: scale(1.5); /* zoom 150% */
   }
+
 .btn.btn-primary{
     color: #ffffff;
     }
@@ -91,6 +89,16 @@ $btn-close-focus-shadow: 0 0 0 .25rem rgba($secondary, 0.7);
     }
 .btn.btn-secondary:hover {
     box-shadow: 0 4px 6px $primary; // Add shadow
+    }
+.btn.btn-outline-primary:hover {
+    color: $secondary;
+    background-color: #000000;
+    box-shadow: 0 4px 6px $primary; // Add shadow
+    }
+.btn.btn-outline-secondary:hover {
+    color: $primary;
+    background-color: #000000;
+    box-shadow: 0 4px 6px $secondary; // Add shadow
     }
 
 @import "../node_modules/bootstrap/scss/bootstrap";

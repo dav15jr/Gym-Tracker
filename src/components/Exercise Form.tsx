@@ -55,8 +55,8 @@ export default function Form() {
 
     return (
         <>
-            <form className="form-group container-fluid" id="ex" onSubmit={handleSubmit}>
-            <div className="row justify-content-center g-3 m-2">
+            <form className="form-group container-fluid" id="exform" onSubmit={handleSubmit}>
+            <div className="row justify-content-center g-3 m-1">
                 <div className ="form-floating col-6 col-sm-4 col-md-auto">
                     <input
                         className="form-control" 
@@ -160,7 +160,7 @@ export default function Form() {
                     <label htmlFor="rest">Rest time:</label>
                 </div>
                 <div className="row justify-content-center m-3">
-                    <button className="btn btn-secondary col-6" style={{maxWidth: '250px'}} type="submit">
+                    <button className="btn btn-primary col-6" style={{maxWidth: '250px'}} type="submit">
                         Add Exercise
                     </button>
                 </div>

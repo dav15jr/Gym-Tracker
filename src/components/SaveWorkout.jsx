@@ -36,14 +36,14 @@ return (
         <form className='col-10 col-sm-8 col-md-6 col-lg-4 col-xl-3 col-xxl-2.5 m-3' onSubmit={saveWorkoutPlan}>
         <div className='input-group'>
             <input 
-                className='form-control' 
+                className='form-control border-primary' 
                 name='workoutName' 
                 id='saveWorkout' 
                 type="text" 
                 placeholder='Workout Name'
                 onChange={handleSaveChange}  // Handle change from typed input. 
                 required/>
-            <button className='btn btn-secondary' type='submit'>Save WorkOut</button> 
+            <button className='btn btn-primary' type='submit'>Save WorkOut</button> 
         </div>
         </form>
     </div>
