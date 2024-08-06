@@ -4,8 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(41, 4, 4, 0.87);
-  background-color: #ffffff;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #000000;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,65 +21,44 @@ a {
 a:hover {
   color: #535bf2;
 }
-
-body {
-  position: relative;
-  min-height: 100vh;
-  min-width: 330px;
-  /* border: 3px solid rgb(255, 251, 24); */
-}
-
-footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding:10px;
-  margin: 0;
-  background-color: rgb(251, 221, 255);
-}
-footer div{
-  display:grid;
-  justify-content: center;
+span{
   font-weight: bold;
-  font-style: italic;
-  /* color: rgb(156, 0, 196); */
 }
-
-#root {
-  width: 100%;
-  padding-bottom: 6rem;
-  text-align: center;
-  /* border: 3px solid rgb(24, 116, 255); */
+/*-----------FONTS-----------*/
+.suez-one-regular {
+  font-family: "Suez One", serif;
+  font-weight: 400;
+  font-style: normal;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color: rgb(123, 55, 168);
+.space-mono-regular {
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
 }
-
-h2 {
-  color: rgb(89, 8, 165);
+.loginHeader{
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  /* color: rgb(230, 125, 28); */
+}
+.loginBody{
+  letter-spacing: 1px;
+  line-height: 1.5;
 }
 
 /*------------------- Nav Bar -------------------*/
-
 .nav-link:hover, 
 .nav-link:focus{
-  color:gold !important;
   font-weight: bold;
-  font-style: italic;
-  text-shadow: 0 0 10px #ffffff
 } 
 .navbar{
-  font-size: 1.1em;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+  font-size: 1.2em;
+  box-shadow: 0 5px 10px 0 rgba(21, 252, 0);
 } 
 .navbar:hover {
   /* transform: translate(5px); */
-  box-shadow: 0px 10px 20px 2px rgb(195, 19, 248, 0.9);
+  box-shadow: 0px 5px 10px 0px rgba(173, 3, 224, 0.9);
 } 
-
 .menu{
   display:flex;
   width: 300px;
@@ -93,10 +72,10 @@ h2 {
   width: 500px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #f80202;
+    color: #6000a0;
+    background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
@@ -133,25 +112,10 @@ h2 {
 
 /*---------------------Exercise Form Component------------------------*/
 
-input, select{
-  width: auto;
-  padding: 5px;
-  margin: 20px 40px;
-  border-radius: 10px;
-  /* border: 2px solid rgb(110, 0, 212); */
-}
-select:focus-visible {
-  outline: 3px solid rgb(162, 0, 255, 0.4);
-}
-
-span{
-  font-weight: bold;
-}
 #saveWorkout{
   width: 90px;
   /* border: 3px solid rgb(24, 116, 255); */
 }
-
 
 /*---------------------Load Workouts Component------------------------*/
 .loadsave{
@@ -181,75 +145,50 @@ span{
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: top;
-  align-items: center;
-  gap: 15px;
-  padding-top: 35px;
+  gap: 10px;
   margin: 5px;
-  width:330px;
+  width:360px;
+  min-width:350px;
   height:fit-content;
   min-height: 250px;
-  border-radius: 30px;
-  background-color:rgba(172, 115, 236, 0.479);
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 10px 0 rgb(180, 0, 235);
 }
 .exerciseDiv:hover{
   transform: translateY(5px);
-  box-shadow: 0px 10px 20px 2px rgb(195, 19, 248);
+  box-shadow: 0 5px 10px 0 rgb(106, 233, 21);
 }
 
-/* .infoDiv{
-  margin-bottom: 5px;
-  align-items: center;
-  border: 3px solid rgb(194, 135, 9);
-} */
 .progressDiv{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
   height:auto;
   /* border: 3px solid rgb(138, 194, 9); */
 }
-.progressEle {
-  width: 130px;
-  height: 25px;
-  justify-items: center;
-  align-self: center;
+
+.progress {
+  width: 150px;
+  /* height: 20px !important; */
 }
 
 .exfin{
   font-style: italic;
   font-weight: bold;
   text-decoration: line-through;
-  text-decoration-thickness: 2.5px;
-  color:rgb(184, 177, 177, 0.4);
-  h2 { 
-    color:rgba(138, 129, 129, 0.3);
-  }
-
+  text-decoration-thickness: 1.5px;
+  color:rgba(255, 255, 255, 0.4);
 }
 /*---------------------Buttons-------------------*/
 button{
-  width:auto;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  padding: 0.5em 1.1em;
   align-self: center;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #b018ec;
-  cursor: pointer;
-  transition: border-color 0.7s;
 }
 button:hover {
-  border-color: #013b10;
-  background-color: #28da04;
   transform: scale(1.1); 
 }
 button:focus-visible {
-  outline: 3px dashed rgb(255, 38, 0);
+  outline: 3px dashed rgb(48, 34, 32);
 }
 .formSubmitBtn {
   color:rgb(255, 230, 0) ;
@@ -297,15 +236,12 @@ button:focus-visible {
   background: rgb(250, 176, 142);
   border: 2px solid rgb(223, 134, 0);
 }
-.timerBtn{
-  background-color: #3cf8b0;
-  color:black;
-  align-self: center;
+.timer{
+  color:rgb(255, 255, 255);
 }
-.timerBtn:hover{
-  background-color: #dfdfdf;
-  color:black;
-}
+.restDone{
+  color: #000000;
+  }
 .btnFin{
   background-color: #aaaaaa;
   color:black;
@@ -338,7 +274,7 @@ button:focus-visible {
   font-size: 1.7em;
   padding: 5px;
   background-color: transparent;
-  color:rgb(255, 255, 255);
+  color:rgb(17, 16, 16);
   border:none;
   transition: transform .4s;
 }
@@ -348,31 +284,6 @@ button:focus-visible {
   color:rgb(255, 118, 6);
   border:none;
 }
-.btn-close{
-  transition: transform .4s;
-}
-.btn-close:hover{
-  transform: scale(1.3); /* Bootstrap modal button close zoom 130% */
-}
-.restDone{
-  background-color: #da0404;
-  }
 
-/*-------Default button settings----*/
-bttn {
-  border-radius: 10px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #da0404;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  width: 120px;
-}
-bttn:hover {
-  border-color: #646cff;
-}
 
  

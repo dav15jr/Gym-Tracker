@@ -1,16 +1,15 @@
 import { doc, setDoc} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
+import { useAppContext } from '../assets/AppContext';
 
+export default function Profile () {
 
-export default function Profile ({userID, userName, setUserName, setShowExercises, newUser}) {
-
+    const { userID, setUserHeight, setTargetWeight, userName, setUserName, setShowExercises, newUser} = useAppContext();
     const {profileExists, setProfileExists, profileData, setProfileData} = useCheckStoredProfile(userID, setUserName, setShowExercises );
     
     useCheckStoredProfile(userID, setUserName, setShowExercises)   // Check if profile exists
 
-    // console.log('User ID on Profile page', userID);
-    console.log('Profile is', profileExists)
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
         setProfileData((prevData) => {
@@ -19,17 +18,16 @@ export default function Profile ({userID, userName, setUserName, setShowExercise
                 [name]: value,
             };
         });
-        console.log('profile error change')
         } 
         
     const saveProfile = (event) => {
-            event.preventDefault();
-            setUserName(profileData.name);
-            
-            console.log(profileData);
-            saveProfileToFirestore();   //save data to firestore
+            event.preventDefault()
+            setUserName(profileData.name)
+            saveProfileToFirestore()   //save data to firestore
             setProfileExists(true)
             setShowExercises(true)
+            setUserHeight(profileData.height)
+            setTargetWeight(profileData.weightGoal)
             }
                 
     async function saveProfileToFirestore  (){
@@ -39,15 +37,13 @@ export default function Profile ({userID, userName, setUserName, setShowExercise
             alert("Profile saved successfully");
             }
 
-    console.log('profile page rendered')
-
 return (
 <>
     {!profileExists ? (  
     <form className="form-group" id="profile-form" onSubmit={saveProfile}>
             <h2>Create Your Profile</h2>   
-    <div className="row justify-content-center g-3 mb-3">
-        <div className ="form-floating col-8 col-sm-auto col-md-auto">       
+    <div className="row justify-content-center g-3 m-2">
+        <div className ="form-floating col-6 col-sm-5 col-md-auto">       
             <input
                 className="form-control" 
                 type="text"
@@ -60,7 +56,7 @@ return (
             <label htmlFor="name">Name:</label>
         </div> 
 
-        <div className ="form-floating col-5 col-sm-3 col-md-2"> 
+        <div className ="form-floating col-6 col-sm-5 col-md-auto"> 
             <select 
                 className="form-control " 
                 id="sex" 
@@ -72,7 +68,7 @@ return (
             </select>
             <label htmlFor="sex">Sex:</label>
         </div>
-        <div className ="form-floating col-4 col-sm-auto col-md-2"> 
+        <div className ="form-floating col-6 col-sm-5 col-md-1"> 
             <input
                 className="form-control" 
                 type="number"
@@ -85,7 +81,7 @@ return (
             <label htmlFor="age">Age:</label>
         </div>
 
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-6 col-sm-5 col-md-auto">
             <div className ="input-group">
                 <div className ="form-floating"> 
                 <input
@@ -99,29 +95,48 @@ return (
                     required/>
                 <label htmlFor="height">Height:</label>
                 </div>
-                <span className="input-group-text">Cm's</span>
+                <span className="input-group-text bg-dark px-2 px-md-3">Cm's</span>
             </div>
         </div>
-        <div className ="col-5 col-sm-auto col-md-2">
+        <div className ="col-6 col-sm-5 col-md-auto">
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
                         className="form-control" 
                         type="number"
-                        placeholder="Enter weight"
-                        id="weight"
-                        name="weight"
+                        placeholder="Enter current weight"
+                        id="weightNow"
+                        name="weightNow"
                         onChange={handleChange}  // Handle change from typed input.
-                        value={profileData.weight}
+                        value={profileData.weightNow}
                         required/>
-                    <label htmlFor="weight">Weight:</label>
+                    <label htmlFor="weightNow">Current Weight:</label>
                 </div>
-            <span className="input-group-text">Kg's</span>
+            <span className="input-group-text bg-dark px-2 px-sm-3">Kg's</span>
             </div>
         </div>
-            <button className="btn btn-lg btn-primary w-50" type="submit">
+        <div className ="col-6 col-sm-5 col-md-auto">
+            <div className ="input-group">
+                <div className ="form-floating"> 
+                    <input 
+                        className="form-control" 
+                        type="number"
+                        placeholder="Enter Target weight"
+                        id="weightGoal"
+                        name="weightGoal"
+                        onChange={handleChange}  // Handle change from typed input.
+                        value={profileData.weightGoal}
+                        required/>
+                    <label htmlFor="weightGoal">Target Weight:</label>
+                </div>
+            <span className="input-group-text bg-dark px-2 px-sm-3">Kg's</span>
+            </div>
+        </div>
+        <div className="row justify-content-center m-3">
+            <button className="btn btn-primary" style={{maxWidth: '250px'}} type="submit">
                 Save Profile
             </button>
+        </div>
         </div>
     </form>
     

@@ -1,15 +1,23 @@
 // import './../index.css'
+import { useState} from 'react';
 import defaultExercises from '../assets/defaultExercises';
+import { useAppContext } from '../assets/AppContext';
+import { ExerciseData } from '../types';
 
-export default function Form({
-    setExerciseData,
-    exerciseData,
-    setWorkoutPlan,
-    setShowSaveBTN,
-    workoutPlan,
-    defaultExerciseState,
-    setWorkoutChanged,
-}) {
+const defaultExerciseState: ExerciseData = {
+    exercise: '',
+    type: 'resistance',
+    amount: '',
+    reps: '',
+    sets: '',
+    rest: 45,
+};
+
+export default function Form() {
+
+    const { setWorkoutPlan, workoutPlan, setShowSaveBTN, setWorkoutChanged } = useAppContext();
+    const [exerciseData, setExerciseData] = useState(defaultExerciseState);
+    const currentExercises = workoutPlan.map((workout) => workout.exercise);
 
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;
@@ -20,12 +28,12 @@ export default function Form({
             };
         });
     } 
+
     const handleExe =(e) => { // Handle exercise selection, when dropdown data list is used
         const val = (e.target.value)
         const def = defaultExercises.filter((ex) => ex.exercise === val)
         setExerciseData(def[0])
     }
-    const currentExercises = workoutPlan.map((workout) => workout.exercise);
     
     function handleSubmit(event) {
         event.preventDefault();
@@ -39,18 +47,16 @@ export default function Form({
             });
             return
         } 
-        console.log(exerciseData)
         setWorkoutPlan([...workoutPlan, exerciseData]);
         setExerciseData(defaultExerciseState);   // Set default exercise state
-        // document.querySelector('form').reset(); //Reset the form    
         setWorkoutChanged(true)
         setShowSaveBTN(true)
         }
 
     return (
         <>
-            <form className="form-group container-fluid" id="ex" onSubmit={handleSubmit}>
-            <div className="row justify-content-center g-3 m-3">
+            <form className="form-group container-fluid" id="exform" onSubmit={handleSubmit}>
+            <div className="row justify-content-center g-3 m-1">
                 <div className ="form-floating col-6 col-sm-4 col-md-auto">
                     <input
                         className="form-control" 
@@ -88,7 +94,7 @@ export default function Form({
                 <>
                     {  //check whether the value is 'bodyWeight' to determine showing exercise amount
                     exerciseData.type !== 'body weight' && (
-                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-1">
+                        <div className ="form-floating col-6 col-sm-3 col-md-2 col-xl-1">
                         <input
                             className="form-control" 
                             type="number"
@@ -132,29 +138,34 @@ export default function Form({
                     />
                     <label htmlFor="sets">No. of Sets:</label>
                 </div>
-
-                <div className ="form-floating col-6 col-sm-3 col-md-2 col-lg-auto">
-                    <input
-                        className="form-control" 
-                        type="number"
-                        min='5'
-                        placeholder="Rest Time"
-                        id="rest"
-                        name="rest"
-                        onChange={handleChange}
-                        value={exerciseData.rest}
-                        required
-                    />
-                    <label htmlFor="rest">Rest time (s):</label>
+                <div className ="form-floating col-6 col-sm-3 col-md-2 col-xl-1">
+                    <select 
+                            className="form-control"
+                            id="rest"
+                            name="rest"
+                            value={exerciseData.rest} 
+                            onChange={handleChange}>
+                        <option value={15}>15 sec</option>
+                        <option value={30}>30 sec</option>
+                        <option value={45}>45 sec</option>
+                        <option value={60}>1:00 min</option>
+                        <option value={90}>1:30 min</option>
+                        <option value={120}>2:00 min</option>
+                        <option value={150}>2:30 min</option>
+                        <option value={180}>3:00 min</option>
+                        <option value={210}>3:30 min</option>
+                        <option value={240}>4:00 min</option>
+                        <option value={300}>5:00 min</option>
+                    </select>
+                    <label htmlFor="rest">Rest time:</label>
                 </div>
                 <div className="row justify-content-center m-3">
                     <button className="btn btn-primary col-6" style={{maxWidth: '250px'}} type="submit">
                         Add Exercise
                     </button>
                 </div>
-                </div>
-                
-            </form>
+            </div>
+        </form>
         </>
     );
 }
