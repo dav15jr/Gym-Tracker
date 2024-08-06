@@ -23,12 +23,30 @@ export default function LoginPage () {
       }
     }, [isLoggedIn, navigate]);
 
-
+    const handleError = (error) => {
+        if (error.code === 'auth/wrong-password') {
+            alert('Wrong Password, please try again.')
+        } else if (error.code === 'auth/user-not-found') {
+            alert('Wrong Email or you are not Registered.')
+        } else if (error.code === 'auth/missing-password') {
+            alert('Please Enter your Password.')
+        } else if (error.code === 'auth/invalid-email') {
+            alert('Please Enter your Email.')
+        } else if (error.code === 'auth/weak-password') {
+            alert('Password should be at least 6 characters.')
+        } else if (error.code === 'auth/email-already-in-use') {
+            alert('Account already registered. Please Log In')
+        } else if (error.code === 'auth/too-many-requests') {
+            alert('Too many attempts, please reset your password - check your email')
+            sendPasswordResetEmail(auth, email) //Send password reset email
+        }
+        console.log("Error message:",error.message)
+        // alert(error.message)
+    }
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault(); // Prevent the form from submitting
             document.getElementById('LoginBtn').click(); // Trigger the login button click
-            // handleLogin(event);
             console.log('Enter key pressed')
         }
       };
@@ -42,8 +60,8 @@ export default function LoginPage () {
                 setNewUser(true)
                 // alert('Welcome! You have successfully registered')
             } catch(error) {
-                alert('Account already registered. Please Log In')
-            }  
+                handleError(error)
+            }
     }
     async function handleLogin (e) {
         e.preventDefault();
@@ -56,19 +74,11 @@ export default function LoginPage () {
                 setPassword('')
                 setNewUser(false)
             } catch(error) {
-                if (error.code === 'auth/wrong-password') {
-                    alert('Wrong Password, please try again.')
-                } else if (error.code === 'auth/user-not-found') {
-                    alert('Wrong Email or you are not Registered.')
-                } else if (error.code === 'auth/missing-password') {
-                    alert('Please Enter your Password.')
-                } else if (error.code === 'auth/too-many-requests') {
-                    alert('Too many attempts, please reset your password - check your email')
-                    sendPasswordResetEmail(auth, email) //Send password reset email
-                }
-                console.log("Error message:",error.message)
-                // alert(error.message)
+                handleError(error)
             }
+
+
+            
     }               
 return (
 <>
@@ -97,7 +107,8 @@ return (
                 onChange={e => setEmail(e.target.value)} 
                 value={email}
                 autoComplete="username"
-                required/>
+                required
+                />
             <label htmlFor="Email">Email:</label>
         </div>
     </div>
@@ -112,7 +123,8 @@ return (
                 onChange={e => setPassword(e.target.value)}  
                 value={password}
                 autoComplete="current-password"
-                required/>
+                required
+                />
             <label htmlFor="Password">Password:</label>
         </div>
     </div>
