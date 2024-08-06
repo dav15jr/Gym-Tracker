@@ -79,7 +79,7 @@ return (
           <h3 className='loginBody suez-one-regular'>Effortless workout tracker that helps you focus on exercising to become your Prime Self.</h3>
         </div>
         <div className="col-11 col-lg-6 mx-auto">
-          <img className="img-fluid rounded" src="/public/img/black arms down (6).jpg"/>
+          <img className="img-fluid rounded" src="img/black arms down (6).jpg"/>
         </div>
       </div>
     </div>
@@ -96,6 +96,7 @@ return (
                 name="email"
                 onChange={e => setEmail(e.target.value)} 
                 value={email}
+                autoComplete="username"
                 required/>
             <label htmlFor="Email">Email:</label>
         </div>
@@ -110,6 +111,7 @@ return (
                 name="password"
                 onChange={e => setPassword(e.target.value)}  
                 value={password}
+                autoComplete="current-password"
                 required/>
             <label htmlFor="Password">Password:</label>
         </div>
