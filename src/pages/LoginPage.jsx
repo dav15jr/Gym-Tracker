@@ -98,8 +98,6 @@ const resetPassword = () => {
                 handleError(error)
             }
 
-
-            
     }               
 return (
 <>
