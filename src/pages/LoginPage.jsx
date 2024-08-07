@@ -23,6 +23,27 @@ export default function LoginPage () {
       }
     }, [isLoggedIn, navigate]);
 
+const resetPassword = () => {
+    sendPasswordResetEmail(auth, email)
+.then(() => {
+      // Password reset email sent!
+      // ..
+      alert('Password reset e-mail sent - check your mailbox')
+           
+    })
+.catch((error) => {
+    if (error.code === 'auth/missing-email') {
+    alert('Please Enter your Email.')
+    } else if (error.code === 'auth/invalid-email') {
+    alert('Please Enter a valid Email.')
+    } else if (error.code === 'auth/user-not-found') {
+    alert('Sorry Account not found, check your email is correct and try again.')
+    } else{
+    console.log('Error: ', error.message)
+    alert(error.message)
+    }
+    });
+}
     const handleError = (error) => {
         if (error.code === 'auth/wrong-password') {
             alert('Wrong Password, please try again.')
@@ -134,6 +155,31 @@ return (
         <button className="btn btn-outline-primary px-1" id="RegisterBtn" type="submit" value='Register' name='Register' onClick={handleRegister}> Register </button>
     </div>
     </form>
+
+
+    <a
+        className="link" 
+        data-bs-target="#logOffModal"
+        data-bs-toggle="modal">
+        Forgot Password ?
+    </a>
+    <div className="modal fade" id="logOffModal" tabIndex={-1} aria-labelledby="modalLabel" aria-hidden="true">
+    <div className="modal-dialog">
+        <div className="modal-content">
+        <div className="modal-header">
+            <h1 className="modal-title fs-4 w-100 text-center" id="modalLabel">Forgotten Your Password?</h1>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div className="modal-body">
+            
+            Would you like us to send you a Password Reset Email? </div>
+        <div className="modal-footer justify-content-center">
+            <button type="button" className="btn btn-info mx-3" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" className="btn btn-warning" data-bs-dismiss="modal" onClick={resetPassword} >Yes, Send Email</button>
+        </div>
+        </div>
+    </div>
+    </div>
 </>
 )
 }

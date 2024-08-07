@@ -9,7 +9,7 @@ return (
 <nav className="navbar navbar-expand-lg mb-5 bg-primary">
   <div className=" container-fluid container">
     <a className="navbar-brand px-sm-5 suez-one-regular" href="./">
-      <img src="/public/icons/favicon-32x32.png" alt="Logo" width="30" height="30" className="d-inline-block align-text-bottom mx-1"/>
+      <img src="/icons/favicon-32x32.png" alt="Logo" width="30" height="30" className="d-inline-block align-text-bottom mx-1"/>
       PrimeYou
     </a>
     <button className="navbar-toggler mx-sm-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
