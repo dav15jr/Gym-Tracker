@@ -42,6 +42,10 @@ $navbar-light-hover-color:  $secondary;
 $btn-close-focus-shadow: 0 0 0 .25rem rgba($secondary, 0.7);
 $btn-close-color: $secondary;
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
 .form-floating > label {
     margin-left: 0.4rem;
     font-size: 0.9rem;

@@ -5,9 +5,9 @@ export default function BMIProgressChart({ progressHistory }) {
 
   return (
 <>
-      <h4>BMI</h4>
+      <h6>BMI</h6>
     <div className="justify-content-center">
-    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={600} height={450}>
+    <ResponsiveContainer width={'100%'} minWidth={300} maxWidth={500} height={300}>
       <LineChart
         data={progressHistory}
         syncId="ProgressCharts"

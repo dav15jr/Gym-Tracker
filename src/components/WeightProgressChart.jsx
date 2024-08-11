@@ -9,8 +9,8 @@ export default function WeightProgressChart({progressHistory}) {
   return (
 <>
     <div className="justify-content-center">
-    <h4>Weight</h4>
-    <ResponsiveContainer width={'100%'} minWidth={350} maxWidth={600} height={450}>
+    <h6>Weight</h6>
+    <ResponsiveContainer width={'100%'} minWidth={300} maxWidth={500} height={300}>
       <AreaChart
         data={progressHistory}
         syncId="ProgressCharts"

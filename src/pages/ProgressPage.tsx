@@ -142,14 +142,14 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
   return (
 <>
   <NavBar />
-  <h2>Track Your Progress</h2>
+  <h3>Track Your Progress</h3>
   <div className='row justify-content-center px-xl-4'>
-    <div className='col-11 col-md-10 col-xxl-6 mb-3'>
+    <div className='col-11 col-md-8 col-xxl-5 mb-3'>
       <WeightProgressChart 
       progressHistory={progressHistory}
       />
     </div>
-    <div className='col-11 col-md-10 col-xxl-6 mb-3'>
+    <div className='col-11 col-md-8 col-xxl-5 mb-3'>
       <BMIProgressChart 
         progressHistory={progressHistory}
       />
@@ -161,13 +161,13 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
           onClick={()=> (setShowProgressForm(true))} 
           >Update Progress
     </button>) : (
-  <div className="container-fluid m-4" >
+  <div className="container-fluid my-4" >
       <form className="form-group" id="profile-form" onSubmit={saveProgress}>
-            <h2>Update Your Progress</h2>   
-    <div className="row justify-content-center gx-3 mb-3">
-        <div className ="form-floating col-6 col-sm-5 mb-2" style={{maxWidth: '350px'}}>       
+            <h4>Update Your Progress</h4>   
+    <div className="row justify-content-center gx-3 my-4">
+        <div className ="form-floating col-5 col-sm-4 mb-2" style={{maxWidth: '250px'}}>       
             <input
-                className="form-control" 
+                className="form-control date-input-dark" 
                 type="date"
                 placeholder="dd-mm-yyyy"
                 id="date"
@@ -178,7 +178,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
                 required/>
             <label htmlFor="date">Date:</label>
         </div> 
-        <div className ="col-6 col-sm-5 mb-2" style={{maxWidth: '350px'}}>
+        <div className ="col-5 col-sm-4 mb-2" style={{maxWidth: '250px'}}>
             <div className ="input-group">
                 <div className ="form-floating"> 
                     <input 
@@ -195,7 +195,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
             <span className="input-group-text bg-dark">Kg's</span>
           </div>
           </div>
-            <button className="btn btn btn-primary col-8 m-2" style={{maxWidth: '350px', minWidth: '100px', width: '250px'}} type="submit">
+            <button className="btn btn btn-primary col-8 m-2" style={{maxWidth: '200px', minWidth: '100px', width: '250px'}} type="submit">
                 Save Progress
             </button>
         </div>
@@ -209,15 +209,16 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
           onClick={()=> (setShowDelProgress(true))} 
           >Delete Progress
     </button>) : (
-    <div className="container-fluid col-auto" style={{maxWidth: '450px', minWidth: '300px'}} >
-    <div className="input-group justify-content-center" role="group" aria-label="Button group with nested select list">
+    <div className="container-fluid justify-content-center" style={{maxWidth: '300px', minWidth: '200px'}} >
+       <h4>Delete Your Progress</h4> 
+    <div className="input-group my-3" role="group" aria-label="Button group with nested select list">
         <select  className="form-select px-3 border-danger" onChange={handleProSelect} defaultValue='default'>
               <option value='default'>Select Progress</option> {
                   progressDates.map((date, index) => (
                       <option key={index} value={date}>{date}</option>
                   ))}
         </select>
-        <button type="button" className="btn btn-danger px-2 px-sm-3 px-lg-4" onClick={()=>{deleteProgress(delProgress)}}>Delete Progress</button>
+        <button type="button" className="btn btn-danger px-4" onClick={()=>{deleteProgress(delProgress)}}>Delete</button>
     </div> 
     </div> 
     )}

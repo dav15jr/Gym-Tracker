@@ -71,7 +71,11 @@ span{
 .hero img{
   width: 500px;
 }
-
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #6000a0;
