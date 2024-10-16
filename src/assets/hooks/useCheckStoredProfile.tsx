@@ -33,7 +33,9 @@ export default function useCheckStoredProfile(userID, setUserName, setShowExerci
     },[setShowExercises, setUserName, userID])
   
     useEffect(() => {
-        fetchProfileFromFirestore();
+        if (userID){
+            fetchProfileFromFirestore();
+        }       
         }, [userID, fetchProfileFromFirestore])
 
 

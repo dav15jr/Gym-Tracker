@@ -125,7 +125,7 @@ return (
                 name="email"
                 onChange={e => setEmail(e.target.value)} 
                 value={email}
-                autoComplete="username"
+                autoComplete="email"
                 required
                 />
             <label htmlFor="Email">Email:</label>

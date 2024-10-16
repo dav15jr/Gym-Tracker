@@ -59,7 +59,7 @@ return (
 
             <button type="button" className="btn btn-outline-secondary px-3 px-sm-4 px-lg-5" data-bs-toggle="modal" data-bs-target="#deleteModal" disabled={btnDisabled}>Delete</button>
 
-            <select  className="form-select" onChange={handleLoadSelect} defaultValue='default'>
+            <select  className="form-select" id='storedWorkouts' onChange={handleLoadSelect} defaultValue='default'>
                         <option value='default'>Select Workout</option> {
                             storedWorkouts.map((workout, index) => (
                                 <option key={index} value={workout}>{workout}</option>

@@ -53,6 +53,7 @@ return (
                 name="name"
                 onChange={handleChange}  // Handle change from typed input.
                 value={profileData.name}
+                autoComplete="username"
                 required/>
             <label htmlFor="name">Name:</label>
         </div> 
