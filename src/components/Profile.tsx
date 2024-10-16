@@ -10,7 +10,6 @@ export default function Profile () {
     
     useCheckStoredProfile(userID, setUserName, setShowExercises)   // Check if profile exists
 
-    console.log('Profile page loaded');
 
     function handleChange(event) {   //  Handle form input value change
         const {name, value } = event.target;

@@ -27,7 +27,6 @@ export default function useCheckStoredProfile(userID, setUserName, setShowExerci
             setUserName(profData.profileData.name)
             setProfileExists(true)
             setShowExercises(true)
-            console.log(profData)
         } catch (error) {
         console.log('Error fetching profile data', error.message )
         }
