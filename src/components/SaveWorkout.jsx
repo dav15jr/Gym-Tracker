@@ -5,7 +5,7 @@ import { db } from "../firebaseConfig";
 import { useAppContext } from '../assets/AppContext';
 
 const SaveWorkout = ({ setShowWorkoutTitle}) => {
-const [saveWorkout, setSaveWorkout] = useState();
+const [saveWorkout, setSaveWorkout] = useState('');
 const { userID, setShowSaveBTN, setWorkoutName, workoutPlan, setWorkoutChanged } = useAppContext();
 //--------------Save Workout----------------
 
@@ -24,11 +24,15 @@ const saveWorkoutPlan = (event) => {
     }
         
 async function saveWorkoutsToFirestore (){
-    await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
-    workoutPlan
-    });
-    alert("Workout saved successfully");
+    try{
+        await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
+        workoutPlan
+        });
+        alert("Workout saved successfully");
+    } catch (error) {
+    console.log('Error Saving workout', error.message )
     }
+}
 
 return (
 <>

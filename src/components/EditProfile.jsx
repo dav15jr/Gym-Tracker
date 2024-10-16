@@ -23,8 +23,6 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
     const saveProfile = (event) => {
             event.preventDefault();
             setUserName(profileData.name);
-            
-            console.log(profileData);
             saveProfileToFirestore();   //save data to firestore
             setProfileExists(true)
             setShowExercises(true)
@@ -33,9 +31,13 @@ const {setProfileExists, profileData, setProfileData} = useCheckStoredProfile(us
             }
                 
     async function saveProfileToFirestore  (){
+        try {
             await setDoc(doc(db, userID, 'profileData'), {    // Add a new 'Workout' document in 'userID' collection
             profileData
             });
+        } catch (error) {
+            console.log('Error Saving Profile', error.message )
+        }
             }
 return(
 <> 

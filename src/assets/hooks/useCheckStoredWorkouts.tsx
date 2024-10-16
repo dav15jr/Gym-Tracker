@@ -19,18 +19,15 @@ const fetchStoredWorkouts = useCallback(async () => {
             });
         const workouts =  temporaryArr.filter((name) => name  !== 'profileData'&& name !== 'progressHistory')  //Filter out profile & Progress Data from Stored Workouts.
         setStoredWorkouts(workouts)
-        console.log(workouts.length)
 
         if (workouts.length > 0){  //check if a workout exists
             setWorkoutExists(true)
-
         } else {
             setWorkoutExists(false)
-
             }
 
     } catch (error) {
-            console.log('Error fetching workouts:',error.message);
+            console.log('Error fetching workouts:', error.message);
             }
 }, [userID])
 

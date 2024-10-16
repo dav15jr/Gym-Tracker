@@ -27,14 +27,16 @@ export default function useCheckStoredProfile(userID, setUserName, setShowExerci
             setUserName(profData.profileData.name)
             setProfileExists(true)
             setShowExercises(true)
+            console.log(profData)
         } catch (error) {
-        console.log('Can not fetch profile data')
+        console.log('Error fetching profile data', error.message )
         }
     },[setShowExercises, setUserName, userID])
   
     useEffect(() => {
         fetchProfileFromFirestore();
         }, [userID, fetchProfileFromFirestore])
+
 
 return {profileExists, setProfileExists, profileData, setProfileData, fetchProfileFromFirestore}
 }

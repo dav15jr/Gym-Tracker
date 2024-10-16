@@ -35,7 +35,7 @@ useEffect(() => {
 
 const bmiHeight = Math.pow(userHeight, 2)
 
-const getCurrentDate = () => {  // get current date to limit choose future date for progress entry.
+const getCurrentDate = () => {  // get current date to limit choosing future date for progress entry.
   const today = new Date();
   const day = String(today.getDate()).padStart(2, '0');
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -88,12 +88,7 @@ function formatDate(dateString) { // func to formate date for easy reading on ch
           };
         });
       }
-      console.log('your bmi height',bmiHeight)
-      console.log('your user height',userHeight)
-      console.log('your progress data',progressData)
-
       const formattedDate = formatDate(progressData.date)   
-      console.log(formattedDate);
       setChartDate(formattedDate)
         } 
 

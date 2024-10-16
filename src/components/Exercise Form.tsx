@@ -92,7 +92,7 @@ export default function Form() {
                     <label htmlFor="type">Type:</label>
                 </div>
                 <>
-                    {  //check whether the value is 'bodyWeight' to determine showing exercise amount
+                    {//check whether the value is 'bodyWeight' to determine showing exercise amount
                     exerciseData.type !== 'body weight' && (
                         <div className ="form-floating col-6 col-sm-3 col-md-2 col-xl-1">
                         <input
