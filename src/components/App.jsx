@@ -9,43 +9,43 @@ import ProtectedRoute from './ProtectedRoute';
 import '../main.css';
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: '/login',
-      element: <LoginPage />,
-    },
-    {
-      path: '/',
-      element: (
-        <ProtectedRoute>
-          <HomePage />
-        </ProtectedRoute>
-      ),
-      errorElement: <NotFoundPage />,
-    },
-    {
-      path: '/home',
-      element: (
-        <ProtectedRoute>
-          <HomePage />
-        </ProtectedRoute>
-      ),
-    },
-    {
-      path: '/progress',
-      element: (
-        <ProtectedRoute>
-          <ProgressPage />
-        </ProtectedRoute>
-      ),
-    },
-  ]);
+    const router = createBrowserRouter([
+        {
+            path: '/login',
+            element: <LoginPage />,
+        },
+        {
+            path: '/',
+            element: (
+                <ProtectedRoute>
+                    <HomePage />
+                </ProtectedRoute>
+            ),
+            errorElement: <NotFoundPage />,
+        },
+        {
+            path: '/home',
+            element: (
+                <ProtectedRoute>
+                    <HomePage />
+                </ProtectedRoute>
+            ),
+        },
+        {
+            path: '/progress',
+            element: (
+                <ProtectedRoute>
+                    <ProgressPage />
+                </ProtectedRoute>
+            ),
+        },
+    ]);
 
-  return (
-    <AppProvider>
-      <RouterProvider router={router} />
-    </AppProvider>
-  )
+    return (
+        <AppProvider>
+            <RouterProvider router={router} />
+        </AppProvider>
+    );
 }
 
 export default App;

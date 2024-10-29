@@ -1,5 +1,5 @@
 export default [
-    {   
+    {
         exercise: 'Pullups',
         type: 'body weight',
         amount: undefined,
@@ -7,7 +7,7 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Pushups',
         type: 'body weight',
         amount: undefined,
@@ -15,7 +15,7 @@ export default [
         sets: 3,
         rest: 45,
     },
-    {   
+    {
         exercise: 'Bicep Curls',
         type: 'kgs',
         amount: 15,
@@ -23,7 +23,7 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Tricep Dips',
         type: 'body weight',
         amount: undefined,
@@ -31,7 +31,7 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Tricep Cable Extensions',
         type: 'resistance',
         amount: 10,
@@ -39,7 +39,7 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Deadlifts',
         type: 'kgs',
         amount: 100,
@@ -47,7 +47,7 @@ export default [
         sets: 5,
         rest: 90,
     },
-    {   
+    {
         exercise: 'Squats',
         type: 'kgs',
         amount: 70,
@@ -55,7 +55,7 @@ export default [
         sets: 5,
         rest: 90,
     },
-    {   
+    {
         exercise: 'Leg Curls',
         type: 'lbs',
         amount: 75,
@@ -63,7 +63,7 @@ export default [
         sets: 3,
         rest: 90,
     },
-    {   
+    {
         exercise: 'Calf Raises',
         type: 'kgs',
         amount: 10,
@@ -71,7 +71,7 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Abs',
         type: 'body weight',
         amount: undefined,
@@ -79,12 +79,12 @@ export default [
         sets: 3,
         rest: 60,
     },
-    {   
+    {
         exercise: 'Custom',
         type: 'resistance',
         amount: 0,
         reps: 0,
         sets: 0,
         rest: 30,
-    }
-]
+    },
+];
