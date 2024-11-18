@@ -30,11 +30,7 @@ const SaveWorkout = ({ setShowWorkoutTitle }) => {
     };
 
     async function saveWorkoutsToFirestore() {
-
         if (!userID || !saveWorkout || !workoutPlan) {  //Check if all information required is available
-            console.log('User ID:', userID);
-            console.log('Workout name:', saveWorkout);
-            console.log('Workout Plan:', workoutPlan);
             alert('Missing required information');
             return;
         }
@@ -46,6 +42,7 @@ const SaveWorkout = ({ setShowWorkoutTitle }) => {
             alert('Workout saved successfully');
         } catch (error) {
             console.log('Error Saving workout', error.message);
+            console.log('Error', error);
             alert(`Error saving workout - ${error.message}`);
         }
     }

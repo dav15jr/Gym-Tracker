@@ -162,6 +162,7 @@ export default function Form() {
                             name="rest"
                             value={exerciseData.rest}
                             onChange={handleChange}
+                            required
                         >
                             <option value={15}>15 sec</option>
                             <option value={30}>30 sec</option>

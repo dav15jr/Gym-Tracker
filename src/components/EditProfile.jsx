@@ -38,12 +38,12 @@ export default function EditProfile() {
 
     async function saveProfileToFirestore() {
         try {
-            await setDoc(doc(db, userID, 'profileData'), {
-                // Add a new 'Workout' document in 'userID' collection
+            await setDoc(doc(db, userID, 'profileData'), {  // Update 'profileData' document in 'userID' collection
                 profileData,
             });
         } catch (error) {
             console.log('Error Saving Profile', error.message);
+            alert(`Error saving profile - ${error.message}`);
         }
     }
     return (
@@ -145,7 +145,7 @@ export default function EditProfile() {
                         <div className="modal-body">
                             <form
                                 className="form-floating align-content-center m-4"
-                                id="profile-form"
+                                id="modalProfile-form"
                                 onSubmit={saveProfile}
                             >
                                 <div className="row justify-content-center g-3 mb-3">
@@ -154,7 +154,7 @@ export default function EditProfile() {
                                             className="form-control"
                                             type="text"
                                             placeholder="Enter name"
-                                            id="name"
+                                            id="name-modalProfile"
                                             name="name"
                                             onChange={handleChange} // Handle change from typed input.
                                             value={profileData.name}
@@ -166,7 +166,7 @@ export default function EditProfile() {
                                     <div className="form-floating col-sm-5">
                                         <select
                                             className="form-control"
-                                            id="sex"
+                                            id="sex-modalProfile"
                                             name="sex"
                                             value={profileData.sex}
                                             onChange={handleChange}
@@ -183,7 +183,7 @@ export default function EditProfile() {
                                             className="form-control"
                                             type="number"
                                             placeholder="Enter age"
-                                            id="age"
+                                            id="age-modalProfile"
                                             name="age"
                                             onChange={handleChange} // Handle change from typed input.
                                             value={profileData.age}
@@ -198,7 +198,7 @@ export default function EditProfile() {
                                                     className="form-control"
                                                     type="number"
                                                     placeholder="Enter height"
-                                                    id="height"
+                                                    id="height-modalProfile"
                                                     name="height"
                                                     onChange={handleChange} // Handle change from typed input.
                                                     value={profileData.height}
@@ -220,7 +220,7 @@ export default function EditProfile() {
                                                     className="form-control"
                                                     type="number"
                                                     placeholder="Enter current weight"
-                                                    id="weightNow"
+                                                    id="weightNow-modalProfile"
                                                     name="weightNow"
                                                     onChange={handleChange} // Handle change from typed input.
                                                     value={
@@ -244,7 +244,7 @@ export default function EditProfile() {
                                                     className="form-control"
                                                     type="number"
                                                     placeholder="Enter Target weight"
-                                                    id="weightGoal"
+                                                    id="weightGoal-modalProfile"
                                                     name="weightGoal"
                                                     onChange={handleChange} // Handle change from typed input.
                                                     value={

@@ -75,7 +75,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                     >
                         <button
                             type="button"
-                            className="btn btn-outline-secondary px-3 px-sm-4 px-lg-5"
+                            className={`${btnDisabled ? "btn-disabled" : "btn-outline-secondary"} btn px-3 px-sm-4 px-lg-5`}
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
                             disabled={btnDisabled}
@@ -98,7 +98,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                         </select>
                         <button
                             type="button"
-                            className="btn btn-outline-primary px-3 px-sm-4 px-lg-5"
+                            className={`${btnDisabled ? "btn-disabled" : "btn-outline-primary"} btn px-3 px-sm-4 px-lg-5`}
                             onClick={loadWorkout}
                             disabled={btnDisabled}
                         >

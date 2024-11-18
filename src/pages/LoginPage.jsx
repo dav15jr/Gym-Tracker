@@ -69,7 +69,6 @@ export default function LoginPage() {
             sendPasswordResetEmail(auth, email); //Send password reset email
         }
         console.log('Error message:', error.message);
-        // alert(error.message)
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {

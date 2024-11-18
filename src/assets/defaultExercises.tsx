@@ -2,7 +2,7 @@ export default [
     {
         exercise: 'Pullups',
         type: 'body weight',
-        amount: undefined,
+        amount: 0,
         reps: 10,
         sets: 3,
         rest: 60,
@@ -10,7 +10,7 @@ export default [
     {
         exercise: 'Pushups',
         type: 'body weight',
-        amount: undefined,
+        amount: 0,
         reps: 10,
         sets: 3,
         rest: 45,
@@ -26,7 +26,7 @@ export default [
     {
         exercise: 'Tricep Dips',
         type: 'body weight',
-        amount: undefined,
+        amount: 0,
         reps: 10,
         sets: 3,
         rest: 60,
@@ -74,7 +74,7 @@ export default [
     {
         exercise: 'Abs',
         type: 'body weight',
-        amount: undefined,
+        amount: 0,
         reps: 10,
         sets: 3,
         rest: 60,
