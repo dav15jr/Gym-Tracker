@@ -47,6 +47,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                 setWorkoutPlan(tempArr);
             } catch (error) {
                 console.log('Error loading workouts', error);
+                alert(`Error loading workouts - ${error.message}`);
             }
         };
         fetchWorkoutData();

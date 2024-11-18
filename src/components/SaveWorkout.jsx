@@ -30,14 +30,23 @@ const SaveWorkout = ({ setShowWorkoutTitle }) => {
     };
 
     async function saveWorkoutsToFirestore() {
+
+        if (!userID || !saveWorkout || !workoutPlan) {  //Check if all information required is available
+            console.log('User ID:', userID);
+            console.log('Workout name:', saveWorkout);
+            console.log('Workout Plan:', workoutPlan);
+            alert('Missing required information');
+            return;
+        }
+
         try {
-            await setDoc(doc(db, userID, saveWorkout), {
-                // Add a new 'Workout' document in 'userID' collection
+            await setDoc(doc(db, userID, saveWorkout), {    // Add a new 'Workout' document in 'userID' collection
                 workoutPlan,
             });
             alert('Workout saved successfully');
         } catch (error) {
             console.log('Error Saving workout', error.message);
+            alert(`Error saving workout - ${error.message}`);
         }
     }
 

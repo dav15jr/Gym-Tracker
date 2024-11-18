@@ -1,3 +1,3 @@
-Creating my first Web App from scratch, using JavaScript, Html, Css with some React and Typescript.
+Creating my first Web App from scratch, using JavaScript, Html, Css, React, Typescript, Bootstrap.
 
 Improve Design and Responsiveness. Use bootstrap.
