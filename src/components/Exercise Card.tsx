@@ -132,6 +132,7 @@ export default function Exercise({
                     }
                     id={`${workout.exercise}set`}
                     onClick={countSets}
+                    aria-label="Count set"
                 >
                     {!exerciseDone
                         ? `${(workout.sets || 0) - count} sets left.`
@@ -147,6 +148,7 @@ export default function Exercise({
                 id={`${workout.exercise}start`}
                 style={{ display: exerciseStarted ? 'none' : 'initial' }}
                 onClick={startExercise}
+                aria-label="Start Exercise"
             >
                 {' '}
                 {!exerciseDone ? 'Start' : 'Restart'}

@@ -109,6 +109,7 @@ export default function EditProfile() {
                                 data-bs-target="#profileModalToggle2"
                                 data-bs-toggle="modal"
                                 data-backdrop="false"
+                                aria-label="Edit Profile"
                             >
                                 Edit Profile
                             </button>
@@ -170,6 +171,7 @@ export default function EditProfile() {
                                             name="sex"
                                             value={profileData.sex}
                                             onChange={handleChange}
+                                            aria-label="Select gender"
                                         >
                                             <option value="Male">Male</option>
                                             <option value="Female">
@@ -267,6 +269,7 @@ export default function EditProfile() {
                                     type="submit"
                                     data-bs-target="#profileModalToggle"
                                     data-bs-toggle="modal"
+                                    aria-label="Save Profile"
                                 >
                                     Save Profile
                                 </button>

@@ -40,8 +40,8 @@ const HomePage = () => {
                             <div className="col-auto">
                                 <button
                                     className="btn btn-outline-primary m-2 "
-                                    // id="showFormBtn"
                                     onClick={() => setShowForm(true)}
+                                    aria-label='Add New Exercise'
                                 >
                                     Add New Exercise
                                 </button>
@@ -57,8 +57,8 @@ const HomePage = () => {
                         <div className="col-auto">
                             <button
                                 className="btn btn-outline-primary m-2"
-                                // id="showFormBtn"
                                 onClick={() => setShowLoad(true)}
+                                aria-label='Load Workout'
                             >
                                 Load Workout
                             </button>

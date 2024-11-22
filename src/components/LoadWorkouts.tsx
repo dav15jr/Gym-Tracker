@@ -79,6 +79,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
                             disabled={btnDisabled}
+                            aria-label="Delete Workout"
                         >
                             Delete
                         </button>
@@ -88,6 +89,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                             id="storedWorkouts"
                             onChange={handleLoadSelect}
                             defaultValue="default"
+                            aria-label="Select Workout"
                         >
                             <option value="default">Select Workout</option>{' '}
                             {storedWorkouts.map((workout, index) => (
@@ -101,6 +103,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                             className={`${btnDisabled ? "btn-disabled" : "btn-outline-primary"} btn px-3 px-sm-4 px-lg-5`}
                             onClick={loadWorkout}
                             disabled={btnDisabled}
+                            aria-label="Load Workout"
                         >
                             Load
                         </button>
@@ -140,6 +143,7 @@ export default function LoadWorkouts({ setShowWorkoutTitle }) {
                                         type="button"
                                         className="btn btn-info mx-2"
                                         data-bs-dismiss="modal"
+                                        aria-label="Cancel"
                                     >
                                         No
                                     </button>

@@ -5,7 +5,7 @@ export default function NotFoundPage() {
         <div className="justify-content-center m-5 p-5">
             <h1>OOPS, YOU SEEM LOST</h1>
             <h4>
-                Click <Link to="/">ME</Link> to return Home.
+                Click <Link to="/" aria-label='Link to Return to Home Page'>ME</Link> to return Home.
             </h4>
         </div>
     );

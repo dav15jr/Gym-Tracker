@@ -53,13 +53,14 @@ export default function LogOff() {
                             ></button>
                         </div>
                         <div className="modal-body">
-                            Are you sure you would like to Log Off ?{' '}
+                            Are you sure you want to Log Out ?{' '}
                         </div>
                         <div className="modal-footer justify-content-center">
                             <button
                                 type="button"
                                 className="btn btn-info"
                                 data-bs-dismiss="modal"
+                                aria-label="Cancel"
                             >
                                 No
                             </button>
@@ -68,6 +69,7 @@ export default function LogOff() {
                                 className="btn btn-warning"
                                 data-bs-dismiss="modal"
                                 onClick={logoutUser}
+                                aria-label="Yes, Log Out"
                             >
                                 Yes, Log Out
                             </button>

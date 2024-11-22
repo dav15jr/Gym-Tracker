@@ -168,6 +168,7 @@ export default function Profile() {
                                 className="btn btn-primary"
                                 style={{ maxWidth: '250px' }}
                                 type="submit"
+                                aria-label="Save Profile"
                             >
                                 Save Profile
                             </button>

@@ -184,6 +184,7 @@ export default function ProgressPage() {
                 <button
                     className="btn btn-lg btn-primary m-4"
                     onClick={() => setShowProgressForm(true)}
+                    aria-label="Update Progress"
                 >
                     Update Progress
                 </button>
@@ -244,6 +245,7 @@ export default function ProgressPage() {
                                     width: '250px',
                                 }}
                                 type="submit"
+                                 aria-label="Save Progress"
                             >
                                 Save Progress
                             </button>
@@ -255,6 +257,7 @@ export default function ProgressPage() {
                 <button
                     className="btn btn-lg btn-outline-secondary m-4"
                     onClick={() => setShowDelProgress(true)}
+                    aria-label="Delete Progress"
                 >
                     Delete Progress
                 </button>
@@ -273,6 +276,7 @@ export default function ProgressPage() {
                             className="form-select px-3 border-danger"
                             onChange={handleProSelect}
                             defaultValue="default"
+                            aria-label="Select Progress"
                         >
                             <option value="default">Select Progress</option>{' '}
                             {progressDates.map((date, index) => (
@@ -287,6 +291,7 @@ export default function ProgressPage() {
                             onClick={() => {
                                 deleteProgress(delProgress);
                             }}
+                            aria-label="Delete"
                         >
                             Delete
                         </button>

@@ -62,6 +62,7 @@ export default function Form() {
                 className="form-group container-fluid"
                 id="exform"
                 onSubmit={handleSubmit}
+                aria-label="Exercise Form"
             >
                 <div className="row justify-content-center g-3 m-1">
                     <div className="form-floating col-6 col-sm-4 col-md-auto">
@@ -162,6 +163,7 @@ export default function Form() {
                             name="rest"
                             value={exerciseData.rest}
                             onChange={handleChange}
+                            aria-label="Select Rest time"
                             required
                         >
                             <option value={15}>15 sec</option>
@@ -183,6 +185,7 @@ export default function Form() {
                             className="btn btn-primary col-6"
                             style={{ maxWidth: '250px' }}
                             type="submit"
+                            aria-label="Add Exercise"
                         >
                             Add Exercise
                         </button>

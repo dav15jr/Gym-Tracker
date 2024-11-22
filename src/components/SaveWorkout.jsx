@@ -61,6 +61,7 @@ const SaveWorkout = ({ setShowWorkoutTitle }) => {
                             id="saveWorkout"
                             type="text"
                             placeholder="Workout Name"
+                            aria-label="Save Workout"
                             onChange={handleSaveChange} // Handle change from typed input.
                             required
                         />

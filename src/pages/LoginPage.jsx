@@ -187,6 +187,7 @@ export default function LoginPage() {
                         value="Login"
                         name="Login"
                         onClick={handleLogin}
+                        aria-label='Log In'
                     >
                         {' '}
                         Log In{' '}
@@ -198,6 +199,7 @@ export default function LoginPage() {
                         value="Register"
                         name="Register"
                         onClick={handleRegister}
+                        aria-label='Register'
                     >
                         {' '}
                         Register{' '}
@@ -209,6 +211,7 @@ export default function LoginPage() {
                 className="link"
                 data-bs-target="#logOffModal"
                 data-bs-toggle="modal"
+                aria-label='Forgot Password Link'
             >
                 Forgot Password ?
             </a>
@@ -244,6 +247,7 @@ export default function LoginPage() {
                                 type="button"
                                 className="btn btn-info mx-3"
                                 data-bs-dismiss="modal"
+                                aria-label="Cancel"
                             >
                                 Cancel
                             </button>
@@ -252,6 +256,7 @@ export default function LoginPage() {
                                 className="btn btn-warning"
                                 data-bs-dismiss="modal"
                                 onClick={resetPassword}
+                                aria-label="Yes, Send Email"
                             >
                                 Yes, Send Email
                             </button>
