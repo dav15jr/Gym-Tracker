@@ -27,7 +27,7 @@ const HomePage = () => {
 
     return (
         <>
-            <div>
+            <div data-testid="home-page">
                 <NavBar />
                 <Profile />
                 <div className="row justify-content-center">
@@ -39,7 +39,7 @@ const HomePage = () => {
                         ) : (
                             <div className="col-auto">
                                 <button
-                                    className="btn btn-outline-primary m-2 "
+                                    className="btn btn-outline-primary m-2"
                                     onClick={() => setShowForm(true)}
                                     aria-label='Add New Exercise'
                                 >

@@ -5,7 +5,7 @@ import LogOff from './LogOff';
 export default function NavBar() {
     return (
         <>
-            <nav className="navbar navbar-expand-lg mb-5 bg-primary">
+            <nav className="navbar navbar-expand-lg mb-5 bg-primary" data-testid="navbar-container">
                 <div className=" container-fluid container">
                     <a
                         className="navbar-brand px-sm-5 suez-one-regular"

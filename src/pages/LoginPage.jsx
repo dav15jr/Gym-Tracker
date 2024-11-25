@@ -112,7 +112,7 @@ export default function LoginPage() {
                     id="hero-info"
                 >
                     <div className="col-12 col-lg-5 mx-auto">
-                        <h1 className="loginHeader text-primary suez-one-regular">
+                        <h1 data-testid="login-h1-text" className="loginHeader text-primary suez-one-regular">
                             PrimeYou
                         </h1>
                         <h3 className="loginBody suez-one-regular">

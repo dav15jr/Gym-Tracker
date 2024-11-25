@@ -55,7 +55,7 @@ export default function Profile() {
                     id="profile-form"
                     onSubmit={saveProfile}
                 >
-                    <h2>Create Your Profile</h2>
+                    <h2 data-testid="profile-title" >Create Your Profile</h2>
                     <div className="row justify-content-center g-3 m-2">
                         <div className="form-floating col-6 col-sm-5 col-md-auto">
                             <input

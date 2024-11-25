@@ -186,6 +186,7 @@ export default function Form() {
                             style={{ maxWidth: '250px' }}
                             type="submit"
                             aria-label="Add Exercise"
+                            data-testid="add_exercise_button"
                         >
                             Add Exercise
                         </button>
