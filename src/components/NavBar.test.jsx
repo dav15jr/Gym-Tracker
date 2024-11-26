@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, expectTypeOf, it, test } from 'vitest';
+import { beforeEach, describe, expect, expectTypeOf, it, test, vi } from 'vitest';
 import NavBar from './NavBar';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { AppProvider } from '../assets/AppContext';
@@ -71,16 +71,57 @@ describe('NavBar', () => {
         expect(logOffElement).toBeInTheDocument();
         expect(logOffElement.closest('ul')).toHaveClass('navbar-nav');
     });
-    it('Should have a menu toggle button', async () => {
+    // it('Should have a collapsible menu that toggles on button click', () => {
+    //     // renderNavBar();
+    //     const toggleButton = screen.getByLabelText('Toggle navigation');
+    //     const navbarCollapse = screen.getByTestId('navbarScroll');
 
-        const toggleButton = screen.getByLabelText('Toggle navigation');
-  
-        expect(toggleButton).toBeInTheDocument();
+    //     expect(navbarCollapse).not.toHaveClass('show');
+    //     expect(toggleButton).not.toHaveClass('collapsed');
+
+    //     fireEvent.click(toggleButton);
+    //     expect(navbarCollapse).toHaveClass('show');
+    //     expect(toggleButton).toHaveClass('collapsed');
         
-        // fireEvent.click(toggleButton);
-        // expect(navbarCollapse).toHaveClass('show');
+    //     // fireEvent.click(toggleButton);
+    //     // expect(navbarCollapse).not.toHaveClass('show');
+    // });
+    it('Should have a collapsible menu that toggles on button click', async () => {
+        // const { container } = renderNavBar();
+        const toggleButton = screen.getByLabelText('Toggle navigation');
+        const navbarCollapse = screen.getByTestId('navbarScroll');
+        const user = userEvent.setup();
+        const handleClick = vi.fn();
 
-        // fireEvent.click(toggleButton);
-        // expect(navbarCollapse).not.toHaveClass('show');
+        // Set the viewport to a mobile size
+        Object.defineProperty(window, 'innerWidth', {
+            writable: true,
+            configurable: true,
+            value: 460,
+        });
+        window.dispatchEvent(new Event('resize'));
+
+
+            expect(toggleButton).toBeInTheDocument();
+            expect(toggleButton).toHaveClass('navbar-toggler');
+            expect(toggleButton).not.toHaveClass('collapsed');
+            expect(navbarCollapse).not.toHaveClass('show');
+            
+            // await user.click(toggleButton);
+            // await fireEvent.click(toggleButton);
+            // expect(handleClick).toHaveBeenCalledOnce
+            // expect(navbarCollapse).toHaveClass('show');
+            // expect(toggleButton).toHaveClass('collapsed');
+    
+            // fireEvent.click(toggleButton);
+            // expect(navbarCollapse).not.toHaveClass('show');
+
+        // Reset the viewport
+        Object.defineProperty(window, 'innerWidth', {
+            writable: true,
+            configurable: true,
+            value: 1024,
+        });
+        window.dispatchEvent(new Event('resize'));
     });
 });

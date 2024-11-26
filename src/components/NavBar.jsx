@@ -33,7 +33,7 @@ export default function NavBar() {
                     </button>
                     <div
                         className="collapse navbar-collapse justify-content-end px-md-5"
-                        id="navbarScroll" 
+                        id="navbarScroll"  data-testid='navbarScroll'
                     >
                         <ul className="navbar-nav  ">
                             <li className="nav-item">
