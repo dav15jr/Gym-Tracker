@@ -26,6 +26,7 @@ export default function LogOff() {
                 className="nav-link"
                 data-bs-target="#logOffModal"
                 data-bs-toggle="modal"
+                data-testid='log-off-button'
             >
                 Log Out
             </Link>

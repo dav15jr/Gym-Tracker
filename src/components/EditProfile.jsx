@@ -50,6 +50,7 @@ export default function EditProfile() {
         <>
             <Link
                 className="nav-link"
+                data-testid="edit-profile-button"
                 data-bs-target="#profileModalToggle"
                 data-bs-toggle="modal"
             >
