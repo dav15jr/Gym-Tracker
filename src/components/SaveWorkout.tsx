@@ -5,7 +5,7 @@ import { db } from '../firebaseConfig';
 import { useAppContext } from '../assets/AppContext';
 
 const SaveWorkout = ({ setShowWorkoutTitle }) => {
-    const [saveWorkout, setSaveWorkout] = useState('');
+    const [saveWorkout, setSaveWorkout] = useState<string>('');
     const {
         userID,
         setShowSaveBTN,

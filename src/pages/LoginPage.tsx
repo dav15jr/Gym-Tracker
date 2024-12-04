@@ -10,8 +10,8 @@ import {
 } from 'firebase/auth';
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
     const { setUserID, setNewUser, setIsLoggedIn, isLoggedIn } =
         useAppContext();
     const auth = getAuth();

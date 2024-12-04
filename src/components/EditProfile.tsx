@@ -1,8 +1,8 @@
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { useAppContext } from '../assets/AppContext';
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../assets/AppContext';
 
 export default function EditProfile() {
     const {

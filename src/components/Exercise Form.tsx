@@ -1,8 +1,8 @@
 // import './../index.css'
 import { useState } from 'react';
 import defaultExercises from '../assets/defaultExercises';
-import { useAppContext } from '../assets/AppContext';
 import { ExerciseData } from '../types';
+import { useAppContext } from '../assets/AppContext';
 
 const defaultExerciseState: ExerciseData = {
     exercise: '',
@@ -16,7 +16,8 @@ const defaultExerciseState: ExerciseData = {
 export default function Form() {
     const { setWorkoutPlan, workoutPlan, setShowSaveBTN, setWorkoutChanged } =
         useAppContext();
-    const [exerciseData, setExerciseData] = useState<ExerciseData>(defaultExerciseState);
+    const [exerciseData, setExerciseData] =
+        useState<ExerciseData>(defaultExerciseState);
     const currentExercises = workoutPlan.map((workout) => workout.exercise);
 
     function handleChange(event) {

@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from 'react';
-import useCheckAuthState from './hooks/useCheckAuthState';
+
 import useCheckStoredProfile from './hooks/useCheckStoredProfile';
+import useCheckAuthState from './hooks/useCheckAuthState';
+import { ExerciseData, AppContextType } from '../types';
 // Create a context
-const AppContext = createContext(null);
+const AppContext = createContext<AppContextType | null>(null);
 
 export function AppProvider({ children }) {
     const { userID, isLoggedIn, setUserID, setIsLoggedIn } =
         useCheckAuthState();
     const [newUser, setNewUser] = useState<boolean>(false);
-    const [workoutPlan, setWorkoutPlan] = useState([]);
+    const [workoutPlan, setWorkoutPlan] = useState<ExerciseData[]>([]);
     const [userName, setUserName] = useState<string>('');
     const [showExercises, setShowExercises] = useState<boolean>(false);
     const [workoutName, setWorkoutName] = useState<string>('');

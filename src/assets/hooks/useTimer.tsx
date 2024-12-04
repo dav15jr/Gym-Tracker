@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 export default function useTimer(rest, count, exerciseDone ) {
 
-    const [restTime, setRestTime] = useState(rest);
+    const [restTime, setRestTime] = useState<number>(rest);
     const [timerDone, setTimerDone] = useState<boolean>(false);
 
 useEffect(() => {   //used for timer function, so that it runs during specific conditions only.
