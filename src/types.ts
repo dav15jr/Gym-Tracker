@@ -21,3 +21,13 @@ export type ProgressData = {
     date: string;
     weight:number | '';
 }
+
+export type AppContext = {
+    coinList: Coin[]
+    currency: Currency
+    setCurrency: React.Dispatch<React.SetStateAction<Currency>>
+    coinTable: Coin[]
+    setCoinTable: React.Dispatch<React.SetStateAction<Coin[]>>
+    portfolio : Ledger[]
+    setPortfolio : React.Dispatch<React.SetStateAction<Ledger[]>>
+  }

@@ -18,8 +18,8 @@ const HomePage = () => {
     } = useAppContext();
 
     // I have moved the state up so that it can be shared with <Exercise /> component
-    const [showLoad, setShowLoad] = useState(true);
-    const [showForm, setShowForm] = useState(true);
+    const [showLoad, setShowLoad] = useState<boolean>(true);
+    const [showForm, setShowForm] = useState<boolean>(true);
     const { showWorkoutTitle, setShowWorkoutTitle } =
         useSetWorkoutTitle(workoutPlan);
 

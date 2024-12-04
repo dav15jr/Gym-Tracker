@@ -16,7 +16,7 @@ const defaultExerciseState: ExerciseData = {
 export default function Form() {
     const { setWorkoutPlan, workoutPlan, setShowSaveBTN, setWorkoutChanged } =
         useAppContext();
-    const [exerciseData, setExerciseData] = useState(defaultExerciseState);
+    const [exerciseData, setExerciseData] = useState<ExerciseData>(defaultExerciseState);
     const currentExercises = workoutPlan.map((workout) => workout.exercise);
 
     function handleChange(event) {

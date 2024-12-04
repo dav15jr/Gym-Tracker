@@ -1,21 +1,21 @@
 import { createContext, useContext, useState } from 'react';
-import useCheckAuthState from '../assets/hooks/useCheckAuthState';
-import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
+import useCheckAuthState from './hooks/useCheckAuthState';
+import useCheckStoredProfile from './hooks/useCheckStoredProfile';
 // Create a context
-const AppContext = createContext();
+const AppContext = createContext(null);
 
 export function AppProvider({ children }) {
     const { userID, isLoggedIn, setUserID, setIsLoggedIn } =
         useCheckAuthState();
-    const [newUser, setNewUser] = useState(false);
+    const [newUser, setNewUser] = useState<boolean>(false);
     const [workoutPlan, setWorkoutPlan] = useState([]);
-    const [userName, setUserName] = useState('');
-    const [showExercises, setShowExercises] = useState(false);
-    const [workoutName, setWorkoutName] = useState('');
-    const [showSaveBTN, setShowSaveBTN] = useState(false);
-    const [workoutChanged, setWorkoutChanged] = useState(false);
-    const [userHeight, setUserHeight] = useState(0);
-    const [targetWeight, setTargetWeight] = useState(0);
+    const [userName, setUserName] = useState<string>('');
+    const [showExercises, setShowExercises] = useState<boolean>(false);
+    const [workoutName, setWorkoutName] = useState<string>('');
+    const [showSaveBTN, setShowSaveBTN] = useState<boolean>(false);
+    const [workoutChanged, setWorkoutChanged] = useState<boolean>(false);
+    const [userHeight, setUserHeight] = useState<number>(0);
+    const [targetWeight, setTargetWeight] = useState<number>(0);
     const {
         profileExists,
         setProfileExists,

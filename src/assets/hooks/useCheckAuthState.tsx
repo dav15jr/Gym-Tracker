@@ -3,8 +3,8 @@ import {useEffect, useState} from 'react';
 
 export default function useCheckAuthState() {
 
-    const [userID, setUserID] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(undefined);
+    const [userID, setUserID] = useState<string |null>(null);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined);
 
 const auth = getAuth();
 

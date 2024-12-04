@@ -15,8 +15,8 @@ const defaultProfile:ProfileData = {
 
 export default function useCheckStoredProfile(userID, setUserName, setShowExercises) {
 
-    const [profileData, setProfileData] = useState(defaultProfile);
-    const [profileExists, setProfileExists] = useState(false);
+    const [profileData, setProfileData] = useState<ProfileData>(defaultProfile);
+    const [profileExists, setProfileExists] = useState<boolean>(false);
     
     const fetchProfileFromFirestore = useCallback(async () =>{
         try {

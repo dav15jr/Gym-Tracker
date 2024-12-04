@@ -4,9 +4,9 @@ import { db } from "../../firebaseConfig";
 
 export default function useCheckStoredWorkouts(userID) {
     
-const [storedWorkouts, setStoredWorkouts] = useState([]);
-const [workoutExists, setWorkoutExists] = useState(false);
-const [btnDisabled, setBtnDisabled] = useState(true);
+const [storedWorkouts, setStoredWorkouts] = useState<string[]>([]);
+const [workoutExists, setWorkoutExists] = useState<boolean>(false);
+const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
 
 const fetchStoredWorkouts = useCallback(async () => {
     const temporaryArr = [];

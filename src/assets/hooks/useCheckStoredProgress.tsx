@@ -4,9 +4,9 @@ import { db } from "../../firebaseConfig";
 
 export default function useCheckStoredProgress(userID) {
     
-const [progressHistory, setProgressHistory] = useState([])
-const [progressDates, setProgressDates] = useState([])
-const [newProgress, setNewProgress] = useState([])
+const [progressHistory, setProgressHistory] = useState<string[]>([])
+const [progressDates, setProgressDates] = useState<string[]>([])
+const [newProgress, setNewProgress] = useState<string[]>([])
 
 const fetchProgressHistory = useCallback(async () =>{
     const progArr = [];
