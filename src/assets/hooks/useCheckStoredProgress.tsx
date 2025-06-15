@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback} from "react";
 import { doc, getDoc} from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { ProgressHist } from '../../types';
 
 export default function useCheckStoredProgress(userID) {
     
-const [progressHistory, setProgressHistory] = useState<string[]>([])
+const [progressHistory, setProgressHistory] = useState<ProgressHist[]>([])
 const [progressDates, setProgressDates] = useState<string[]>([])
-const [newProgress, setNewProgress] = useState<string[]>([])
+const [newProgress, setNewProgress] = useState<ProgressHist[]>([])
 
 const fetchProgressHistory = useCallback(async () =>{
     const progArr = [];

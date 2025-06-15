@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ExerciseData } from '../types';
 import useTimer from '../assets/hooks/useTimer';
 import { Tooltip } from 'bootstrap';
@@ -29,7 +29,8 @@ export default function Exercise({
         count,
         exerciseDone
     );
-
+    const PROGRESS_MULTIPLIER = 1000;
+    const PROGRESS_DECIMAL_PLACES = 10;
     useEffect(() => {
         //handle tooltips toggle
         const tooltipTriggerList = Array.from(
@@ -41,18 +42,20 @@ export default function Exercise({
     }, []);
 
     useEffect(() => {
-        const perc = Math.round((count / Number(workout.sets)) * 1000) / 10;
+        const perc =
+            Math.round((count / Number(workout.sets)) * PROGRESS_MULTIPLIER) /
+            PROGRESS_DECIMAL_PLACES;
         setExProgress(perc);
     }, [count, workout.sets]);
 
-    const startExercise = () => {
+    const startExercise = useCallback(() => {
         setCount(0);
         setExerciseDone(false);
         setExerciseStarted(true);
         setShowProgress(true); // show progress bar
         setShowForm(false); //set state to hide the form and show add exercise
         setShowLoad(false); //set state to hide the load workout
-    };
+    }, [setShowForm, setShowLoad]);
 
     const countSets = () => {
         setCount((count) => count + 1);
@@ -64,7 +67,7 @@ export default function Exercise({
         } else {
             setSetDone(true);
             setTimerDone(false);
-            setRestTime(workout.rest);
+            setRestTime(Number(workout.rest));
         }
         setShowForm(false);
         setShowLoad(false);

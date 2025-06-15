@@ -6,7 +6,8 @@ import useCheckAuthState from '../assets/hooks/useCheckAuthState';
 const ProtectedRoute = ({ children }) => {
     const { isLoggedIn } = useAppContext();
     const navigate = useNavigate();
-    useCheckAuthState();
+    
+    useCheckAuthState();// Custom hook to check authentication state
 
     useEffect(() => {
         if (isLoggedIn === false) {

@@ -10,16 +10,22 @@ export type ExerciseData = {
 
 export type ProfileData = {
     name: string;
-    age: number | '';
+    age: number;
     sex: string;
-    height: number | '';
-    weightNow: number | '';
-    weightGoal: number | '';
+    height: number;
+    weightNow: number;
+    weightGoal: number;
 };
 
 export type ProgressData = {
     date: string;
-    weight: number | '';
+    weight: number;
+};
+export type ProgressHist = {
+    weight:ProgressData['weight'];
+    bmi: number;
+    date: ProgressData['date'];
+    convDate: string;
 };
 
 export type AuthStateType = {

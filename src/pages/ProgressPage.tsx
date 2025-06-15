@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { ProgressData } from '../types';
+import { ProgressData, ProgressHist } from '../types';
 import NavBar from '../components/NavBar';
 import { useAppContext } from '../assets/AppContext';
 import WeightProgressChart from '../components/WeightProgressChart';
@@ -10,7 +10,7 @@ import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
     date: '',
-    weight: '',
+    weight: 0,
 };
 
 export default function ProgressPage() {
@@ -35,11 +35,13 @@ export default function ProgressPage() {
     const [showProgressForm, setShowProgressForm] = useState(false);
     const [showDelProgress, setShowDelProgress] = useState(false);
     const [delProgress, setDelProgress] = useState(0);
+    const BMI_CONVERSION_FACTOR = 10000; // Convert cm² to m² (100²)
+    const BMI_ROUNDING_MULTIPLIER = 10; // For 1 decimal place precision
 
     useCheckStoredProgress(userID);
 
     useEffect(() => {
-        fetchProfileFromFirestore;
+        fetchProfileFromFirestore();
         setTargetWeight(profileData.weightGoal);
         setUserHeight(profileData.height);
     }, [
@@ -48,8 +50,6 @@ export default function ProgressPage() {
         setTargetWeight,
         setUserHeight,
     ]);
-
-    const bmiHeight = Math.pow(userHeight, 2);
 
     const getCurrentDate = () => {
         // get current date to limit choosing future date for progress entry.
@@ -61,7 +61,7 @@ export default function ProgressPage() {
         return `${year}-${month}-${day}`;
     };
 
-    function formatDate(dateString) {
+    function formatDate(dateString: string): string {
         // func to formate date for easy reading on chart.
         const date = new Date(dateString);
         const day = date.getDate();
@@ -84,7 +84,12 @@ export default function ProgressPage() {
 
         return `${day}${daySuffix(day)} ${month} ${year}`;
     }
-
+    function formatBmi(value) {
+        const bmi = (value / userHeight ** 2) * BMI_CONVERSION_FACTOR; // Calculate BMI using the formula: weight(kg) / height(m)²
+        return (
+            Math.round(bmi * BMI_ROUNDING_MULTIPLIER) / BMI_ROUNDING_MULTIPLIER
+        );
+    }
     function handleChange(event) {
         //  Handle form input value change
         const { name, value } = event.target;
@@ -95,25 +100,21 @@ export default function ProgressPage() {
             };
         });
         if (name === 'date') {
-            //if the input is the weight value then calculate the bmi value.
-            const formattedDate = formatDate(value);
-            setChartDate(formattedDate);
+            //if the input is the date then format the date for chart display.
+            setChartDate(formatDate(value));
         } else if (name === 'weight') {
             //if the input is the weight value then calculate the bmi value.
-            const bmi = (value / bmiHeight) * 10000;
-            const roundedBmi = Math.round(bmi * 10) / 10;
             setNewProgress((prevData) => {
                 return {
                     ...prevData,
                     weight: value,
-                    bmi: roundedBmi,
+                    bmi: formatBmi(value),
                     date: progressData.date,
                     convDate: chartDate,
                 };
             });
         }
-        const formattedDate = formatDate(progressData.date);
-        setChartDate(formattedDate);
+        setChartDate(formatDate(progressData.date));
     }
 
     const saveProgressToFirestore = useCallback(
@@ -129,15 +130,19 @@ export default function ProgressPage() {
         [userID]
     );
 
-    const saveProgress = (event) => {
+    const saveProgress = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
         if (progressDates.includes(`${chartDate}`)) {
-            //check if the current progress date already exists
             alert('Date already exists - Change date or delete old entry');
         } else {
-            setProgressHistory((prevHistory) => {
-                const updatedProgress = [...prevHistory, newProgress];
-                // Call the Firestore save function with the updated history and BMI
+            setProgressHistory((prevHistory: ProgressHist[]) => {
+                const updatedProgress: ProgressHist[] = [
+                    ...prevHistory,
+                    ...(Array.isArray(newProgress)
+                        ? newProgress
+                        : [newProgress]),
+                ];
                 updatedProgress.sort(
                     (a, b) =>
                         Number(new Date(a.date)) - Number(new Date(b.date))
@@ -245,7 +250,7 @@ export default function ProgressPage() {
                                     width: '250px',
                                 }}
                                 type="submit"
-                                 aria-label="Save Progress"
+                                aria-label="Save Progress"
                             >
                                 Save Progress
                             </button>
