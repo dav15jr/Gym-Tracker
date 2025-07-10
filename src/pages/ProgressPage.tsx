@@ -10,7 +10,7 @@ import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
     date: '',
-    weight: 0,
+    weight: null,
 };
 
 export default function ProgressPage() {
@@ -84,13 +84,15 @@ export default function ProgressPage() {
 
         return `${day}${daySuffix(day)} ${month} ${year}`;
     }
+
     function formatBmi(value) {
         const bmi = (value / userHeight ** 2) * BMI_CONVERSION_FACTOR; // Calculate BMI using the formula: weight(kg) / height(m)²
         return (
             Math.round(bmi * BMI_ROUNDING_MULTIPLIER) / BMI_ROUNDING_MULTIPLIER
         );
     }
-    function handleChange(event) {
+
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         //  Handle form input value change
         const { name, value } = event.target;
         setProgressData((prevData) => {
@@ -107,14 +109,13 @@ export default function ProgressPage() {
             setNewProgress((prevData) => {
                 return {
                     ...prevData,
-                    weight: value,
-                    bmi: formatBmi(value),
+                    weight: Number(value),
+                    bmi: formatBmi(Number(value)),
                     date: progressData.date,
                     convDate: chartDate,
                 };
             });
         }
-        setChartDate(formatDate(progressData.date));
     }
 
     const saveProgressToFirestore = useCallback(
@@ -125,6 +126,7 @@ export default function ProgressPage() {
                 });
             } catch (error) {
                 console.error('Error saving progress: ', error);
+                alert('Error saving progress. Please try again later.');
             }
         },
         [userID]
@@ -150,6 +152,7 @@ export default function ProgressPage() {
                 saveProgressToFirestore(updatedProgress);
                 return updatedProgress;
             });
+            fetchProgressHistory();
         }
         setShowProgressForm(false);
         setProgressData(defaultProgress);

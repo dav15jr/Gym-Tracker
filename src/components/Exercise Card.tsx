@@ -31,6 +31,7 @@ export default function Exercise({
     );
     const PROGRESS_MULTIPLIER = 1000;
     const PROGRESS_DECIMAL_PLACES = 10;
+    
     useEffect(() => {
         //handle tooltips toggle
         const tooltipTriggerList = Array.from(
