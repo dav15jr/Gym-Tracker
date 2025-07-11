@@ -5,11 +5,11 @@ import { ProfileData } from '../../types';
 
 const defaultProfile: ProfileData = {
     name: '',
-    age: '',
+    age: null,
     sex: 'male',
-    height: '',
-    weightNow: '',
-    weightGoal: '',
+    height: null,
+    weightNow: null,
+    weightGoal: null,
 };
 
 export default function useCheckStoredProfile(

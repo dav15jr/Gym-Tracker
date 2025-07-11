@@ -1,7 +1,6 @@
 import useCheckStoredProfile from '../assets/hooks/useCheckStoredProfile';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { Link } from 'react-router-dom';
 import { useAppContext } from '../assets/AppContext';
 
 export default function EditProfile() {
@@ -38,7 +37,8 @@ export default function EditProfile() {
 
     async function saveProfileToFirestore() {
         try {
-            await setDoc(doc(db, userID, 'profileData'), {  // Update 'profileData' document in 'userID' collection
+            await setDoc(doc(db, userID, 'profileData'), {
+                // Update 'profileData' document in 'userID' collection
                 profileData,
             });
         } catch (error) {
@@ -48,13 +48,15 @@ export default function EditProfile() {
     }
     return (
         <>
-            <Link
-                className="nav-link"
-                data-bs-target="#profileModalToggle"
+            <button
+                type="button"
+                className="nav-link btn btn-link"
                 data-bs-toggle="modal"
+                data-bs-target="#profileModalToggle"
+                style={{ textDecoration: 'none' }}
             >
                 Profile
-            </Link>
+            </button>
             <div
                 className="modal fade"
                 id="profileModalToggle"

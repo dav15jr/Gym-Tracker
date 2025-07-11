@@ -1,11 +1,9 @@
-import { getAuth, signOut } from 'firebase/auth';
 import { useAppContext } from '../assets/AppContext';
-import { Link } from 'react-router-dom';
-
+import { getAuth, signOut } from 'firebase/auth';
 export default function LogOff() {
     const { setIsLoggedIn, setWorkoutPlan, setShowForm } = useAppContext();
 
-    const logoutUser = () => {
+    const logoutUser = async () => {
         const auth = getAuth();
         signOut(auth)
             .then(() => {
@@ -22,13 +20,15 @@ export default function LogOff() {
 
     return (
         <>
-            <Link
-                className="nav-link"
-                data-bs-target="#logOffModal"
+            <button
+                type="button"
+                className="nav-link btn btn-link"
                 data-bs-toggle="modal"
+                data-bs-target="#logOffModal"
+                style={{ textDecoration: 'none' }}
             >
                 Log Out
-            </Link>
+            </button>
             <div
                 className="modal fade"
                 id="logOffModal"

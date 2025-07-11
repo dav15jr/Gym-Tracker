@@ -1,49 +1,48 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AppProvider } from '../assets/AppContext';
 import NotFoundPage from '../pages/NotFoundPage';
 import LoginPage from '../pages/LoginPage';
-import HomePage from '../pages/HomePage';
-import ProgressPage from '../pages/ProgressPage';
+const HomePage = lazy(() => import('../pages/HomePage'));
+const ProgressPage = lazy(() => import('../pages/ProgressPage'));
 import ProtectedRoute from './ProtectedRoute';
 import '../main.css';
 
 function App() {
-    const router = createBrowserRouter([
-        {
-            path: '/login',
-            element: <LoginPage />,
-        },
-        {
-            path: '/',
-            element: (
-                <ProtectedRoute>
-                    <HomePage />
-                </ProtectedRoute>
-            ),
-            errorElement: <NotFoundPage />,
-        },
-        {
-            path: '/home',
-            element: (
-                <ProtectedRoute>
-                    <HomePage />
-                </ProtectedRoute>
-            ),
-        },
-        {
-            path: '/progress',
-            element: (
-                <ProtectedRoute>
-                    <ProgressPage />
-                </ProtectedRoute>
-            ),
-        },
-    ]);
-
     return (
         <AppProvider>
-            <RouterProvider router={router} />
+            <BrowserRouter>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Routes>
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route
+                            path="/"
+                            element={
+                                <ProtectedRoute>
+                                    <HomePage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/home"
+                            element={
+                                <ProtectedRoute>
+                                    <HomePage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/progress"
+                            element={
+                                <ProtectedRoute>
+                                    <ProgressPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                </Suspense>
+            </BrowserRouter>
         </AppProvider>
     );
 }

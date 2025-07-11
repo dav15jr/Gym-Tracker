@@ -1,25 +1,18 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAppContext } from '../assets/AppContext';
 import useCheckAuthState from '../assets/hooks/useCheckAuthState';
 
 const ProtectedRoute = ({ children }) => {
     const { isLoggedIn } = useAppContext();
-    const navigate = useNavigate();
-    
-    useCheckAuthState();// Custom hook to check authentication state
-
-    useEffect(() => {
-        if (isLoggedIn === false) {
-            navigate('/login', { replace: true });
-        }
-    }, [isLoggedIn, navigate]);
+    useCheckAuthState(); // Custom hook to check authentication state
 
     // Show a loading indicator while determining auth status
     if (isLoggedIn === undefined) {
         return <div>Loading...</div>;
     }
-
+    if (isLoggedIn === false) {
+        return <Navigate to="/login" replace />;
+    }
     return children;
 };
 

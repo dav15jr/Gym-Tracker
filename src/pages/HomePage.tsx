@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { useAppContext } from '../assets/AppContext';
 import NavBar from '../components/NavBar';
 import Profile from '../components/Profile';
-import LoadWorkouts from '../components/LoadWorkouts';
-import SaveWorkout from '../components/SaveWorkout';
-import Form from '../components/Exercise Form';
-import Exercise from '../components/Exercise Card';
+const LoadWorkouts = lazy(() => import('../components/LoadWorkouts'));
+const SaveWorkout = lazy(() => import('../components/SaveWorkout'));
+const Form = lazy(() => import('../components/Exercise Form'));
+const Exercise = lazy(() => import('../components/Exercise Card'));
 import useSetWorkoutTitle from '../assets/hooks/useSetWorkoutTitle';
 
 const HomePage = () => {
@@ -34,14 +34,16 @@ const HomePage = () => {
                     {showExercises &&
                         (showForm ? (
                             <div className="col-12">
-                                <Form />
+                                <Suspense fallback={<div>Loading form...</div>}>
+                                    <Form />
+                                </Suspense>
                             </div>
                         ) : (
                             <div className="col-auto">
                                 <button
                                     className="btn btn-outline-primary m-2 "
                                     onClick={() => setShowForm(true)}
-                                    aria-label='Add New Exercise'
+                                    aria-label="Add New Exercise"
                                 >
                                     Add New Exercise
                                 </button>
@@ -49,16 +51,18 @@ const HomePage = () => {
                         ))}
                     {showLoad ? (
                         <div className="loadsave m-2 col-12">
-                            <LoadWorkouts
-                                setShowWorkoutTitle={setShowWorkoutTitle}
-                            />
+                            <Suspense fallback={<div>Loading workouts...</div>}>
+                                <LoadWorkouts
+                                    setShowWorkoutTitle={setShowWorkoutTitle}
+                                />
+                            </Suspense>
                         </div>
                     ) : (
                         <div className="col-auto">
                             <button
                                 className="btn btn-outline-primary m-2"
                                 onClick={() => setShowLoad(true)}
-                                aria-label='Load Workout'
+                                aria-label="Load Workout"
                             >
                                 Load Workout
                             </button>
@@ -74,26 +78,27 @@ const HomePage = () => {
                         </h2>
                     )}
                     {showSaveBTN && workoutPlan.length > 1 && (
-                        <SaveWorkout
-                            setShowWorkoutTitle={setShowWorkoutTitle}
-                        />
+                        <Suspense fallback={<div>Saving workout...</div>}>
+                            <SaveWorkout
+                                setShowWorkoutTitle={setShowWorkoutTitle}
+                            />
+                        </Suspense>
                     )}
                     <div className="workoutDiv m-3">
-                        {
-                            // If the workout plan array has a length then loop through the Exercise component and return a seperate copy of that component
-                            workoutPlan.length > 0 &&
-                                workoutPlan.map((workout, index) => {
-                                    return (
-                                        <Exercise
-                                            key={workout.exercise}
-                                            workout={workout}
-                                            index={index}
-                                            setShowForm={setShowForm}
-                                            setShowLoad={setShowLoad}
-                                        />
-                                    );
-                                })
-                        }
+                        {workoutPlan.length > 0 &&
+                            workoutPlan.map((workout, index) => (
+                                <Suspense
+                                    key={workout.exercise}
+                                    fallback={<div>Loading exercise...</div>}
+                                >
+                                    <Exercise
+                                        workout={workout}
+                                        index={index}
+                                        setShowForm={setShowForm}
+                                        setShowLoad={setShowLoad}
+                                    />
+                                </Suspense>
+                            ))}
                     </div>
                 </div>
             </div>

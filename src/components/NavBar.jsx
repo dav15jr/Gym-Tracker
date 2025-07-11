@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import EditProfile from './EditProfile';
-import LogOff from './LogOff';
+import { lazy, Suspense } from 'react';
+const EditProfile = lazy(() => import('./EditProfile'));
+const LogOff = lazy(() => import('./LogOff'));
 
 export default function NavBar() {
     return (
@@ -46,8 +47,22 @@ export default function NavBar() {
                                     Progress
                                 </Link>
                             </li>
-                            <EditProfile />
-                            <LogOff />
+
+                            <Suspense
+                                fallback={
+                                    <span className="nav-link">Profile</span>
+                                }
+                            >
+                                <EditProfile />
+                            </Suspense>
+
+                            <Suspense
+                                fallback={
+                                    <span className="nav-link">Log Out</span>
+                                }
+                            >
+                                <LogOff />
+                            </Suspense>
                         </ul>
                     </div>
                 </div>

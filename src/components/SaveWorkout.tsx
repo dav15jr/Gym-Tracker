@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';

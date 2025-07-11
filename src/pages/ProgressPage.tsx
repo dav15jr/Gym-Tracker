@@ -1,11 +1,12 @@
-import { useState, useCallback, useEffect } from 'react';
-import { doc, setDoc } from 'firebase/firestore';
+import { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 import { db } from '../firebaseConfig';
 import { ProgressData, ProgressHist } from '../types';
 import NavBar from '../components/NavBar';
 import { useAppContext } from '../assets/AppContext';
-import WeightProgressChart from '../components/WeightProgressChart';
-import BMIProgressChart from '../components/BMIProgressChart';
+const WeightProgressChart = lazy(
+    () => import('../components/WeightProgressChart')
+);
+const BMIProgressChart = lazy(() => import('../components/BMIProgressChart'));
 import useCheckStoredProgress from '../assets/hooks/useCheckStoredProgress';
 
 const defaultProgress: ProgressData = {
@@ -120,6 +121,7 @@ export default function ProgressPage() {
 
     const saveProgressToFirestore = useCallback(
         async (updatedProgress) => {
+            const { doc, setDoc } = await import('firebase/firestore');
             try {
                 await setDoc(doc(db, userID, 'progressHistory'), {
                     Progress: updatedProgress,
@@ -181,12 +183,20 @@ export default function ProgressPage() {
             <NavBar />
             <h3>Track Your Progress</h3>
             <div className="row justify-content-center px-xl-4">
+            <Suspense fallback={<div>Loading Charts...</div>}>
                 <div className="col-11 col-md-8 col-xxl-5 mb-3">
-                    <WeightProgressChart progressHistory={progressHistory} />
+                    <Suspense fallback={<div>Loading Progress Chart...</div>}>
+                        <WeightProgressChart
+                            progressHistory={progressHistory}
+                        />
+                    </Suspense>
                 </div>
                 <div className="col-11 col-md-8 col-xxl-5 mb-3">
-                    <BMIProgressChart progressHistory={progressHistory} />
+                    <Suspense fallback={<div>Loading BMI Chart...</div>}>
+                        <BMIProgressChart progressHistory={progressHistory} />
+                    </Suspense>
                 </div>
+            </Suspense>
             </div>
             {!showProgressForm ? (
                 <button

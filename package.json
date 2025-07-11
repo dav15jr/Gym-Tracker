@@ -10,13 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
     "@types/react-transition-group": "^4.4.10",
-    "bootstrap": "^5.3.3",
-    "firebase": "^10.12.2",
+    "bootstrap": "^5.3.7",
+    "firebase": "^11.10.0",
     "gym-tracker": "file:",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.24.1",
+    "react-router-dom": "^7.6.3",
     "recharts": "^2.12.7",
     "sass": "^1.77.8"
   },
