@@ -25,13 +25,12 @@ const fetchProgressHistory = useCallback(async () =>{
         setProgressHistory(progArr)
         setProgressDates(progDates)
     } catch (error) {
-    console.log('Can not fetch progress data', error)
+    alert(`Can not fetch progress data, ${error}`)
     }
 },[userID])
 
 useEffect(() => {
     fetchProgressHistory();
-    console.log('Check progress rendered')
     }, [userID, fetchProgressHistory])
 
 return { progressHistory, setProgressHistory, newProgress, setNewProgress, progressDates, setProgressDates, fetchProgressHistory}

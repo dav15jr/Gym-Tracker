@@ -44,8 +44,7 @@ export default function LoginPage() {
                         'Sorry Account not found, check your email is correct and try again.'
                     );
                 } else {
-                    console.log('Error: ', error.message);
-                    alert(error.message);
+                    alert(`Error resetting Password: '${error.message}`);
                 }
             });
     };
@@ -68,13 +67,12 @@ export default function LoginPage() {
             );
             sendPasswordResetEmail(auth, email); //Send password reset email
         }
-        console.log('Error message:', error.message);
+        alert(`An Error Occurred: '${error.message}`);
     };
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             event.preventDefault(); // Prevent the form from submitting
             document.getElementById('LoginBtn').click(); // Trigger the login button click
-            console.log('Enter key pressed');
         }
     };
 
@@ -120,10 +118,14 @@ export default function LoginPage() {
                             exercising to become your Prime Self.
                         </h3>
                     </div>
-                    <div className="col-11 col-lg-6 mx-auto">
+                    <div className="col-10 col-lg-6 mx-auto">
                         <img
                             className="img-fluid rounded"
                             src="img/black arms down (6).jpg"
+                            width={600}
+                            height={600}
+                            alt="Workout illustration"
+                            loading="lazy"
                         />
                     </div>
                 </div>
@@ -187,7 +189,7 @@ export default function LoginPage() {
                         value="Login"
                         name="Login"
                         onClick={handleLogin}
-                        aria-label='Log In'
+                        aria-label="Log In"
                     >
                         {' '}
                         Log In{' '}
@@ -199,7 +201,7 @@ export default function LoginPage() {
                         value="Register"
                         name="Register"
                         onClick={handleRegister}
-                        aria-label='Register'
+                        aria-label="Register"
                     >
                         {' '}
                         Register{' '}
@@ -211,7 +213,7 @@ export default function LoginPage() {
                 className="link"
                 data-bs-target="#logOffModal"
                 data-bs-toggle="modal"
-                aria-label='Forgot Password Link'
+                aria-label="Forgot Password Link"
             >
                 Forgot Password ?
             </a>

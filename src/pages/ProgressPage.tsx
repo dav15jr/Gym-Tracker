@@ -31,11 +31,11 @@ export default function ProgressPage() {
         progressDates,
         fetchProgressHistory,
     } = useCheckStoredProgress(userID);
-    const [progressData, setProgressData] = useState(defaultProgress);
-    const [chartDate, setChartDate] = useState('');
-    const [showProgressForm, setShowProgressForm] = useState(false);
-    const [showDelProgress, setShowDelProgress] = useState(false);
-    const [delProgress, setDelProgress] = useState(0);
+    const [progressData, setProgressData] = useState<ProgressData>(defaultProgress);
+    const [chartDate, setChartDate] = useState<string>('');
+    const [showProgressForm, setShowProgressForm] = useState<boolean>(false);
+    const [showDelProgress, setShowDelProgress] = useState<boolean>(false);
+    const [delProgress, setDelProgress] = useState<number>(0);
     const BMI_CONVERSION_FACTOR = 10000; // Convert cm² to m² (100²)
     const BMI_ROUNDING_MULTIPLIER = 10; // For 1 decimal place precision
 
@@ -127,8 +127,7 @@ export default function ProgressPage() {
                     Progress: updatedProgress,
                 });
             } catch (error) {
-                console.error('Error saving progress: ', error);
-                alert('Error saving progress. Please try again later.');
+                alert(`Error saving progress. ${error} Please try again later.`);
             }
         },
         [userID]

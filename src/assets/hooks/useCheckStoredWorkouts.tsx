@@ -28,7 +28,7 @@ export default function useCheckStoredWorkouts(userID) {
                 setWorkoutExists(false);
             }
         } catch (error) {
-            console.log('Error fetching workouts:', error.message);
+           alert(`Error fetching workouts: ${error.message}`);
         }
     }, [userID]);
 

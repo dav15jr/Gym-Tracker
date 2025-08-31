@@ -6,11 +6,11 @@ import { useAppContext } from '../assets/AppContext';
 
 const defaultExerciseState: ExerciseData = {
     exercise: '',
-    type: 'resistance',
+    type: '',
     amount: '',
     reps: '',
     sets: '',
-    rest: 45,
+    rest: '',
 };
 
 export default function Form() {
@@ -77,6 +77,7 @@ export default function Form() {
                             onChange={handleChange} // Handle change from typed input.
                             onInput={handleExe} // Handle input from data list selection.
                             value={exerciseData.exercise}
+                            aria-label="Select Exercise"
                             required
                         />
                         <datalist id="data">
@@ -98,8 +99,15 @@ export default function Form() {
                             name="type"
                             value={exerciseData.type}
                             onChange={handleChange}
+                            aria-label="Select Exercise Type"
+                            required
                         >
-                            <option value="resistance">Resistance</option>
+                            <option value="" disabled>
+                                Select Type
+                            </option>
+                            <option value="resistance">
+                                Resistance
+                            </option>
                             <option value="kgs">Kilo Grams (Kg's)</option>
                             <option value="lbs">Pounds (Lb's)</option>
                             <option value="body weight">Body Weight</option>
@@ -120,6 +128,7 @@ export default function Form() {
                                         name="amount"
                                         onChange={handleChange}
                                         value={exerciseData.amount}
+                                        aria-label="Exercise Amount"
                                         required
                                     />
                                     <label htmlFor="amount" id="amountLabel">
@@ -139,6 +148,7 @@ export default function Form() {
                             name="reps"
                             onChange={handleChange}
                             value={exerciseData.reps}
+                            aria-label="Number of Reps"
                             required
                         />
                         <label htmlFor="reps">No. of Reps:</label>
@@ -153,6 +163,7 @@ export default function Form() {
                             name="sets"
                             onChange={handleChange}
                             value={exerciseData.sets}
+                            aria-label="Number of Sets"
                             required
                         />
                         <label htmlFor="sets">No. of Sets:</label>
@@ -164,9 +175,12 @@ export default function Form() {
                             name="rest"
                             value={exerciseData.rest}
                             onChange={handleChange}
-                            aria-label="Select Rest time"
+                            aria-label="Select Rest Time"
                             required
                         >
+                            <option value="" disabled>
+                                Select Rest
+                            </option>
                             <option value={15}>15 sec</option>
                             <option value={30}>30 sec</option>
                             <option value={45}>45 sec</option>

@@ -30,7 +30,7 @@ export default function useCheckStoredProfile(
             setProfileExists(true);
             setShowExercises(true);
         } catch (error) {
-            console.log('Error fetching profile data', error.message);
+            alert(`Error fetching profile data: ${error.message}`);
         }
     }, [setShowExercises, setUserName, userID]);
 

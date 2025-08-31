@@ -14,7 +14,7 @@ export default function LogOff() {
             })
             .catch((error) => {
                 // An error happened.
-                console.log('Log out error', error);
+                alert(`Log out error: ${error.message}`);
             });
     };
 

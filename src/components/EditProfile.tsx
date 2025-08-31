@@ -42,7 +42,6 @@ export default function EditProfile() {
                 profileData,
             });
         } catch (error) {
-            console.log('Error Saving Profile', error.message);
             alert(`Error saving profile - ${error.message}`);
         }
     }

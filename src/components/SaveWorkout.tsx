@@ -40,8 +40,6 @@ const SaveWorkout = ({ setShowWorkoutTitle }) => {
             });
             alert('Workout saved successfully');
         } catch (error) {
-            console.log('Error Saving workout', error.message);
-            console.log('Error', error);
             alert(`Error saving workout - ${error.message}`);
         }
     }
