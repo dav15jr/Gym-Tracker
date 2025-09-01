@@ -18,12 +18,12 @@ export default function Exercise({
 }) {
     const { setShowSaveBTN, setWorkoutChanged, setWorkoutPlan } =
         useAppContext();
-    const [exerciseStarted, setExerciseStarted] = useState(false);
-    const [exerciseDone, setExerciseDone] = useState(false);
-    const [showProgress, setShowProgress] = useState(false);
-    const [setDone, setSetDone] = useState(false);
-    const [count, setCount] = useState(0);
-    const [exProgress, setExProgress] = useState(0);
+    const [exerciseStarted, setExerciseStarted] = useState<boolean>(false);
+    const [exerciseDone, setExerciseDone] = useState<boolean>(false);
+    const [showProgress, setShowProgress] = useState<boolean>(false);
+    const [setDone, setSetDone] = useState<boolean>(false);
+    const [count, setCount] = useState<number>(0);
+    const [exProgress, setExProgress] = useState<number>(0);
     const { restTime, setRestTime, timerDone, setTimerDone } = useTimer(
         workout.rest,
         count,
@@ -116,7 +116,7 @@ export default function Exercise({
                 <div
                     className="progress "
                     role="progressbar"
-                    aria-label="Warning example"
+                    aria-label="Exercise progress bar"
                     aria-valuenow={exProgress}
                     aria-valuemin={0}
                     aria-valuemax={100}

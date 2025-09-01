@@ -31,7 +31,8 @@ export default function ProgressPage() {
         progressDates,
         fetchProgressHistory,
     } = useCheckStoredProgress(userID);
-    const [progressData, setProgressData] = useState<ProgressData>(defaultProgress);
+    const [progressData, setProgressData] =
+        useState<ProgressData>(defaultProgress);
     const [chartDate, setChartDate] = useState<string>('');
     const [showProgressForm, setShowProgressForm] = useState<boolean>(false);
     const [showDelProgress, setShowDelProgress] = useState<boolean>(false);
@@ -118,7 +119,7 @@ export default function ProgressPage() {
             });
         }
     }
-
+    //--------------------SAVE PROGRESS------------------
     const saveProgressToFirestore = useCallback(
         async (updatedProgress) => {
             const { doc, setDoc } = await import('firebase/firestore');
@@ -127,7 +128,9 @@ export default function ProgressPage() {
                     Progress: updatedProgress,
                 });
             } catch (error) {
-                alert(`Error saving progress. ${error} Please try again later.`);
+                alert(
+                    `Error saving progress. ${error} Please try again later.`
+                );
             }
         },
         [userID]
@@ -182,20 +185,24 @@ export default function ProgressPage() {
             <NavBar />
             <h3>Track Your Progress</h3>
             <div className="row justify-content-center px-xl-4">
-            <Suspense fallback={<div>Loading Charts...</div>}>
-                <div className="col-11 col-md-8 col-xxl-5 mb-3">
-                    <Suspense fallback={<div>Loading Progress Chart...</div>}>
-                        <WeightProgressChart
-                            progressHistory={progressHistory}
-                        />
-                    </Suspense>
-                </div>
-                <div className="col-11 col-md-8 col-xxl-5 mb-3">
-                    <Suspense fallback={<div>Loading BMI Chart...</div>}>
-                        <BMIProgressChart progressHistory={progressHistory} />
-                    </Suspense>
-                </div>
-            </Suspense>
+                <Suspense fallback={<div>Loading Charts...</div>}>
+                    <div className="col-11 col-md-8 col-xxl-5 mb-3">
+                        <Suspense
+                            fallback={<div>Loading Progress Chart...</div>}
+                        >
+                            <WeightProgressChart
+                                progressHistory={progressHistory}
+                            />
+                        </Suspense>
+                    </div>
+                    <div className="col-11 col-md-8 col-xxl-5 mb-3">
+                        <Suspense fallback={<div>Loading BMI Chart...</div>}>
+                            <BMIProgressChart
+                                progressHistory={progressHistory}
+                            />
+                        </Suspense>
+                    </div>
+                </Suspense>
             </div>
             {!showProgressForm ? (
                 <button
